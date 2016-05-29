@@ -8,6 +8,7 @@ public class halaman_utama extends JFrame{
 	JButton pasien_rawat_inap = new JButton("Pasien Rawat Inap");
 	JButton pasien_bersalin = new JButton("Pasien Bersalin");
 	JButton jenis_penyakit = new JButton("Jenis Penyakit");
+	JButton daftar_pasien = new JButton("Daftar Pasien");
 	
 	public halaman_utama()
 	{
@@ -21,6 +22,7 @@ public class halaman_utama extends JFrame{
 		panelTombol.add(jenis_penyakit);
 		panelTombol.add(pasien_rawat_inap);
 		panelTombol.add(pasien_bersalin);
+		panelTombol.add(daftar_pasien);
 		
 		add(panelTombol);
 		
@@ -28,6 +30,7 @@ public class halaman_utama extends JFrame{
 		jenis_penyakit.addActionListener(hendel);
 		pasien_rawat_inap.addActionListener(hendel);
 		pasien_bersalin.addActionListener(hendel);
+		daftar_pasien.addActionListener(hendel);
 	}
 	
 	private class penghendel implements ActionListener
@@ -55,6 +58,11 @@ public class halaman_utama extends JFrame{
 				pb.setVisible(true);
 				pb.setSize(1058, 666);
 				pb.setLocationRelativeTo(null);
+			}
+			else if(e.getSource()==daftar_pasien)
+			{
+				pasien_daftar pd = new pasien_daftar();
+				
 			}
 		}
 	}

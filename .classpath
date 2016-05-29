@@ -57,6 +57,6 @@
 	<classpathentry kind="lib" path="D:/i-Software/dynamicreports-4.0.0/dist/dynamicreports-examples-4.0.0-sources.jar"/>
 	<classpathentry kind="lib" path="D:/i-Software/dynamicreports-4.0.0/dist/dynamicreports-googlecharts-4.0.0.jar"/>
 	<classpathentry kind="lib" path="D:/i-Software/dynamicreports-4.0.0/dist/dynamicreports-googlecharts-4.0.0-sources.jar"/>
-	<classpathentry kind="lib" path="D:/i-Software/jcalendar.jar"/>
+	<classpathentry kind="lib" path="D:/Java Development/jcalendar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
