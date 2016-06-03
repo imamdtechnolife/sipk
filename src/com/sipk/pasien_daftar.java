@@ -7,6 +7,7 @@ import java.sql.*;
 
 public class pasien_daftar extends JFrame{
 	
+	oke okeObj = new oke();
 	private JLabel lblNama = new JLabel("Nama : ");
 	private JTextField txtNama = new JTextField(20);
 	private JButton btnSimpan = new JButton("Simpan");

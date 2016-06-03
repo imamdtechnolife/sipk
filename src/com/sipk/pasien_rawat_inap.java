@@ -245,9 +245,10 @@ public class pasien_rawat_inap extends JFrame{
 		gabungTabeldanTombolEkstra.add(masterTombolEkstra);
 		gabungTabeldanTombolEkstra.setLayout(new GridLayout(2,0));
 		
-		
+		oke okeObj = new oke();
 		tabRawatInap.addTab("Formulir Input", pnlGabungInputdanTombolUtm);
 		tabRawatInap.addTab("Result", gabungTabeldanTombolEkstra);
+		tabRawatInap.addTab("Didalam Tab ada tab", okeObj);
 		
 		konten.add(tabRawatInap);
 		
