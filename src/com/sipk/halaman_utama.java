@@ -75,7 +75,7 @@ public class halaman_utama extends JFrame{
 			{
 				jenis_penyakit frameJP = new jenis_penyakit();
 				frameJP.setVisible(true);
-				frameJP.setResizable(true);
+				//frameJP.setResizable(true);
 				frameJP.setSize(1058, 666);
 			}
 			else if(e.getSource()==pasien_rawat_inap)

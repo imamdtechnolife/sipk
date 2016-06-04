@@ -13,7 +13,7 @@ import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 
 import java.io.*;
  
-public class jenis_penyakit extends JFrame {
+public class jenis_penyakit extends JPanel {
 
 	public JPanel panel_inputJP = new JPanel();
 	public JLabel lblnoDTD = new JLabel("No. DTD : ");
@@ -90,7 +90,7 @@ public class jenis_penyakit extends JFrame {
 	public JTable tabelJP = new JTable();
 	public JScrollPane scroll = new JScrollPane();
 	public JTabbedPane tab = new JTabbedPane();
-	Container konten = getContentPane();
+	//Container konten = getContentPane();
 	public Font fontJudul = new Font("Bookman Old Style", Font.BOLD, 20);
 	public JLabel judulJP = new JLabel("Jenis Penyakit");
 	public ButtonGroup grupDTD = new ButtonGroup();
@@ -118,8 +118,8 @@ public class jenis_penyakit extends JFrame {
 		
 	public jenis_penyakit()
 	{
-		super("Jenis Penyakit");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(jenis_penyakit.class.getResource("Image/address-book-new.png")));
+		//super("Jenis Penyakit");
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(jenis_penyakit.class.getResource("Image/address-book-new.png")));
 		
 		//no. DTD
 		panel_inputJP.setLayout(new FlowLayout());
@@ -547,8 +547,8 @@ public class jenis_penyakit extends JFrame {
 		tab.addTab("Jenis Penyakit",panel3);
 		//tab.addTab("Laporan Jenis Penyakit",panelTabelJP );
 		
-		konten.add(tab);
-		
+		//konten.add(tab);
+		add(tab);
 		
 		penghendel hendel = new penghendel();
 		btnBatal.addActionListener(hendel);
