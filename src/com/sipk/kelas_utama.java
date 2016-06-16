@@ -29,15 +29,17 @@ public class kelas_utama {
 						JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tema : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
 					}
 					
-				
-				//	halaman_utama objk = new halaman_utama();
-				//	objk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				//	objk.setSize(906,666);
-				//	objk.setVisible(true);
-				//	objk.setLocationRelativeTo(null);
+				     /**
+				    halaman_utama objk = new halaman_utama();
+					objk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					objk.setSize(906,666);
+					objk.setVisible(true);
+					objk.setLocationRelativeTo(null);
+					**/
 				
 				hal_utama frame = new hal_utama();
 				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
 			}
 		}
 				);

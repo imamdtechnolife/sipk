@@ -3,7 +3,6 @@ package com.sipk;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -17,7 +16,7 @@ import javax.swing.JButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
-public class daftar_pasien extends JFrame {
+public class daftar_pasien extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField txtNama;
@@ -50,10 +49,11 @@ public class daftar_pasien extends JFrame {
 	 */
 	public daftar_pasien() {
 		
-		setBounds(100, 100, 828, 525);
+		setLayout(null);
+		//setBounds(100, 100, 828, 525);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		//setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -195,5 +195,7 @@ public class daftar_pasien extends JFrame {
 		tabInput.setBounds(376, 100, -287, -36);
 		contentPane.add(tabInput);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, txtNoUrut, txtNama, txtUmur, rdbtnPria, rdbtnWanita, comboPangkat, rdbtnAngkatanSendiri, rdbtnAngkatanLain, rdbtnPurnawirawan, rdbtnUmum, comboBox, comboBox_1, rdbtnBaru, rdbtnUlangan, textPane, txtKeterangan, panel, btnTambah, lblNamaPasien, lblUmur, lblNoUrut, lblNoCM, lblJenisKelamin, lblPangkat, lblStatus, lblBagianYangDikunjungi, lblDiagnosa, lblKeterangan, lblTh, lblKesatuan, txtNoCM, lblJudul, tabInput}));
+	
+		add(contentPane);
 	}
 }

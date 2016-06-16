@@ -13,7 +13,7 @@ import org.freixas.jcalendar.JCalendarCombo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class pasien_bersalin extends JFrame{
+public class pasien_bersalin extends JPanel{
 	JLabel lblNoReg = new JLabel("No. Registrasi");
 	JTextField txtNoreg = new JTextField(15);
 	JLabel lblNamaPenderita = new JLabel("Nama Penderita");
@@ -57,7 +57,7 @@ public class pasien_bersalin extends JFrame{
 	JPanel masterInput = new JPanel();
 	JPanel masterTombol = new JPanel();
 	JTabbedPane tab = new JTabbedPane();
-	Container konten = getContentPane();
+	//Container konten = getContentPane();
 	JLabel blank = new JLabel();
 	Connection connect = null;
 	Statement state = null;
@@ -75,14 +75,15 @@ public class pasien_bersalin extends JFrame{
 	JButton btnHapus = new JButton("Hapus",iconHapus);
 	JButton btnSimpanUbah = new JButton("Simpan", iconSimpan);
 	
+	
 	public pasien_bersalin()
 	{
-		super("Pasien Bersalin");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(pasien_bersalin.class.getResource("Image/address-book-new.png")));
+		//super("Pasien Bersalin");
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(pasien_bersalin.class.getResource("Image/address-book-new.png")));
 		setLayout(new GridLayout(0,1));
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 		setVisible(true);
-		setResizable(false);
+		//setResizable(false);
 		
 		lblAlamat.setFont(font);
 		lblDiagnosa.setFont(font);
@@ -202,6 +203,9 @@ public class pasien_bersalin extends JFrame{
 		panelGabungInputdanTombol.add(masterInput);
 		panelGabungInputdanTombol.add(masterTombol);
 		
+		JScrollPane scrollPanelInput = new JScrollPane();
+		scrollPanelInput.getViewport().add(panelGabungInputdanTombol);
+		
 		masterTabel.setLayout(new BorderLayout());
 		tabelPasienBersalin.setModel(modelTabelPasienBersalin);
 		tabelPasienBersalin.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -251,9 +255,9 @@ public class pasien_bersalin extends JFrame{
 		panelGabungTabeldanTombol2.add(masterTabel);
 		panelGabungTabeldanTombol2.add(masterTombolEkstra);
 		
-		tab.addTab("Input Pasien Bersalin", panelGabungInputdanTombol);
+		tab.addTab("Input Pasien Bersalin", scrollPanelInput);
 		tab.addTab("Result", panelGabungTabeldanTombol2);
-		konten.add(tab);
+		add(tab);
 		
 		penghendel hendel = new penghendel();
 		btnTambah.addActionListener(hendel);

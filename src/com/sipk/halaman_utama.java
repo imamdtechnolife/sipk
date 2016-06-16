@@ -83,7 +83,7 @@ public class halaman_utama extends JFrame{
 				pasien_rawat_inap obj = new pasien_rawat_inap();
 				obj.setVisible(true);
 				obj.setSize(1058,666);
-				obj.setLocationRelativeTo(null);
+				//obj.setLocationRelativeTo(null);
 			
 			}
 			else if(e.getSource()==pasien_bersalin)
@@ -91,13 +91,13 @@ public class halaman_utama extends JFrame{
 				pasien_bersalin pb = new pasien_bersalin();
 				pb.setVisible(true);
 				pb.setSize(1058, 666);
-				pb.setLocationRelativeTo(null);
+				//pb.setLocationRelativeTo(null);
 			}
 			else if(e.getSource()==daftar_pasien)
 			{
 				daftar_pasien pd = new daftar_pasien();
 				pd.setVisible(true);
-				pd.setLocationRelativeTo(null);
+				//pd.setLocationRelativeTo(null);
 				
 			}
 		}

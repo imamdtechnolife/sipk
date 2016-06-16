@@ -23,7 +23,7 @@ import org.freixas.jcalendar.*;
 
 import java.util.Date;
 
-public class pasien_rawat_inap extends JFrame{
+public class pasien_rawat_inap extends JPanel{
 
 	/**
 	 * inisialisasi
@@ -84,7 +84,7 @@ public class pasien_rawat_inap extends JFrame{
 	JPanel masterTombol = new JPanel();
 	JScrollPane scrollRawatInap = new JScrollPane();
 	JTabbedPane tabRawatInap = new JTabbedPane();
-	Container konten = getContentPane();
+	//Container konten = getContentPane();
 	JTable tabelPasienRawatInap = new JTable();
 	String fieldPasienRawatInap[] = {"No. Reg","Nama Penderita","Umur (Tahun)","Alamat","Status","Pekerjaan","Tanggal Masuk","Tanggal Keluar","Lama (Hari)","Ruang Perawatan","Diagnosa","Keterangan"}; 
 	DefaultTableModel modelTabelPasienRawatInap = new DefaultTableModel(null, fieldPasienRawatInap);
@@ -106,8 +106,8 @@ public class pasien_rawat_inap extends JFrame{
 	 */
 	public pasien_rawat_inap()
 	{
-		super("Pasien Rawat Inap");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(pasien_rawat_inap.class.getResource("Image/address-book-new.png")));
+		//super("Pasien Rawat Inap");
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(pasien_rawat_inap.class.getResource("Image/address-book-new.png")));
 		setLayout(new GridLayout(0,1));
 		JPanel panelJudul = new JPanel();
 		panelJudul.add(lbljudul);
@@ -209,6 +209,9 @@ public class pasien_rawat_inap extends JFrame{
 		pnlGabungInputdanTombolUtm.add(masterRawatInap);
 		pnlGabungInputdanTombolUtm.add(masterTombol);
 		
+		JScrollPane scrollPanelInput = new JScrollPane();
+		scrollPanelInput.getViewport().add(pnlGabungInputdanTombolUtm);
+		
 		tabelPasienRawatInap.setModel(modelTabelPasienRawatInap);
 		tabelPasienRawatInap.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollTable.getViewport().add(tabelPasienRawatInap);
@@ -246,11 +249,11 @@ public class pasien_rawat_inap extends JFrame{
 		gabungTabeldanTombolEkstra.setLayout(new GridLayout(2,0));
 		
 		oke okeObj = new oke();
-		tabRawatInap.addTab("Formulir Input", pnlGabungInputdanTombolUtm);
+		tabRawatInap.addTab("Formulir Input", scrollPanelInput);
 		tabRawatInap.addTab("Result", gabungTabeldanTombolEkstra);
 		tabRawatInap.addTab("Didalam Tab ada tab", okeObj);
 		
-		konten.add(tabRawatInap);
+		add(tabRawatInap);
 		
 		penghendel hendelButton = new penghendel();
 		btnTambah.addActionListener(hendelButton);
