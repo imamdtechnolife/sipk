@@ -248,10 +248,8 @@ public class pasien_rawat_inap extends JPanel{
 		gabungTabeldanTombolEkstra.add(masterTombolEkstra);
 		gabungTabeldanTombolEkstra.setLayout(new GridLayout(2,0));
 		
-		oke okeObj = new oke();
 		tabRawatInap.addTab("Formulir Input", scrollPanelInput);
 		tabRawatInap.addTab("Result", gabungTabeldanTombolEkstra);
-		tabRawatInap.addTab("Didalam Tab ada tab", okeObj);
 		
 		add(tabRawatInap);
 		
@@ -386,10 +384,15 @@ public class pasien_rawat_inap extends JPanel{
 					JOptionPane.showMessageDialog(null, "Data berhasil tersimpan","Sukses",JOptionPane.INFORMATION_MESSAGE);
 					tampilTabel();
 					kembali();
+					connect.close();
 				}
 				catch(Exception ex)
 				{
 					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
+				}
+				finally
+				{
+					
 				}
 			}
 			else if(e.getSource()==btnBatal)
@@ -589,6 +592,7 @@ public class pasien_rawat_inap extends JPanel{
 				
 				modelTabelPasienRawatInap.addRow(obj);
 			}
+			connect.close();
 		}
 		catch(Exception ex)
 		{
@@ -599,7 +603,7 @@ public class pasien_rawat_inap extends JPanel{
 	void item()
 	{
 		comboUmur.addItem("-- Pilih Tahun --");
-		for(int i = 0;i<1200;i++)
+		for(int i = 0;i<200;i++)
 		{
 			comboUmur.addItem(i+" Tahun");
 		}
@@ -625,6 +629,7 @@ public class pasien_rawat_inap extends JPanel{
 				String o = result.getString(1);
 				kodePenyakit.addItem(o);
 			}
+			connect.close();
 		}
 		catch(Exception ex)
 		{
@@ -687,6 +692,8 @@ public class pasien_rawat_inap extends JPanel{
 							String u = result.getString(1);
 							areaDiagnosa.setText(u);
 						}
+						
+						connect.close();
 					}
 					catch(Exception ex)
 					{

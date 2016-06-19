@@ -115,13 +115,16 @@ public class jenis_penyakit extends JPanel {
 	 JPanel panelGabungDT2 = new JPanel();
 	 JComboBox comboSampaiDan = new JComboBox();
 	 JLabel rekapDT = new JLabel();
+	 JScrollPane scrollPanel = new JScrollPane();
 		
 	public jenis_penyakit()
 	{
 		//super("Jenis Penyakit");
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(jenis_penyakit.class.getResource("Image/address-book-new.png")));
-		
+		setLayout(new GridLayout(0,1));
+		setVisible(true);
 		//no. DTD
+		
 		panel_inputJP.setLayout(new FlowLayout());
 		panel_inputJP.setBorder(BorderFactory.createTitledBorder("Input No. DTD"));
 		panel_inputJP.add(lblnoDTD);
@@ -543,8 +546,8 @@ public class jenis_penyakit extends JPanel {
 		panel3.add(panel1);
 		panel3.add(panelTabelJP);
 
-		
-		tab.addTab("Jenis Penyakit",panel3);
+		scrollPanel.getViewport().add(panel3);
+		tab.addTab("Jenis Penyakit",scrollPanel);
 		//tab.addTab("Laporan Jenis Penyakit",panelTabelJP );
 		
 		//konten.add(tab);
@@ -882,6 +885,7 @@ public class jenis_penyakit extends JPanel {
 					JOptionPane.showMessageDialog(null, "Data berhasil tersimpan");
 					tampilTabelJP();
 					kembali();
+					connect.close();
 				}catch(Exception ex)
 				{
 					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
@@ -908,6 +912,7 @@ public class jenis_penyakit extends JPanel {
 				JOptionPane.showMessageDialog(null, "Data berhasil diubah");
 				tampilTabelJP();
 				kembali();
+				connect.close();
 				}
 				catch(Exception ex)
 				{
@@ -926,6 +931,7 @@ public class jenis_penyakit extends JPanel {
 				
 				JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
 				tampilTabelJP();
+				connect.close();
 				}catch(Exception ex)
 				{
 					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol hapus"+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
@@ -980,6 +986,8 @@ public class jenis_penyakit extends JPanel {
 					
 					JOptionPane.showMessageDialog(null,  obj, "Total data jenis penyakit yang sudah masuk",JOptionPane.INFORMATION_MESSAGE);
 				}
+				
+				connect.close();
 				}
 				catch(Exception ex)
 				{
@@ -1019,6 +1027,8 @@ public class jenis_penyakit extends JPanel {
 					
 					modelTabelJP.addRow(obj);
 				}
+				
+				connect.close();
 				
 				}
 				catch(Exception ex)
@@ -1067,6 +1077,8 @@ public class jenis_penyakit extends JPanel {
 				
 				modelTabelJP.addRow(obj);
 			}
+			
+			connect.close();
 			
 		}
 		catch(Exception ex)

@@ -298,6 +298,7 @@ public class pasien_bersalin extends JPanel{
 					{
 						txtNoreg.setText("1");
 					}
+					connect.close();
 				}
 				catch(Exception ex)
 				{
@@ -480,6 +481,7 @@ public class pasien_bersalin extends JPanel{
 					tampilTabel();
 					defolt();
 					tab.setSelectedIndex(1);
+					connect.close();
 				}
 				catch(Exception ex)
 				{
@@ -561,6 +563,8 @@ public class pasien_bersalin extends JPanel{
 				String k = result.getString(1);
 				comboKodeDTD.addItem(k);
 			}
+			
+			connect.close();
 		}
 		catch(Exception ex)
 		{
@@ -595,6 +599,8 @@ public class pasien_bersalin extends JPanel{
 						{
 							areaDiagnosa.setText("kosong");
 						}
+						
+						connect.close();
 					}
 					catch(Exception ex)
 					{
@@ -634,6 +640,8 @@ public class pasien_bersalin extends JPanel{
 				
 				 modelTabelPasienBersalin.addRow(obj);
 			}
+			
+			connect.close();
 		}
 		catch(Exception ex)
 		{

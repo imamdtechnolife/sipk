@@ -23,6 +23,8 @@ import javax.swing.JTextArea;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.JPasswordField;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class panelUser extends JPanel {
 	String kolom[] = {"username","nama","alamat","no. telp"};
@@ -40,6 +42,8 @@ public class panelUser extends JPanel {
 	JComboBox cmbLevel;
 	JTextArea txtAlamat;
 	JPasswordField txtPassword;
+	JButton btnUbah;
+	JButton btnBatal;
 	
 	Connection konek = null;
 	private JPasswordField txtCpassword;
@@ -47,10 +51,10 @@ public class panelUser extends JPanel {
 	 * Create the panel.
 	 */
 	public panelUser() {
-		setLayout(null);
+		setLayout(new GridLayout(0,1));
+		setVisible(true);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 11, 814, 458);
 		add(tabbedPane);
 		
 		newPanel2.setLayout(null);
@@ -107,7 +111,7 @@ public class panelUser extends JPanel {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(363, 26, 408, 393);
+		panel_2.setBounds(362, 26, 408, 393);
 		panelDaftarPengguna.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -159,6 +163,7 @@ public class panelUser extends JPanel {
 		cmbLevel.addItem("Administrator");
 		cmbLevel.addItem("Dokter");
 		cmbLevel.addItem("Perawat");
+		cmbLevel.addItem("Kasir");
 		cmbLevel.addItem("Pengolah Data");
 		cmbLevel.addItem("Manajemen");
 		panel_2.add(cmbLevel);
@@ -172,7 +177,7 @@ public class panelUser extends JPanel {
 		txtAlamat.setBounds(145, 232, 232, 73);
 		panel_2.add(txtAlamat);
 		
-		JButton btnBatal = new JButton("Batal");
+		btnBatal = new JButton("Batal");
 		btnBatal.setBounds(287, 341, 89, 23);
 		panel_2.add(btnBatal);
 		
@@ -183,6 +188,10 @@ public class panelUser extends JPanel {
 		txtCpassword = new JPasswordField();
 		txtCpassword.setBounds(144, 132, 233, 20);
 		panel_2.add(txtCpassword);
+		
+		JLabel lblPerhatian = new JLabel("");
+		lblPerhatian.setBounds(145, 315, 226, 14);
+		panel_2.add(lblPerhatian);
 		tabbedPane.addTab("Ubah Password", null, panelUbahPassword, null);
 		panelUbahPassword.setLayout(null);
 		
@@ -204,7 +213,7 @@ public class panelUser extends JPanel {
 		txtPasswordBaru.setBounds(167, 73, 151, 20);
 		panelUbahPassword.add(txtPasswordBaru);
 		
-		JButton btnUbah = new JButton("Ubah");
+		btnUbah = new JButton("Ubah");
 		btnUbah.setBounds(167, 143, 89, 23);
 		panelUbahPassword.add(btnUbah);
 		
@@ -239,8 +248,8 @@ public class panelUser extends JPanel {
 			}
 			
 			konek = konek_database.getKonekDB();
-			//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,md5 (?),?,?)";
-			PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,md5 ?,?,?)");
+			//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)";
+			PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,md5(?),?,?,?)");
 			
 			ps.setString(1, txtNama.getText());
 			ps.setString(2, txtUsername.getText());
@@ -248,12 +257,37 @@ public class panelUser extends JPanel {
 			ps.setString(4, (String) cmbLevel.getSelectedItem());
 			ps.setString(5, txtNoTelp.getText());
 			ps.setString(6, txtAlamat.getText());
-			ps.executeQuery();
+			ps.executeUpdate();
 			ps.close();
 			
 			JOptionPane.showMessageDialog(null, "Username dan Password berhasil tersimpan!", "Pesan",JOptionPane.INFORMATION_MESSAGE);
-			
+			konek.close();
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+		}
+		finally
+		{
 			clear();
+		}
+	}
+	
+	private void change()
+	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			PreparedStatement ps = konek.prepareStatement("update akun set pass=? where username=?");
+			ps.setString(1, txtPasswordBaru.getText());
+			ps.setString(2, txtUsername2.getText());
+			ps.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
+			txtUsername2.setText("");
+			txtPasswordBaru.setText("");
+			
+			konek.close();
 		}
 		catch(Exception ex)
 		{
@@ -261,15 +295,15 @@ public class panelUser extends JPanel {
 		}
 	}
 	
-	private void clear()
+	public void clear()
 	{
 		txtNama.setText("");
 		txtUsername.setText("");
-		txtPassword.setText("");
-		txtCpassword.setText("");
 		cmbLevel.setSelectedIndex(0);
 		txtNoTelp.setText("");
 		txtAlamat.setText("");
+		txtPassword.setEchoChar('*');
+		txtCpassword.setEchoChar('*');
 	}
 	
 	private class penghendel implements ActionListener
@@ -279,6 +313,14 @@ public class panelUser extends JPanel {
 			if(e.getSource()==btnSimpan)
 			{
 				add();
+			}
+			else if(e.getSource()==btnBatal)
+			{
+				clear();
+			}
+			else if(e.getSource()==btnUbah)
+			{
+				change();
 			}
 		}
 	}
