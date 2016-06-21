@@ -37,16 +37,18 @@ public class panelUser extends JPanel {
 	private JTextField txtUsername;
 	private JTextField txtNoTelp;
 	private JTextField txtUsername2;
-	private JTextField txtPasswordBaru;
-	JButton btnSimpan;
-	JComboBox cmbLevel;
-	JTextArea txtAlamat;
-	JPasswordField txtPassword;
-	JButton btnUbah;
-	JButton btnBatal;
-	
-	Connection konek = null;
+	private JButton btnSimpan;
+	private JComboBox cmbLevel;
+	private JTextArea txtAlamat;
+	private JPasswordField txtPassword;
+	private JButton btnUbah;
+	private JButton btnBatal;
 	private JPasswordField txtCpassword;
+	Connection konek = null;
+	private JPasswordField passwordLama;
+	private JPasswordField passwordBaru;
+	private JPasswordField passwordCfmPassBaru;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -181,7 +183,7 @@ public class panelUser extends JPanel {
 		btnBatal.setBounds(287, 341, 89, 23);
 		panel_2.add(btnBatal);
 		
-		JPasswordField txtPassword = new JPasswordField();
+		txtPassword = new JPasswordField();
 		txtPassword.setBounds(144, 93, 233, 20);
 		panel_2.add(txtPassword);
 		
@@ -200,22 +202,37 @@ public class panelUser extends JPanel {
 		panelUbahPassword.add(lblUsername_1);
 		
 		JLabel lblPasswordBaru = new JLabel("Password Baru");
-		lblPasswordBaru.setBounds(65, 76, 85, 14);
+		lblPasswordBaru.setBounds(65, 115, 85, 14);
 		panelUbahPassword.add(lblPasswordBaru);
 		
 		txtUsername2 = new JTextField();
-		txtUsername2.setBounds(167, 36, 151, 20);
+		txtUsername2.setBounds(177, 36, 141, 20);
 		panelUbahPassword.add(txtUsername2);
 		txtUsername2.setColumns(10);
 		
-		txtPasswordBaru = new JTextField();
-		txtPasswordBaru.setColumns(10);
-		txtPasswordBaru.setBounds(167, 73, 151, 20);
-		panelUbahPassword.add(txtPasswordBaru);
-		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setBounds(167, 143, 89, 23);
+		btnUbah.setBounds(170, 219, 89, 23);
 		panelUbahPassword.add(btnUbah);
+		
+		passwordLama = new JPasswordField();
+		passwordLama.setBounds(177, 73, 141, 20);
+		panelUbahPassword.add(passwordLama);
+		
+		passwordBaru = new JPasswordField();
+		passwordBaru.setBounds(177, 112, 141, 20);
+		panelUbahPassword.add(passwordBaru);
+		
+		passwordCfmPassBaru = new JPasswordField();
+		passwordCfmPassBaru.setBounds(177, 155, 141, 20);
+		panelUbahPassword.add(passwordCfmPassBaru);
+		
+		JLabel lblUlangPasswordBaru = new JLabel("Ulang Password Baru");
+		lblUlangPasswordBaru.setBounds(65, 158, 102, 14);
+		panelUbahPassword.add(lblUlangPasswordBaru);
+		
+		JLabel lblPasswordLama = new JLabel("Password Lama");
+		lblPasswordLama.setBounds(65, 76, 85, 14);
+		panelUbahPassword.add(lblPasswordLama);
 		
 		table = new JTable();
 		table.setToolTipText("Daftar Pengguna");
@@ -249,7 +266,7 @@ public class panelUser extends JPanel {
 			
 			konek = konek_database.getKonekDB();
 			//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)";
-			PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,md5(?),?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)");
 			
 			ps.setString(1, txtNama.getText());
 			ps.setString(2, txtUsername.getText());
@@ -279,13 +296,15 @@ public class panelUser extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			PreparedStatement ps = konek.prepareStatement("update akun set pass=? where username=?");
-			ps.setString(1, txtPasswordBaru.getText());
+			ps.setString(1, passwordCfmPassBaru.getText());
 			ps.setString(2, txtUsername2.getText());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
 			txtUsername2.setText("");
-			txtPasswordBaru.setText("");
+			passwordLama.setText("");
+			passwordBaru.setText("");
+			passwordCfmPassBaru.setText("");
 			
 			konek.close();
 		}
@@ -302,8 +321,8 @@ public class panelUser extends JPanel {
 		cmbLevel.setSelectedIndex(0);
 		txtNoTelp.setText("");
 		txtAlamat.setText("");
-		txtPassword.setEchoChar('*');
-		txtCpassword.setEchoChar('*');
+		txtPassword.setText("");
+		txtCpassword.setText("");
 	}
 	
 	private class penghendel implements ActionListener

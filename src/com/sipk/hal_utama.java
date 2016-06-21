@@ -16,12 +16,18 @@ import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 public class hal_utama extends JFrame {
 
 	private JPanel contentPane;
@@ -44,6 +50,12 @@ public class hal_utama extends JFrame {
 	public JButton btnPengguna;
 	public JButton btnPembayaran;
 	public JButton btnLaporan;
+	JButton btnMasuk;
+	private JPanel panelMasuk;
+	private JTextField textField;
+	private JPasswordField passwordField;
+	Connection konek = null;
+	JMenuItem penggunaLogout;
 	
 	
 	/**
@@ -85,46 +97,55 @@ public class hal_utama extends JFrame {
 		
 		btnDaftarPasien = new JButton("Daftar Pasien");
 		btnDaftarPasien.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/buku-daftar.png")));
+		btnDaftarPasien.setEnabled(false);
 		toolBar.add(btnDaftarPasien);
 		toolBar.addSeparator();
 		
 		btnDaftarPenyakit = new JButton("Daftar Penyakit");
 		btnDaftarPenyakit.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/d.png")));
+		btnDaftarPenyakit.setEnabled(false);
 		toolBar.add(btnDaftarPenyakit);
 		toolBar.addSeparator();
 		
 		btnDokter = new JButton("Dokter");
 		btnDokter.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/dokter.png")));
+		btnDokter.setEnabled(false);
 		toolBar.add(btnDokter);
 		toolBar.addSeparator();
 		
 		btnRawatJalan = new JButton("Rawat Jalan");
 		btnRawatJalan.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/rawat-jalan.png")));
+		btnRawatJalan.setEnabled(false);
 		toolBar.add(btnRawatJalan);
 		toolBar.addSeparator();
 		
 		btnRawatInap = new JButton("Rawat Inap");
 		btnRawatInap.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/rawat-inap.png")));
+		btnRawatInap.setEnabled(false);
 		toolBar.add(btnRawatInap);
 		toolBar.addSeparator();
 		
 		btnBersalin = new JButton("Bersalin");
 		btnBersalin.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/bersalin.png")));
+		btnBersalin.setEnabled(false);
 		toolBar.add(btnBersalin);
 		toolBar.addSeparator();
 		
 		btnPembayaran = new JButton("Pembayaran");
 		btnPembayaran.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/accessories-calculator.png")));
+		btnPembayaran.setEnabled(false);
 		toolBar.add(btnPembayaran);
 		toolBar.addSeparator();
 		
 		btnLaporan = new JButton("Laporan");
 		btnLaporan.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/laporan-1.png")));
+		btnLaporan.setEnabled(false);
 		toolBar.add(btnLaporan);
 		toolBar.addSeparator();
 		
 		btnPengguna = new JButton("Pengguna");
 		btnPengguna.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/kgpg_identity.png")));
+		btnPengguna.setEnabled(false);
 		toolBar.add(btnPengguna);
 		
 		panel = new JPanel();
@@ -132,19 +153,53 @@ public class hal_utama extends JFrame {
 		
 		contentPane.add(panel);
 		panel.setLayout(new CardLayout(0, 0));
-		panel.add(objLogin);
+		
+		panelMasuk = new JPanel();
+		panel.add(panelMasuk, "name_9557694810851");
+		panelMasuk.setLayout(null);
+		
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setBounds(566, 189, 46, 14);
+		panelMasuk.add(lblLogin);
+		
+		JLabel lblNewLabel_1 = new JLabel("username");
+		lblNewLabel_1.setBounds(502, 216, 69, 14);
+		panelMasuk.add(lblNewLabel_1);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(502, 249, 69, 14);
+		panelMasuk.add(lblPassword);
+		
+		textField = new JTextField();
+		textField.setBounds(586, 214, 116, 20);
+		panelMasuk.add(textField);
+		textField.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(586, 246, 116, 20);
+		panelMasuk.add(passwordField);
+		
+		btnMasuk = new JButton("Masuk");
+		btnMasuk.setBounds(550, 295, 89, 23);
+		panelMasuk.add(btnMasuk);
 		
 		//menu
 		
-		JMenu menuAbout = new JMenu("About");
+		JMenu menuPengguna = new JMenu("Pengguna");
+		JMenu menuAbout = new JMenu("Tentang");
 		
-		JMenuItem aboutRM = new JMenuItem("RM Bhayangkara Mataram");
-		JMenuItem aboutDeveloper = new JMenuItem("Developer");
+		penggunaLogout = new JMenuItem("Logout");
+		
+		JMenuItem aboutRM = new JMenuItem("RM. Bhayangkara Mataram");
+		JMenuItem aboutDeveloper = new JMenuItem("Pengembang");
+		
+		menuPengguna.add(penggunaLogout);
 		
 		menuAbout.add(aboutRM);
 		menuAbout.add(aboutDeveloper);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(menuPengguna);
 		menuBar.add(menuAbout);
 		menuBar.setBounds(0, 0, 718, 21);
 		
@@ -167,9 +222,110 @@ public class hal_utama extends JFrame {
 		btnPembayaran.addActionListener(hendel);
 		btnDokter.addActionListener(hendel);
 		btnLaporan.addActionListener(hendel);
+		btnMasuk.addActionListener(hendel);
+		penggunaLogout.addActionListener(hendel);
 
 
 	}
+	
+	public void login()
+	{
+		try{
+			
+		String username = textField.getText().toString();
+		String password = passwordField.getText().toString();
+			
+		konek = konek_database.getKonekDB();
+		Statement state = konek.createStatement();
+		ResultSet result = state.executeQuery("select username, pass, lvel from akun where username='"+username+"' and pass='"+password+"' ");
+		
+		if(result.next())
+		{
+			JOptionPane.showMessageDialog(null, "Alhamdulillah Anda berhasil login :)");
+			
+			panel.removeAll();
+			panel.repaint();
+			panel.revalidate();
+			
+			panel.add(objLogin);
+			panel.repaint();
+			panel.revalidate();
+			
+			btnBersalin.setEnabled(true);
+			btnPengguna.setEnabled(true);
+			
+			
+		}		
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Username atau Password yang anda masukkan salah");
+			JOptionPane.showMessageDialog(null, "silahkan ulangi kembali");
+			textField.setText("");
+			passwordField.setText("");
+			textField.requestFocus();
+		}
+		konek.close();
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada kelas login "+ex.getMessage());
+		}
+		finally
+		{
+			textField.setText("");
+			passwordField.setText("");
+		}
+	}
+	
+	private void buttonDisabled()
+	{
+		btnBersalin.setEnabled(false);
+		btnDaftarPasien.setEnabled(false);
+		btnDaftarPenyakit.setEnabled(false);
+		btnDokter.setEnabled(false);
+		btnLaporan.setEnabled(false);
+		btnPembayaran.setEnabled(false);
+		btnPengguna.setEnabled(false);
+		btnRawatInap.setEnabled(false);
+		btnRawatJalan.setEnabled(false);
+	}
+	/**
+	public void statusBtnDaftarPenyakit(boolean bendera)
+	{
+		btnDaftarPenyakit.setEnabled(bendera);
+	}
+	
+	public void statusBtnDaftarPasien(boolean bendera)
+	{
+		btnDaftarPasien.setEnabled(bendera);
+	}
+	
+	public void statusBtnBersalin(boolean bendera)
+	{
+		btnBersalin.setEnabled(bendera);
+	}
+	
+	public void statusBtnPengguna(boolean bendera)
+	{
+		btnPengguna.setEnabled(bendera);
+	}
+	
+	public void statusBtnPembayaran(boolean bendera)
+	{
+		btnPembayaran.setEnabled(bendera);
+	}
+	
+	public void statusBtnDokter(boolean bendera)
+	{
+		btnDokter.setEnabled(bendera);
+	}
+	
+	public void statusBtnLaporan(boolean bendera)
+	{
+		btnLaporan.setEnabled(bendera);
+	}
+	
+	**/
 	
 	public class penghendel implements ActionListener
 	{
@@ -240,6 +396,22 @@ public class hal_utama extends JFrame {
 			else if(e.getSource()==btnLaporan)
 			{
 				
+			}
+			else if(e.getSource()==btnMasuk)
+			{
+				login();
+			}
+			else if(e.getSource()==penggunaLogout)
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(panelMasuk);
+				panel.repaint();
+				panel.revalidate();
+				
+				buttonDisabled();
 			}
 	}
 }
