@@ -25,6 +25,7 @@ import java.sql.*;
 import javax.swing.JPasswordField;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 
 public class panelUser extends JPanel {
 	String kolom[] = {"username","nama","alamat","no. telp"};
@@ -131,7 +132,8 @@ public class panelUser extends JPanel {
 		txtNama.setColumns(10);
 		
 		btnSimpan = new JButton("Simpan");
-		btnSimpan.setBounds(190, 341, 89, 23);
+		btnSimpan.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setBounds(155, 336, 105, 33);
 		panel_2.add(btnSimpan);
 		
 		txtUsername = new JTextField();
@@ -180,7 +182,8 @@ public class panelUser extends JPanel {
 		panel_2.add(txtAlamat);
 		
 		btnBatal = new JButton("Batal");
-		btnBatal.setBounds(287, 341, 89, 23);
+		btnBatal.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setBounds(280, 336, 96, 33);
 		panel_2.add(btnBatal);
 		
 		txtPassword = new JPasswordField();
@@ -211,7 +214,8 @@ public class panelUser extends JPanel {
 		txtUsername2.setColumns(10);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setBounds(170, 219, 89, 23);
+		btnUbah.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setBounds(180, 217, 89, 33);
 		panelUbahPassword.add(btnUbah);
 		
 		passwordLama = new JPasswordField();
@@ -255,64 +259,120 @@ public class panelUser extends JPanel {
 	
 	private void add()
 	{
-		try
+		
+		if(	txtAlamat.getText().equals("") || txtNama.getText().equals("") ||	txtNoTelp.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtCpassword.getText().equals(""))
 		{
-			char[] pass = txtCpassword.getPassword();
-			String sandi = "";
-			for(int i=0; i<pass.length; i++)
-			{
-				sandi = sandi + pass[i];
-			}
-			
-			konek = konek_database.getKonekDB();
-			//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)";
-			PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)");
-			
-			ps.setString(1, txtNama.getText());
-			ps.setString(2, txtUsername.getText());
-			ps.setString(3, sandi);
-			ps.setString(4, (String) cmbLevel.getSelectedItem());
-			ps.setString(5, txtNoTelp.getText());
-			ps.setString(6, txtAlamat.getText());
-			ps.executeUpdate();
-			ps.close();
-			
-			JOptionPane.showMessageDialog(null, "Username dan Password berhasil tersimpan!", "Pesan",JOptionPane.INFORMATION_MESSAGE);
-			konek.close();
-		}
-		catch(Exception ex)
-		{
-			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
-		}
-		finally
-		{
+			JOptionPane.showMessageDialog(null, "Anda belum mengisi semua kolom yang ada.");
 			clear();
 		}
+		else
+		{
+			if(txtPassword.getText().equals(txtCpassword.getText()))
+			{
+				try
+				{
+					char[] pass = txtCpassword.getPassword();
+					String sandi = "";
+					for(int i=0; i<pass.length; i++)
+					{
+						sandi = sandi + pass[i];
+					}
+					
+					konek = konek_database.getKonekDB();
+					//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)";
+					PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)");
+					
+					ps.setString(1, txtNama.getText());
+					ps.setString(2, txtUsername.getText());
+					ps.setString(3, sandi);
+					ps.setString(4, (String) cmbLevel.getSelectedItem());
+					ps.setString(5, txtNoTelp.getText());
+					ps.setString(6, txtAlamat.getText());
+					ps.executeUpdate();
+					ps.close();
+					
+					JOptionPane.showMessageDialog(null, "Username dan Password berhasil tersimpan!", "Pesan",JOptionPane.INFORMATION_MESSAGE);
+					konek.close();
+				}
+				catch(Exception ex)
+				{
+					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+				}
+				finally
+				{
+					clear();
+				}
+				
+			}
+			else 
+			{
+				JOptionPane.showMessageDialog(null, "Passoword masih belum sama");
+				clear();
+			}
+		}
+		
+		
+		
 	}
 	
 	private void change()
 	{
 		try
 		{
+			String username = txtUsername2.getText().toString();
+			String password = passwordLama.getText().toString();
+				
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("update akun set pass=? where username=?");
-			ps.setString(1, passwordCfmPassBaru.getText());
-			ps.setString(2, txtUsername2.getText());
-			ps.executeUpdate();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select username, pass, lvel from akun where username='"+username+"' and pass='"+password+"' ");
 			
-			JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
-			txtUsername2.setText("");
-			passwordLama.setText("");
-			passwordBaru.setText("");
-			passwordCfmPassBaru.setText("");
-			
-			konek.close();
+			if(result.next())
+			{
+				if(passwordBaru.getText().equals(passwordCfmPassBaru.getText()))
+				{
+					try
+					{
+						konek = konek_database.getKonekDB();
+						PreparedStatement ps = konek.prepareStatement("update akun set pass=? where username=?");
+						ps.setString(1, passwordCfmPassBaru.getText());
+						ps.setString(2, txtUsername2.getText());
+						ps.executeUpdate();
+						
+						JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
+						clear2();
+						
+						konek.close();
+					}
+					catch(Exception ex)
+					{
+						JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "password baru yang anda masukkan belum sama.");
+					clear2();
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "username / password lama yang anda masukkan tidak sesuai.");
+				clear2();
+			}
 		}
 		catch(Exception ex)
 		{
-			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+			
 		}
-	}
+		
+			
+		}
+			
+			
+		
+		
+		
+	
 	
 	public void clear()
 	{
@@ -323,6 +383,14 @@ public class panelUser extends JPanel {
 		txtAlamat.setText("");
 		txtPassword.setText("");
 		txtCpassword.setText("");
+	}
+	
+	public void clear2()
+	{
+		txtUsername2.setText("");
+		passwordLama.setText("");
+		passwordBaru.setText("");
+		passwordCfmPassBaru.setText("");
 	}
 	
 	private class penghendel implements ActionListener

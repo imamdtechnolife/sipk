@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 public class hal_utama extends JFrame {
 
 	private JPanel contentPane;
@@ -43,6 +44,7 @@ public class hal_utama extends JFrame {
 	panelPemeriksaan objPemeriksaan = new panelPemeriksaan();
 	jenis_penyakit objPenyakit = new jenis_penyakit();
 	panelLogin objLogin = new panelLogin();
+	panelLaporan objLaporan = new panelLaporan();
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
@@ -56,6 +58,7 @@ public class hal_utama extends JFrame {
 	private JPasswordField passwordField;
 	Connection konek = null;
 	JMenuItem penggunaLogout;
+	JComboBox comboLevel;
 	
 	
 	/**
@@ -180,8 +183,23 @@ public class hal_utama extends JFrame {
 		panelMasuk.add(passwordField);
 		
 		btnMasuk = new JButton("Masuk");
-		btnMasuk.setBounds(550, 295, 89, 23);
+		btnMasuk.setBounds(550, 325, 89, 23);
 		panelMasuk.add(btnMasuk);
+		
+		JLabel lblLevelUser = new JLabel("Level User");
+		lblLevelUser.setBounds(502, 284, 69, 14);
+		panelMasuk.add(lblLevelUser);
+		
+		comboLevel = new JComboBox();
+		comboLevel.setBounds(586, 277, 116, 20);
+		comboLevel.addItem("-- Pilih Level --");
+		comboLevel.addItem("Administrator");
+		comboLevel.addItem("Dokter");
+		comboLevel.addItem("Perawat");
+		comboLevel.addItem("Kasir");
+		comboLevel.addItem("Pengolah Data");
+		comboLevel.addItem("Manajemen");
+		panelMasuk.add(comboLevel);
 		
 		//menu
 		
@@ -228,31 +246,109 @@ public class hal_utama extends JFrame {
 
 	}
 	
+	/**
+	 * Metode Login
+	 */
 	public void login()
 	{
 		try{
 			
 		String username = textField.getText().toString();
 		String password = passwordField.getText().toString();
+		String level = comboLevel.getSelectedItem().toString();
 			
 		konek = konek_database.getKonekDB();
 		Statement state = konek.createStatement();
-		ResultSet result = state.executeQuery("select username, pass, lvel from akun where username='"+username+"' and pass='"+password+"' ");
+		ResultSet result = state.executeQuery("select username, pass, lvel from akun where username='"+username+"' and pass='"+password+"' and lvel='"+level+"' ");
 		
 		if(result.next())
 		{
 			JOptionPane.showMessageDialog(null, "Alhamdulillah Anda berhasil login :)");
 			
-			panel.removeAll();
-			panel.repaint();
-			panel.revalidate();
+			if(level == "Administrator")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnDaftarPasien.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
+			else if(level == "Dokter")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnDokter.setEnabled(true);
+				btnRawatInap.setEnabled(true);
+				btnRawatJalan.setEnabled(true);
+				btnBersalin.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
+			else if(level == "Kasir")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnPembayaran.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
+			else if(level == "Manajemen")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnLaporan.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
+			else if(level == "Pengolah Data")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnLaporan.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
+			else if(level == "Perawat")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnRawatInap.setEnabled(true);
+				btnRawatJalan.setEnabled(true);
+				btnBersalin.setEnabled(true);
+				btnPengguna.setEnabled(true);
+			}
 			
-			panel.add(objLogin);
-			panel.repaint();
-			panel.revalidate();
-			
-			btnBersalin.setEnabled(true);
-			btnPengguna.setEnabled(true);
 			
 			
 		}		
@@ -262,6 +358,7 @@ public class hal_utama extends JFrame {
 			JOptionPane.showMessageDialog(null, "silahkan ulangi kembali");
 			textField.setText("");
 			passwordField.setText("");
+			comboLevel.setSelectedIndex(0);
 			textField.requestFocus();
 		}
 		konek.close();
@@ -277,6 +374,9 @@ public class hal_utama extends JFrame {
 		}
 	}
 	
+	/**
+	 * Metode me-nonaktifkan menu toolbar
+	 */
 	private void buttonDisabled()
 	{
 		btnBersalin.setEnabled(false);
@@ -289,44 +389,15 @@ public class hal_utama extends JFrame {
 		btnRawatInap.setEnabled(false);
 		btnRawatJalan.setEnabled(false);
 	}
+
 	/**
-	public void statusBtnDaftarPenyakit(boolean bendera)
-	{
-		btnDaftarPenyakit.setEnabled(bendera);
-	}
-	
-	public void statusBtnDaftarPasien(boolean bendera)
-	{
-		btnDaftarPasien.setEnabled(bendera);
-	}
-	
-	public void statusBtnBersalin(boolean bendera)
-	{
-		btnBersalin.setEnabled(bendera);
-	}
-	
-	public void statusBtnPengguna(boolean bendera)
-	{
-		btnPengguna.setEnabled(bendera);
-	}
-	
-	public void statusBtnPembayaran(boolean bendera)
-	{
-		btnPembayaran.setEnabled(bendera);
-	}
-	
-	public void statusBtnDokter(boolean bendera)
-	{
-		btnDokter.setEnabled(bendera);
-	}
-	
-	public void statusBtnLaporan(boolean bendera)
-	{
-		btnLaporan.setEnabled(bendera);
-	}
-	
-	**/
-	
+	 * 
+	 * sistem overiding tombol
+	 * 
+	 * @author Imam Afriyadi
+	 *
+	 *  
+	 */
 	public class penghendel implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -395,7 +466,13 @@ public class hal_utama extends JFrame {
 			}
 			else if(e.getSource()==btnLaporan)
 			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
 				
+				panel.add(objLaporan);
+				panel.repaint();
+				panel.revalidate();
 			}
 			else if(e.getSource()==btnMasuk)
 			{
