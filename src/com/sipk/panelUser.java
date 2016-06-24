@@ -26,6 +26,7 @@ import javax.swing.JPasswordField;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class panelUser extends JPanel {
 	String kolom[] = {"username","nama","alamat","no. telp"};
@@ -82,7 +83,7 @@ public class panelUser extends JPanel {
 		panelDaftarPengguna.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(34, 26, 297, 342);
+		panel_1.setBounds(33, 82, 475, 402);
 		panelDaftarPengguna.add(panel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -98,8 +99,8 @@ public class panelUser extends JPanel {
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 294, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
 		table_2 = new JTable();
@@ -114,7 +115,7 @@ public class panelUser extends JPanel {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(362, 26, 408, 393);
+		panel_2.setBounds(538, 86, 408, 393);
 		panelDaftarPengguna.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -197,46 +198,56 @@ public class panelUser extends JPanel {
 		JLabel lblPerhatian = new JLabel("");
 		lblPerhatian.setBounds(145, 315, 226, 14);
 		panel_2.add(lblPerhatian);
+		
+		JLabel lblDaftarPengguna = new JLabel("Daftar Pengguna");
+		lblDaftarPengguna.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		lblDaftarPengguna.setBounds(47, 24, 245, 33);
+		panelDaftarPengguna.add(lblDaftarPengguna);
 		tabbedPane.addTab("Ubah Password", null, panelUbahPassword, null);
 		panelUbahPassword.setLayout(null);
 		
 		JLabel lblUsername_1 = new JLabel("Username");
-		lblUsername_1.setBounds(65, 39, 85, 14);
+		lblUsername_1.setBounds(61, 74, 85, 14);
 		panelUbahPassword.add(lblUsername_1);
 		
 		JLabel lblPasswordBaru = new JLabel("Password Baru");
-		lblPasswordBaru.setBounds(65, 115, 85, 14);
+		lblPasswordBaru.setBounds(61, 150, 85, 14);
 		panelUbahPassword.add(lblPasswordBaru);
 		
 		txtUsername2 = new JTextField();
-		txtUsername2.setBounds(177, 36, 141, 20);
+		txtUsername2.setBounds(173, 71, 141, 20);
 		panelUbahPassword.add(txtUsername2);
 		txtUsername2.setColumns(10);
 		
 		btnUbah = new JButton("Ubah");
 		btnUbah.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Ubah.png")));
-		btnUbah.setBounds(180, 217, 89, 33);
+		btnUbah.setBounds(176, 252, 89, 33);
 		panelUbahPassword.add(btnUbah);
 		
 		passwordLama = new JPasswordField();
-		passwordLama.setBounds(177, 73, 141, 20);
+		passwordLama.setBounds(173, 108, 141, 20);
 		panelUbahPassword.add(passwordLama);
 		
 		passwordBaru = new JPasswordField();
-		passwordBaru.setBounds(177, 112, 141, 20);
+		passwordBaru.setBounds(173, 147, 141, 20);
 		panelUbahPassword.add(passwordBaru);
 		
 		passwordCfmPassBaru = new JPasswordField();
-		passwordCfmPassBaru.setBounds(177, 155, 141, 20);
+		passwordCfmPassBaru.setBounds(173, 190, 141, 20);
 		panelUbahPassword.add(passwordCfmPassBaru);
 		
 		JLabel lblUlangPasswordBaru = new JLabel("Ulang Password Baru");
-		lblUlangPasswordBaru.setBounds(65, 158, 102, 14);
+		lblUlangPasswordBaru.setBounds(61, 193, 102, 14);
 		panelUbahPassword.add(lblUlangPasswordBaru);
 		
 		JLabel lblPasswordLama = new JLabel("Password Lama");
-		lblPasswordLama.setBounds(65, 76, 85, 14);
+		lblPasswordLama.setBounds(61, 111, 85, 14);
 		panelUbahPassword.add(lblPasswordLama);
+		
+		JLabel lblUbahPassword = new JLabel("Ubah Password");
+		lblUbahPassword.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		lblUbahPassword.setBounds(47, 24, 254, 36);
+		panelUbahPassword.add(lblUbahPassword);
 		
 		table = new JTable();
 		table.setToolTipText("Daftar Pengguna");
