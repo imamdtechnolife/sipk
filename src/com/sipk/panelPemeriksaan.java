@@ -29,6 +29,9 @@ public class panelPemeriksaan extends JPanel {
 	private JTextField textField_9;
 	private JTextField txtRiwayat;
 	private JTextField txtPemeriksaanFisik;
+	private JTextField txtIdDokter;
+	private JTextField txtNamaDokter;
+	private JTextField txtNoTelpDokter;
 
 	/**
 	 * Create the panel.
@@ -37,16 +40,18 @@ public class panelPemeriksaan extends JPanel {
 		setLayout(new GridLayout(0,1));	
 		setVisible(true);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 1058, 750);
-		add(tabbedPane);
+		JTabbedPane tabDokter = new JTabbedPane(JTabbedPane.TOP);
+		tabDokter.setBounds(0, 0, 1058, 750);
+		add(tabDokter);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		
+		JPanel panelDaftarDokter = new JPanel();
+		
 		JLabel lblResumeRawatJalan = new JLabel("Resume Rawat Jalan");
 		lblResumeRawatJalan.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		lblResumeRawatJalan.setBounds(28, 11, 325, 33);
+		lblResumeRawatJalan.setBounds(25, 11, 325, 33);
 		panel.add(lblResumeRawatJalan);
 		
 		JLabel lblNama = new JLabel("Nama");
@@ -277,7 +282,96 @@ public class panelPemeriksaan extends JPanel {
 		JLabel label_6 = new JLabel("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label_6.setBounds(10, 223, 1031, 14);
 		panel.add(label_6);
-		tabbedPane.addTab("Resume Rawat Jalan", null, scrollPanel, null);
+		tabDokter.addTab("Resume Rawat Jalan", null, scrollPanel, null);
+		tabDokter.addTab("Daftar Dokter", null, panelDaftarDokter, null);
+		panelDaftarDokter.setLayout(null);
+		
+		JLabel lblDaftarDokter = new JLabel("Daftar Dokter");
+		lblDaftarDokter.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		lblDaftarDokter.setBounds(25, 11, 244, 32);
+		panelDaftarDokter.add(lblDaftarDokter);
+		
+		JLabel lblIdDokter = new JLabel("ID Dokter");
+		lblIdDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblIdDokter.setBounds(48, 68, 101, 14);
+		panelDaftarDokter.add(lblIdDokter);
+		
+		JLabel lblNamaDokter = new JLabel("Nama beserta gelar");
+		lblNamaDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNamaDokter.setBounds(48, 104, 150, 14);
+		panelDaftarDokter.add(lblNamaDokter);
+		
+		JLabel lblNoTelp = new JLabel("No. Telp / Hp");
+		lblNoTelp.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNoTelp.setBounds(48, 149, 113, 14);
+		panelDaftarDokter.add(lblNoTelp);
+		
+		JLabel lblAlamat_1 = new JLabel("Alamat");
+		lblAlamat_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblAlamat_1.setBounds(48, 199, 78, 14);
+		panelDaftarDokter.add(lblAlamat_1);
+		
+		JLabel lblStatus = new JLabel("Status");
+		lblStatus.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblStatus.setBounds(48, 268, 66, 14);
+		panelDaftarDokter.add(lblStatus);
+		
+		JLabel lblSpesialis = new JLabel("Spesialis");
+		lblSpesialis.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblSpesialis.setBounds(48, 316, 113, 14);
+		panelDaftarDokter.add(lblSpesialis);
+		
+		txtIdDokter = new JTextField();
+		txtIdDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		txtIdDokter.setBounds(212, 62, 86, 25);
+		panelDaftarDokter.add(txtIdDokter);
+		txtIdDokter.setColumns(10);
+		
+		txtNamaDokter = new JTextField();
+		txtNamaDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		txtNamaDokter.setColumns(10);
+		txtNamaDokter.setBounds(212, 98, 217, 25);
+		panelDaftarDokter.add(txtNamaDokter);
+		
+		txtNoTelpDokter = new JTextField();
+		txtNoTelpDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		txtNoTelpDokter.setColumns(10);
+		txtNoTelpDokter.setBounds(212, 143, 120, 25);
+		panelDaftarDokter.add(txtNoTelpDokter);
+		
+		JComboBox cmboStatusDokter = new JComboBox();
+		cmboStatusDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		cmboStatusDokter.setBounds(212, 262, 66, 25);
+		panelDaftarDokter.add(cmboStatusDokter);
+		
+		JComboBox cmboSpesialisDokter = new JComboBox();
+		cmboSpesialisDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		cmboSpesialisDokter.setBounds(212, 310, 148, 25);
+		panelDaftarDokter.add(cmboSpesialisDokter);
+		
+		JButton btnSimpan_1 = new JButton("Simpan");
+		btnSimpan_1.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan_1.setBounds(499, 402, 101, 32);
+		panelDaftarDokter.add(btnSimpan_1);
+		
+		JButton btnBatal_1 = new JButton("Batal");
+		btnBatal_1.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal_1.setBounds(610, 402, 101, 32);
+		panelDaftarDokter.add(btnBatal_1);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/b-dokter.png")));
+		lblNewLabel.setBounds(475, 62, 244, 345);
+		panelDaftarDokter.add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(212, 194, 217, 53);
+		panelDaftarDokter.add(scrollPane);
+		
+		JTextArea txtAlamatDokter = new JTextArea();
+		txtAlamatDokter.setLocation(212, 0);
+		scrollPane.setViewportView(txtAlamatDokter);
+		txtAlamatDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 
 	}
 }

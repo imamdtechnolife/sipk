@@ -37,7 +37,6 @@ public class hal_utama extends JFrame {
 	private JPanel panel;
 	private JLabel lbl;
 	panelUser obj = new panelUser();
-	daftar_pasien objD = new daftar_pasien();
 	pasien_rawat_inap ii = new pasien_rawat_inap();
 	pasien_bersalin objBersalin = new pasien_bersalin();
 	panelBiayaRJ objBiaya = new panelBiayaRJ();
@@ -45,6 +44,7 @@ public class hal_utama extends JFrame {
 	jenis_penyakit objPenyakit = new jenis_penyakit();
 	panelLogin objLogin = new panelLogin();
 	panelLaporan objLaporan = new panelLaporan();
+	panelDaftarPasien objDaftarPasien = new panelDaftarPasien();
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
@@ -420,7 +420,7 @@ public class hal_utama extends JFrame {
 				panel.repaint();
 				panel.revalidate();
 				
-				panel.add(ii);
+				panel.add(objDaftarPasien);
 				panel.repaint();
 				panel.revalidate();
 			}

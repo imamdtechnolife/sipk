@@ -95,8 +95,8 @@ public class halaman_utama extends JFrame{
 			}
 			else if(e.getSource()==daftar_pasien)
 			{
-				daftar_pasien pd = new daftar_pasien();
-				pd.setVisible(true);
+				//daftar_pasien pd = new daftar_pasien();
+				//pd.setVisible(true);
 				//pd.setLocationRelativeTo(null);
 				
 			}
