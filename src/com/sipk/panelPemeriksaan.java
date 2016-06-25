@@ -5,6 +5,10 @@ import javax.swing.JScrollPane;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -17,6 +21,10 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 public class panelPemeriksaan extends JPanel {
+	
+	/**
+	 * Initial
+	 */
 	private JTextField txtNama;
 	private JTextField txtUmur;
 	private JTextField txtDiagnosaSekunder1;
@@ -32,6 +40,15 @@ public class panelPemeriksaan extends JPanel {
 	private JTextField txtIdDokter;
 	private JTextField txtNamaDokter;
 	private JTextField txtNoTelpDokter;
+	private JButton btnSimpanDokter;
+	private JButton btnBatalDokter;
+	private JButton btnCari;
+	private JButton btnSimpan;
+	private JButton btnBatal;
+	Connection konek = null;
+	JTextArea txtAlamatDokter;
+	JComboBox cmboStatusDokter;
+	JComboBox cmboSpesialisDokter;
 
 	/**
 	 * Create the panel.
@@ -265,16 +282,16 @@ public class panelPemeriksaan extends JPanel {
 		panel.add(txtPemeriksaanFisik);
 		txtPemeriksaanFisik.setColumns(10);
 		
-		JButton btnCari = new JButton("Cari");
+		btnCari = new JButton("Cari");
 		btnCari.setBounds(629, 74, 51, 23);
 		panel.add(btnCari);
 		
-		JButton btnSimpan = new JButton("Simpan");
+		btnSimpan = new JButton("Simpan");
 		btnSimpan.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Simpan.png")));
 		btnSimpan.setBounds(498, 554, 103, 42);
 		panel.add(btnSimpan);
 		
-		JButton btnBatal = new JButton("Batal");
+		btnBatal = new JButton("Batal");
 		btnBatal.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Batal.png")));
 		btnBatal.setBounds(625, 554, 103, 42);
 		panel.add(btnBatal);
@@ -298,12 +315,12 @@ public class panelPemeriksaan extends JPanel {
 		
 		JLabel lblNamaDokter = new JLabel("Nama beserta gelar");
 		lblNamaDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNamaDokter.setBounds(48, 104, 150, 14);
+		lblNamaDokter.setBounds(48, 104, 150, 21);
 		panelDaftarDokter.add(lblNamaDokter);
 		
 		JLabel lblNoTelp = new JLabel("No. Telp / Hp");
 		lblNoTelp.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoTelp.setBounds(48, 149, 113, 14);
+		lblNoTelp.setBounds(48, 149, 113, 20);
 		panelDaftarDokter.add(lblNoTelp);
 		
 		JLabel lblAlamat_1 = new JLabel("Alamat");
@@ -313,51 +330,58 @@ public class panelPemeriksaan extends JPanel {
 		
 		JLabel lblStatus = new JLabel("Status");
 		lblStatus.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblStatus.setBounds(48, 268, 66, 14);
+		lblStatus.setBounds(48, 300, 66, 14);
 		panelDaftarDokter.add(lblStatus);
 		
 		JLabel lblSpesialis = new JLabel("Spesialis");
 		lblSpesialis.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblSpesialis.setBounds(48, 316, 113, 14);
+		lblSpesialis.setBounds(48, 348, 113, 22);
 		panelDaftarDokter.add(lblSpesialis);
 		
 		txtIdDokter = new JTextField();
 		txtIdDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtIdDokter.setBounds(212, 62, 86, 25);
+		txtIdDokter.setBounds(212, 62, 86, 29);
 		panelDaftarDokter.add(txtIdDokter);
 		txtIdDokter.setColumns(10);
 		
 		txtNamaDokter = new JTextField();
 		txtNamaDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNamaDokter.setColumns(10);
-		txtNamaDokter.setBounds(212, 98, 217, 25);
+		txtNamaDokter.setBounds(212, 98, 217, 29);
 		panelDaftarDokter.add(txtNamaDokter);
 		
 		txtNoTelpDokter = new JTextField();
 		txtNoTelpDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoTelpDokter.setColumns(10);
-		txtNoTelpDokter.setBounds(212, 143, 120, 25);
+		txtNoTelpDokter.setBounds(212, 143, 120, 29);
 		panelDaftarDokter.add(txtNoTelpDokter);
 		
-		JComboBox cmboStatusDokter = new JComboBox();
+		cmboStatusDokter = new JComboBox();
 		cmboStatusDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboStatusDokter.setBounds(212, 262, 66, 25);
+		cmboStatusDokter.setBounds(212, 294, 66, 29);
+		cmboStatusDokter.addItem("BIDOKKES");
+		cmboStatusDokter.addItem("KONSULTAN");
 		panelDaftarDokter.add(cmboStatusDokter);
 		
-		JComboBox cmboSpesialisDokter = new JComboBox();
+		cmboSpesialisDokter = new JComboBox();
 		cmboSpesialisDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboSpesialisDokter.setBounds(212, 310, 148, 25);
+		cmboSpesialisDokter.setBounds(212, 342, 148, 29);
+		cmboSpesialisDokter.addItem("Umum");
+		cmboSpesialisDokter.addItem("Gigi");
+		cmboSpesialisDokter.addItem("THT");
+		cmboSpesialisDokter.addItem("Mata");
+		cmboSpesialisDokter.addItem("Bedah");
 		panelDaftarDokter.add(cmboSpesialisDokter);
 		
-		JButton btnSimpan_1 = new JButton("Simpan");
-		btnSimpan_1.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Simpan.png")));
-		btnSimpan_1.setBounds(499, 402, 101, 32);
-		panelDaftarDokter.add(btnSimpan_1);
+		btnSimpanDokter = new JButton("Simpan");
+		btnSimpanDokter.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpanDokter.setBounds(499, 402, 101, 32);
+		panelDaftarDokter.add(btnSimpanDokter);
 		
-		JButton btnBatal_1 = new JButton("Batal");
-		btnBatal_1.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Batal.png")));
-		btnBatal_1.setBounds(610, 402, 101, 32);
-		panelDaftarDokter.add(btnBatal_1);
+		btnBatalDokter = new JButton("Batal");
+		btnBatalDokter.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatalDokter.setBounds(610, 402, 101, 32);
+		panelDaftarDokter.add(btnBatalDokter);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/b-dokter.png")));
@@ -365,13 +389,73 @@ public class panelPemeriksaan extends JPanel {
 		panelDaftarDokter.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(212, 194, 217, 53);
+		scrollPane.setBounds(212, 194, 266, 78);
 		panelDaftarDokter.add(scrollPane);
 		
-		JTextArea txtAlamatDokter = new JTextArea();
+		txtAlamatDokter = new JTextArea();
 		txtAlamatDokter.setLocation(212, 0);
 		scrollPane.setViewportView(txtAlamatDokter);
 		txtAlamatDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		
+		penghendel hendel = new penghendel();
+		btnBatal.addActionListener(hendel);
+		btnBatalDokter.addActionListener(hendel);
+		btnCari.addActionListener(hendel);
+		btnSimpan.addActionListener(hendel);
+		btnSimpanDokter.addActionListener(hendel);
 
+	}
+	
+	public void simpanDokter()
+	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			PreparedStatement ps = konek.prepareStatement("insert into dokter (id_dokter,nama_dokter,alamat,no_hp,status,spesialis) values (?,?,?,?,?,?)");
+			ps.setString(1, txtIdDokter.getText());
+			ps.setString(2, txtNamaDokter.getText());
+			ps.setString(3, txtNoTelpDokter.getText());
+			ps.setString(4, txtAlamatDokter.getText());
+			//ps.setString(5, cmboStatusDokter.getSelectedItem());
+			//ps.setString(6, );
+			
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		finally
+		{
+			
+		}
+		
+	}
+	
+	private class penghendel implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			if(e.getSource()==btnSimpanDokter)
+			{
+				
+			}
+			else if(e.getSource()==btnBatalDokter)
+			{
+				
+			}
+			else if(e.getSource()==btnCari)
+			{
+				
+			}
+			else if(e.getSource()==btnSimpan)
+			{
+				
+			}
+			else if(e.getSource()==btnBatal)
+			{
+				
+			}
+			
+		}
 	}
 }
