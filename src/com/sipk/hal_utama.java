@@ -31,6 +31,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 public class hal_utama extends JFrame {
 
+	/**
+	 * initial
+	 */
 	private JPanel contentPane;
 	public JButton btnDaftarPenyakit;
 	public JButton btnDaftarPasien;
@@ -45,6 +48,8 @@ public class hal_utama extends JFrame {
 	panelLogin objLogin = new panelLogin();
 	panelLaporan objLaporan = new panelLaporan();
 	panelDaftarPasien objDaftarPasien = new panelDaftarPasien();
+	panelRMRawatJalan objRMRawatJalan = new panelRMRawatJalan();
+	panelPasien objPasien = new panelPasien();
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
@@ -430,7 +435,7 @@ public class hal_utama extends JFrame {
 				panel.repaint();
 				panel.revalidate();
 				
-				panel.add(objBersalin);
+				panel.add(objPasien);
 				panel.repaint();
 				panel.revalidate();
 			}
@@ -489,6 +494,16 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				buttonDisabled();
+			}
+			else if(e.getSource()==btnRawatJalan)
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objRMRawatJalan);
+				panel.repaint();
+				panel.revalidate();
 			}
 	}
 }

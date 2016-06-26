@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -353,19 +355,21 @@ public class panelPemeriksaan extends JPanel {
 		txtNoTelpDokter = new JTextField();
 		txtNoTelpDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoTelpDokter.setColumns(10);
-		txtNoTelpDokter.setBounds(212, 143, 120, 29);
+		txtNoTelpDokter.setBounds(212, 143, 136, 29);
 		panelDaftarDokter.add(txtNoTelpDokter);
 		
 		cmboStatusDokter = new JComboBox();
 		cmboStatusDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboStatusDokter.setBounds(212, 294, 66, 29);
+		cmboStatusDokter.setBounds(212, 294, 179, 29);
+		cmboStatusDokter.addItem("-- Pilih Status --");
 		cmboStatusDokter.addItem("BIDOKKES");
 		cmboStatusDokter.addItem("KONSULTAN");
 		panelDaftarDokter.add(cmboStatusDokter);
 		
 		cmboSpesialisDokter = new JComboBox();
 		cmboSpesialisDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboSpesialisDokter.setBounds(212, 342, 148, 29);
+		cmboSpesialisDokter.setBounds(212, 342, 179, 29);
+		cmboSpesialisDokter.addItem("-- Pilih Spesialis --");
 		cmboSpesialisDokter.addItem("Umum");
 		cmboSpesialisDokter.addItem("Gigi");
 		cmboSpesialisDokter.addItem("THT");
@@ -385,7 +389,7 @@ public class panelPemeriksaan extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/b-dokter.png")));
-		lblNewLabel.setBounds(475, 62, 244, 345);
+		lblNewLabel.setBounds(485, 62, 234, 345);
 		panelDaftarDokter.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -406,23 +410,31 @@ public class panelPemeriksaan extends JPanel {
 
 	}
 	
+	/**
+	 * metode simpan dokter
+	 */
 	public void simpanDokter()
 	{
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into dokter (id_dokter,nama_dokter,alamat,no_hp,status,spesialis) values (?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into dokter (no_id,nama_dokter,no_telp,alamat,sttus,spesialis) values (?,?,?,?,?,?)");
 			ps.setString(1, txtIdDokter.getText());
 			ps.setString(2, txtNamaDokter.getText());
 			ps.setString(3, txtNoTelpDokter.getText());
 			ps.setString(4, txtAlamatDokter.getText());
-			//ps.setString(5, cmboStatusDokter.getSelectedItem());
-			//ps.setString(6, );
+			ps.setString(5, (String) cmboStatusDokter.getSelectedItem());
+			ps.setString(6, (String) cmboSpesialisDokter.getSelectedItem());
+			ps.executeUpdate();
 			
+			JOptionPane.showMessageDialog(null, "Data Berhasil Tersimpan!");
+			konek.close();
+			ps.close();
+			bersihDokter();
 		}
 		catch(Exception ex)
 		{
-			
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada method simpanDokter() : "+ex.getMessage());
 		}
 		finally
 		{
@@ -431,17 +443,39 @@ public class panelPemeriksaan extends JPanel {
 		
 	}
 	
+	public void bersihDokter()
+	{
+		txtIdDokter.setText("");
+		txtNamaDokter.setText("");
+		txtNoTelpDokter.setText("");
+		txtAlamatDokter.setText("");
+		cmboStatusDokter.setSelectedIndex(0);
+		cmboSpesialisDokter.setSelectedIndex(0);
+	}
+		
 	private class penghendel implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			if(e.getSource()==btnSimpanDokter)
 			{
+				boolean status = cmboStatusDokter.getSelectedItem().equals("-- Pilih Status --");
+				boolean spesialis = cmboSpesialisDokter.getSelectedItem().equals("-- Pilih Spesialis");
+				
+				if(txtIdDokter.getText().equals("") || txtNamaDokter.getText().equals("") || txtNoTelpDokter.getText().equals("") || txtAlamatDokter.getText().equals("") || status || spesialis)
+				{
+					JOptionPane.showMessageDialog(null, "Anda belum mengisi semua field");
+					JOptionPane.showMessageDialog(null, "Silahkan dilengkapi terlebih dahulu :)");
+				}
+				else
+				{
+					simpanDokter();
+				}
 				
 			}
 			else if(e.getSource()==btnBatalDokter)
 			{
-				
+				bersihDokter();
 			}
 			else if(e.getSource()==btnCari)
 			{
