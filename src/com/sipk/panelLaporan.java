@@ -8,6 +8,8 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+
+import net.sf.dynamicreports.report.datasource.DRDataSource;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.*;
 import net.sf.jasperreports.view.*;
@@ -23,6 +25,7 @@ public class panelLaporan extends JPanel {
 	private JButton btnLaporanRawatJalan;
 	private JButton btnLaporanJnsPenyakitGigi;
 	private JButton btnLaporanRawatInap;
+	Connection konek;
 	
 	/**
 	 * Create the panel.
@@ -79,12 +82,13 @@ public class panelLaporan extends JPanel {
 	 */
 	private void printMacamPenyakit()
 	{
+		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan Macam Penyakit.jrxml");
-			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), new JREmptyDataSource());
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/Laporan Macam Penyakit.jrxml");
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
-			JasperViewer.viewReport(ljpPrint);
+			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
 		{
@@ -98,12 +102,14 @@ public class panelLaporan extends JPanel {
 	 */
 	private void print10JenisPenyakit()
 	{
+		konek = konek_database.getKonekDB();
+		
 		try
 		{	
 			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan 10 Jenis Penyakit.jrxml");
-			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), new JREmptyDataSource());
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
-			JasperViewer.viewReport(ljpPrint);
+			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
 		{
@@ -117,12 +123,13 @@ public class panelLaporan extends JPanel {
 	 */
 	private void print10JenisPenyakitGigi()
 	{
+		konek = konek_database.getKonekDB();
 		try
 		{	
 			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan 10 Jenis Penyakit Gigi.jrxml");
-			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), new JREmptyDataSource());
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
-			JasperViewer.viewReport(ljpPrint);
+			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
 		{
@@ -135,12 +142,13 @@ public class panelLaporan extends JPanel {
 	 */
 	private void printRawatJalan()
 	{
+		konek = konek_database.getKonekDB();
 		try
 		{	
 			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan Rawat Jalan.jrxml");
-			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), new JREmptyDataSource());
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
-			JasperViewer.viewReport(ljpPrint);
+			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
 		{
@@ -153,12 +161,13 @@ public class panelLaporan extends JPanel {
 	 */
 	private void printRawatInap()
 	{
+		konek = konek_database.getKonekDB();
 		try
 		{	
 			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan Rawat Inap.jrxml");
-			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), new JREmptyDataSource());
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
-			JasperViewer.viewReport(ljpPrint);
+			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
 		{
@@ -172,6 +181,7 @@ public class panelLaporan extends JPanel {
 		{
 			if(e.getSource()==btnLaporanJenisPenyakit)
 			{
+				progres progres = new progres();
 				printMacamPenyakit();
 			}
 			else if(e.getSource()==btnLaporan10JnsPenyakit)

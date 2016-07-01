@@ -10,18 +10,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
+import org.freixas.jcalendar.JCalendarCombo;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Statement;
 
 public class panelPasien extends JPanel {
 	private JTextField txtNoRM;
@@ -48,6 +52,17 @@ public class panelPasien extends JPanel {
 	private JComboBox cmboGolDarah;
 	private JButton btnSimpan;
 	private JButton btnBatal;
+	private JCalendarCombo tanggal; 
+	private JCalendarCombo cmboTanggal;
+	private JTable table;
+	private JTextField textField;
+	private DefaultTableModel modelTabelPasien = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"No. RM", "No. Reg", "Nama", "Tempat Lahir", "Tanggal Lahir", "Status Nikah", "Agama", "Suku", "Pendidikan", "Pekerjaan", "Alamat", "Kelurahan", "Kecamatan", "Kabupaten", "No. Telpon", "No. KTP / SIM", "Anak-ke", "Umur", "Golongan Darah", "No. BPJS", "No. Rujukan"
+			}
+		);
 
 	/**
 	 * Create the panel.
@@ -60,6 +75,37 @@ public class panelPasien extends JPanel {
 		add(tabbedPane);
 		JPanel panelTabelPasien = new JPanel();
 		tabbedPane.addTab("Tabel Rekam Medis Pasien", null, panelTabelPasien, null);
+		panelTabelPasien.setLayout(null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 115, 1340, 484);
+		panelTabelPasien.add(scrollPane_1);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"No. RM", "No. Reg", "Nama", "Tempat Lahir", "Tanggal Lahir", "Status Nikah", "Agama", "Suku", "Pendidikan", "Pekerjaan", "Alamat", "Kelurahan", "Kecamatan", "Kabupaten", "No. Telpon", "No. KTP / SIM", "Anak-ke", "Umur", "Golongan Darah", "No. BPJS", "No. Rujukan"
+			}
+		));
+		table.getColumnModel().getColumn(15).setPreferredWidth(123);
+		table.getColumnModel().getColumn(18).setPreferredWidth(96);
+		scrollPane_1.setViewportView(table);
+		
+		JLabel lblNewLabel = new JLabel("Tabel Identitas Utama Pasien");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		lblNewLabel.setBounds(10, 11, 423, 33);
+		panelTabelPasien.add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(39, 84, 86, 20);
+		panelTabelPasien.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Cari");
+		btnNewButton.setBounds(143, 83, 59, 23);
+		panelTabelPasien.add(btnNewButton);
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Daftar Rekam Medis Pasien", null, panel, null);
@@ -285,13 +331,17 @@ public class panelPasien extends JPanel {
 		cmboStatusNikah.addItem("Belum Nikah");
 		panel.add(cmboStatusNikah);
 		
+		/**
+		tanggal = new JCalendarCombo();
+		tanggal.setDateFormat(new SimpleDateFormat("dd/MM/yy"));
 		DateFormat format = new SimpleDateFormat("dd/MM/yy");
 		DateFormatter memformat = new DateFormatter(format);
 		txtTanggal = new JFormattedTextField(memformat);
 		txtTanggal.setValue(new Date());
 		txtTanggal.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtTanggal.setBounds(168, 237, 102, 29);
-		panel.add(txtTanggal);
+		panel.add(tanggal);
+		**/
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(478, 163, 190, 94);
@@ -321,10 +371,16 @@ public class panelPasien extends JPanel {
 		btnBatal.setBounds(931, 458, 102, 43);
 		panel.add(btnBatal);
 		
+		cmboTanggal = new JCalendarCombo();
+		cmboTanggal.setBounds(168, 237, 139, 29);
+		cmboTanggal.setDateFormat(new SimpleDateFormat("yy-MM-dd"));
+		panel.add(cmboTanggal);
+		
 		penghendel hendel = new penghendel();
 		btnSimpan.addActionListener(hendel);
 		btnBatal.addActionListener(hendel);
-
+		
+		tampilPasien();
 	}
 	
 	public void simpanPasien()
@@ -332,28 +388,28 @@ public class panelPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into pasien(no_rm,no_reg,nama,tempat_lahir,sttus_nikah,agama,suku,pendidikan,pekerjaan,alamat,kelurahan,kecamatan,kabupaten,no_telp,no_ktp_sim,anak_ke,umur,gol_darah,no_bpjs,no_rujukan) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into pasien(no_rm,no_reg,nama,tempat_lahir,tanggal_lahir,sttus_nikah,agama,suku,pendidikan,pekerjaan,alamat,kelurahan,kecamatan,kabupaten,no_telp,no_ktp_sim,anak_ke,umur,gol_darah,no_bpjs,no_rujukan) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, txtNoRM.getText());
 			ps.setString(2, txtNoReg.getText());
 			ps.setString(3, txtNama.getText());
 			ps.setString(4, txtTempatLahir.getText());
-			//ps.setDate(5, (Date) Date.class.ge);
-			ps.setString(5, (String) cmboStatusNikah.getSelectedItem());
-			ps.setString(6, txtAgama.getText());
-			ps.setString(7, txtSuku.getText());
-			ps.setString(8, txtPendidikan.getText());
-			ps.setString(9, txtPekerjaan.getText());
-			ps.setString(10, txtAlamat.getText());
-			ps.setString(11, txtKelurahan.getText());
-			ps.setString(12, txtKecamatan.getText());
-			ps.setString(13, txtKabupaten.getText());
-			ps.setString(14, txtTelepon.getText());
-			ps.setString(15, txtNoKtpsim.getText());
-			ps.setString(16, txtAnakke.getText());
-			ps.setInt(17, (int) Integer.parseInt(txtUmur.getText()));
-			ps.setString(18, (String) cmboGolDarah.getSelectedItem());
-			ps.setString(19, txtNoBpjs.getText());
-			ps.setString(20, txtNoReg.getText());
+			ps.setString(5, (String) cmboTanggal.getSelectedItem());
+			ps.setString(6, (String) cmboStatusNikah.getSelectedItem());
+			ps.setString(7, txtAgama.getText());
+			ps.setString(8, txtSuku.getText());
+			ps.setString(9, txtPendidikan.getText());
+			ps.setString(10, txtPekerjaan.getText());
+			ps.setString(11, txtAlamat.getText());
+			ps.setString(12, txtKelurahan.getText());
+			ps.setString(13, txtKecamatan.getText());
+			ps.setString(14, txtKabupaten.getText());
+			ps.setString(15, txtTelepon.getText());
+			ps.setString(16, txtNoKtpsim.getText());
+			ps.setString(17, txtAnakke.getText());
+			ps.setInt(18, (int) Integer.parseInt(txtUmur.getText()));
+			ps.setString(19, (String) cmboGolDarah.getSelectedItem());
+			ps.setString(20, txtNoBpjs.getText());
+			ps.setString(21, txtNoReg.getText());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil tersimpan!");
@@ -363,6 +419,55 @@ public class panelPasien extends JPanel {
 		catch(Exception ex)
 		{
 			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ex.getMessage());
+		}
+		finally
+		{
+			bersihPasien();
+			tampilPasien();
+		}
+	}
+	
+	private void tampilPasien()
+	{
+		modelTabelPasien.getDataVector().removeAllElements();
+		modelTabelPasien.fireTableDataChanged();
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select * from pasien");
+			
+			while(result.next())
+			{
+				Object obj[] = new Object[21];
+				obj[0] = result.getString(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getString(3);
+				obj[3] = result.getString(4);
+				obj[4] = result.getDate(5);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				obj[7] = result.getString(8);
+				obj[8] = result.getString(9);
+				obj[9] = result.getString(10);
+				obj[10] = result.getString(11);
+				obj[11] = result.getString(12);
+				obj[12] = result.getString(13);
+				obj[13] = result.getString(14);
+				obj[14] = result.getString(15);
+				obj[15] = result.getString(16);
+				obj[16] = result.getString(17);
+				obj[17] = result.getInt(18);
+				obj[18] = result.getString(19);
+				obj[19] = result.getString(20);
+				obj[20] = result.getString(21);
+				
+				modelTabelPasien.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode tampil tabel : "+ex.getMessage());
 		}
 		finally
 		{
@@ -402,6 +507,7 @@ public class panelPasien extends JPanel {
 			if(e.getSource()==btnSimpan)
 			{
 				simpanPasien();
+				tampilPasien();
 			}
 			else if(e.getSource()==btnBatal)
 			{
@@ -409,5 +515,4 @@ public class panelPasien extends JPanel {
 			}
 		}
 	}
-
 }

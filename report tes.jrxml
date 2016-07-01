@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2016-06-30T11:53:33 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report tes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="35b4329e-aa8e-45a5-94ad-5de3baf2569b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<subDataset name="Data Source" uuid="a1d73a68-f5f7-4577-ab66-b60a0b8ff464">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="konekDatabaseFinal"/>
+		<queryString>
+			<![CDATA[select * from macam_penyakit]]>
+		</queryString>
+		<field name="no_icd10" class="java.lang.String"/>
+		<field name="macam_penyakit" class="java.lang.String"/>
+		<field name="no_dtd" class="java.lang.String"/>
+		<group name="no_icd10">
+			<groupExpression><![CDATA[$F{no_icd10}]]></groupExpression>
+		</group>
+		<group name="macam_penyakit">
+			<groupExpression><![CDATA[$F{macam_penyakit}]]></groupExpression>
+		</group>
+		<group name="no_dtd">
+			<groupExpression><![CDATA[$F{no_dtd}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select * from macam_penyakit]]>
+	</queryString>
+	<field name="no_icd10" class="java.lang.String"/>
+	<field name="macam_penyakit" class="java.lang.String"/>
+	<field name="no_dtd" class="java.lang.String"/>
+	<variable name="no_icd101" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{no_icd10}]]></variableExpression>
+	</variable>
+	<variable name="macam_penyakit1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{macam_penyakit}]]></variableExpression>
+	</variable>
+	<variable name="no_dtd1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{no_dtd}]]></variableExpression>
+	</variable>
+	<group name="no_icd10">
+		<groupExpression><![CDATA[$F{no_icd10}]]></groupExpression>
+	</group>
+	<group name="macam_penyakit">
+		<groupExpression><![CDATA[$F{macam_penyakit}]]></groupExpression>
+	</group>
+	<group name="no_dtd">
+		<groupExpression><![CDATA[$F{no_dtd}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="75" splitType="Stretch">
+			<textField>
+				<reportElement x="131" y="31" width="100" height="30" uuid="9ac0cc78-d0d2-46df-93b7-9d8debd86a34"/>
+				<textFieldExpression><![CDATA[$F{no_icd10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="30" width="100" height="30" uuid="3e3e3670-46cb-4ab4-9194-7404c2b2f88d"/>
+				<textFieldExpression><![CDATA[$F{macam_penyakit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="30" width="100" height="30" uuid="f5387333-b202-4bfc-ac2c-fc7da9f20abc"/>
+				<textFieldExpression><![CDATA[$F{no_dtd}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="13" width="100" height="30" uuid="8d106514-b0ff-4e0d-94a7-9aeda83c8b2e"/>
+				<textFieldExpression><![CDATA[$V{no_icd101}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="10" width="100" height="30" uuid="ab1ca9e0-5d47-447d-bb8e-6f31615b3d52"/>
+				<textFieldExpression><![CDATA[$V{macam_penyakit1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="10" width="100" height="30" uuid="1aa0dc17-bb3f-409c-912d-8081652f4099"/>
+				<textFieldExpression><![CDATA[$V{no_dtd1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

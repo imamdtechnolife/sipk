@@ -44,12 +44,13 @@ public class hal_utama extends JFrame {
 	pasien_bersalin objBersalin = new pasien_bersalin();
 	panelBiayaRJ objBiaya = new panelBiayaRJ();
 	panelPemeriksaan objPemeriksaan = new panelPemeriksaan();
-	jenis_penyakit objPenyakit = new jenis_penyakit();
+	//jenis_penyakit objPenyakit = new jenis_penyakit();
 	panelLogin objLogin = new panelLogin();
 	panelLaporan objLaporan = new panelLaporan();
 	panelDaftarPasien objDaftarPasien = new panelDaftarPasien();
 	panelRMRawatJalan objRMRawatJalan = new panelRMRawatJalan();
 	panelPasien objPasien = new panelPasien();
+	panelMacamPenyakit objMacamPenyakit = new panelMacamPenyakit();
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
@@ -92,7 +93,7 @@ public class hal_utama extends JFrame {
 		super("Sistem Informasi Pelayanan Kesehatan Rumah Sakit Bhayangkara Mataram");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(hal_utama.class.getResource("image/address-book-new.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1208, 701);
+		setBounds(100, 100, 1366, 701);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -100,7 +101,7 @@ public class hal_utama extends JFrame {
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setEnabled(false);
-		toolBar.setBounds(0, 22, 1192, 65);
+		toolBar.setBounds(0, 22, 1350, 65);
 		contentPane.add(toolBar);
 		
 		btnDaftarPasien = new JButton("Daftar Pasien");
@@ -157,7 +158,7 @@ public class hal_utama extends JFrame {
 		toolBar.add(btnPengguna);
 		
 		panel = new JPanel();
-		panel.setBounds(0, 86, 1192, 577);
+		panel.setBounds(0, 86, 1350, 577);
 		
 		contentPane.add(panel);
 		panel.setLayout(new CardLayout(0, 0));
@@ -167,36 +168,44 @@ public class hal_utama extends JFrame {
 		panelMasuk.setLayout(null);
 		
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setBounds(566, 189, 46, 14);
+		lblLogin.setFont(new Font("Bookman Old Style", Font.BOLD, 17));
+		lblLogin.setBounds(680, 181, 69, 29);
 		panelMasuk.add(lblLogin);
 		
-		JLabel lblNewLabel_1 = new JLabel("username");
-		lblNewLabel_1.setBounds(502, 216, 69, 14);
+		JLabel lblNewLabel_1 = new JLabel("Username");
+		lblNewLabel_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(565, 240, 111, 14);
 		panelMasuk.add(lblNewLabel_1);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(502, 249, 69, 14);
+		lblPassword.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblPassword.setBounds(565, 273, 69, 14);
 		panelMasuk.add(lblPassword);
 		
 		textField = new JTextField();
-		textField.setBounds(586, 214, 116, 20);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textField.setBounds(686, 240, 196, 29);
 		panelMasuk.add(textField);
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(586, 246, 116, 20);
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		passwordField.setBounds(686, 272, 196, 29);
 		panelMasuk.add(passwordField);
 		
 		btnMasuk = new JButton("Masuk");
-		btnMasuk.setBounds(550, 325, 89, 23);
+		btnMasuk.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/in.png")));
+		btnMasuk.setBounds(638, 362, 111, 35);
 		panelMasuk.add(btnMasuk);
 		
 		JLabel lblLevelUser = new JLabel("Level User");
-		lblLevelUser.setBounds(502, 284, 69, 14);
+		lblLevelUser.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblLevelUser.setBounds(565, 308, 89, 14);
 		panelMasuk.add(lblLevelUser);
 		
 		comboLevel = new JComboBox();
-		comboLevel.setBounds(586, 277, 116, 20);
+		comboLevel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		comboLevel.setBounds(686, 303, 163, 29);
 		comboLevel.addItem("-- Pilih Level --");
 		comboLevel.addItem("Administrator");
 		comboLevel.addItem("Dokter");
@@ -224,18 +233,10 @@ public class hal_utama extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(menuPengguna);
 		menuBar.add(menuAbout);
-		menuBar.setBounds(0, 0, 718, 21);
+		menuBar.setBounds(0, 0, 1350, 21);
 		
 		
 		contentPane.add(menuBar);
-		
-		JLabel lblNewLabel = new JLabel("Pengguna");
-		lblNewLabel.setBounds(775, 7, 250, 14);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblLevel = new JLabel("Level :");
-		lblLevel.setBounds(1035, 7, 147, 14);
-		contentPane.add(lblLevel);
 		
 		penghendel hendel = new penghendel();
 		btnDaftarPenyakit.addActionListener(hendel);
@@ -247,6 +248,7 @@ public class hal_utama extends JFrame {
 		btnLaporan.addActionListener(hendel);
 		btnMasuk.addActionListener(hendel);
 		penggunaLogout.addActionListener(hendel);
+		btnRawatJalan.addActionListener(hendel);
 
 
 	}
@@ -337,6 +339,7 @@ public class hal_utama extends JFrame {
 				
 				btnLaporan.setEnabled(true);
 				btnPengguna.setEnabled(true);
+				btnDaftarPenyakit.setEnabled(true);
 			}
 			else if(level == "Perawat")
 			{
@@ -414,7 +417,7 @@ public class hal_utama extends JFrame {
 			panel.repaint();
 			panel.revalidate();
 			
-			panel.add(objPenyakit);
+			panel.add(objMacamPenyakit);
 			panel.repaint();
 			panel.revalidate();
 			
