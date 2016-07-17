@@ -4,8 +4,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +41,7 @@ public class panelBiayaRJ extends JPanel {
 	private JTextField txtEKG;
 	private JTextField txtBiayaObat;
 	private JTextField txtAmbulan_dll;
-	
+	Connection konek = null;
 
 	/**
 	 * Create the panel.
@@ -279,6 +285,16 @@ public class panelBiayaRJ extends JPanel {
 		
 		add(tabbedPane);
 		
-
+		//penghendel hendel = new penghendel();
+		//btn
+	}
+	
+	private class penghendel implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+			
+		}
 	}
 }

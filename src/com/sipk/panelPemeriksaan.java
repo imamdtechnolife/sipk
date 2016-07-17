@@ -1,19 +1,22 @@
 package com.sipk;
 
+/**
+ * Deklarasi pustaka
+ */
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -21,11 +24,19 @@ import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
+/**
+ * Pembuatan Panel Pemeriksaan
+ * @author Imam Afriyadi
+ *
+ */
 public class panelPemeriksaan extends JPanel {
 	
 	/**
-	 * Initial
+	 * Dekalrasi variabel
 	 */
 	private JTextField txtNama;
 	private JTextField txtUmur;
@@ -51,9 +62,20 @@ public class panelPemeriksaan extends JPanel {
 	JTextArea txtAlamatDokter;
 	JComboBox cmboStatusDokter;
 	JComboBox cmboSpesialisDokter;
+	private JTable table;
+	DefaultTableModel modelTabelDokter = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"No. ID", "Nama & Gelar", "Spesialis", "No. Telp / Hp", "Alamat", "Status"
+			}
+		);
+	private JButton btnHapus;
+	private JButton btnUbah;
+	private JButton btnRefresh;
 
 	/**
-	 * Create the panel.
+	 * pembuatan panel.
 	 */
 	public panelPemeriksaan() {
 		setLayout(new GridLayout(0,1));	
@@ -301,7 +323,7 @@ public class panelPemeriksaan extends JPanel {
 		JLabel label_6 = new JLabel("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		label_6.setBounds(10, 223, 1031, 14);
 		panel.add(label_6);
-		tabDokter.addTab("Resume Rawat Jalan", null, scrollPanel, null);
+		//tabDokter.addTab("Resume Rawat Jalan", null, scrollPanel, null);
 		tabDokter.addTab("Daftar Dokter", null, panelDaftarDokter, null);
 		panelDaftarDokter.setLayout(null);
 		
@@ -401,19 +423,104 @@ public class panelPemeriksaan extends JPanel {
 		scrollPane.setViewportView(txtAlamatDokter);
 		txtAlamatDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(756, 68, 546, 302);
+		panelDaftarDokter.add(scrollPane_1);
+		
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		table.setModel(modelTabelDokter);
+		table.getColumnModel().getColumn(1).setPreferredWidth(139);
+		table.getColumnModel().getColumn(3).setPreferredWidth(140);
+		table.getColumnModel().getColumn(4).setPreferredWidth(105);
+		table.getColumnModel().getColumn(5).setPreferredWidth(99);
+		scrollPane_1.setViewportView(table);
+		
+		btnUbah = new JButton("Ubah");
+		btnUbah.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setBounds(499, 402, 101, 32);
+		btnUbah.setVisible(false);
+		panelDaftarDokter.add(btnUbah);
+		
+		btnHapus = new JButton("Hapus");
+		btnHapus.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Hapus.png")));
+		btnHapus.setBounds(610, 402, 101, 32);
+		btnHapus.setVisible(false);
+		panelDaftarDokter.add(btnHapus);
+		
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.setIcon(new ImageIcon(panelPemeriksaan.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setBounds(558, 458, 101, 32);
+		panelDaftarDokter.add(btnRefresh);
+		
 		penghendel hendel = new penghendel();
 		btnBatal.addActionListener(hendel);
 		btnBatalDokter.addActionListener(hendel);
 		btnCari.addActionListener(hendel);
 		btnSimpan.addActionListener(hendel);
 		btnSimpanDokter.addActionListener(hendel);
-
+		btnHapus.addActionListener(hendel);
+		btnUbah.addActionListener(hendel);
+		btnRefresh.addActionListener(hendel);
+		
+		table.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent e)
+			{
+				ambilDataDokter();
+				btnUbah.setVisible(true);
+				btnHapus.setVisible(true);
+				btnSimpanDokter.setVisible(false);
+				btnBatalDokter.setVisible(false);
+			}
+		});
+		tampilIsiTabel();
 	}
+	
+	
+	/**
+	 * metode pembuatan kode dokter secara otomatis
+	 * (not finished)
+	 */
+	/**
+	private void kodeDokterOtomatis()
+	{
+		String tipekode1 = "D00";
+		String tipekode2 = "D0";
+		String tipekode3 = "D";
+		
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select no_id from dokter");
+			
+			if(result.next())
+			{
+				for(int i; i<10;i++)
+				{
+					txtIdDokter.setText(tipekode1+""+i);
+				}
+				
+			}
+			else 
+			{
+				txtIdDokter.setText("D001");
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode kodeDokterOtomatis : "+ex.getMessage());
+		}
+		
+	}
+	**/
+	
 	
 	/**
 	 * metode simpan dokter
 	 */
-	public void simpanDokter()
+	private void simpanDokter()
 	{
 		try
 		{
@@ -430,7 +537,6 @@ public class panelPemeriksaan extends JPanel {
 			JOptionPane.showMessageDialog(null, "Data Berhasil Tersimpan!");
 			konek.close();
 			ps.close();
-			bersihDokter();
 		}
 		catch(Exception ex)
 		{
@@ -438,12 +544,53 @@ public class panelPemeriksaan extends JPanel {
 		}
 		finally
 		{
-			
+			bersihDokter();
+			tampilIsiTabel();
 		}
 		
 	}
 	
-	public void bersihDokter()
+	/**
+	 * metode menampilkan isi tabel
+	 */
+	private void tampilIsiTabel()
+	{
+		modelTabelDokter.getDataVector().removeAllElements();
+		modelTabelDokter.fireTableDataChanged();
+		
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select no_id,nama_dokter,spesialis,no_telp,alamat,sttus from dokter");
+			
+			while(result.next())
+			{
+				Object obj[] = new Object[6];
+				obj[0] = result.getString(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getString(3);
+				obj[3] = result.getString(4);
+				obj[4] = result.getString(5);
+				obj[5] = result.getString(6);
+				
+				modelTabelDokter.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode tampilIsiTabel : "+ex.getMessage());
+		}
+		finally
+		{
+			
+		}
+	}
+	
+	/**
+	 * metode membersihkan isi kolom pada panel 'Daftar Dokter'
+	 */
+	private void bersihDokter()
 	{
 		txtIdDokter.setText("");
 		txtNamaDokter.setText("");
@@ -451,8 +598,103 @@ public class panelPemeriksaan extends JPanel {
 		txtAlamatDokter.setText("");
 		cmboStatusDokter.setSelectedIndex(0);
 		cmboSpesialisDokter.setSelectedIndex(0);
+		btnSimpanDokter.setVisible(true);
+		btnBatalDokter.setVisible(true);
+		btnUbah.setVisible(false);
+		btnHapus.setVisible(false);
 	}
+	
+	/**
+	 * metode mengambil data dari tabel dokter kemudian menampilkannya ke field dokter
+	 */
+	private void ambilDataDokter()
+	{
+		int i = table.getSelectedRow();
 		
+		if(i==-1)
+		{
+			return;
+		}
+		
+		String ambilIdDokter = (String) modelTabelDokter.getValueAt(i, 0);
+		txtIdDokter.setText(ambilIdDokter);
+		
+		String ambilNamaDokter = (String) modelTabelDokter.getValueAt(i, 1);
+		txtNamaDokter.setText(ambilNamaDokter);
+		
+		String ambilSpesialisDokter = (String) modelTabelDokter.getValueAt(i, 2);
+		cmboSpesialisDokter.setSelectedItem(ambilSpesialisDokter);
+		
+		String ambilNoTelpDokter = (String) modelTabelDokter.getValueAt(i, 3);
+		txtNoTelpDokter.setText(ambilNoTelpDokter);
+		
+		String ambilAlamatDokter = (String) modelTabelDokter.getValueAt(i, 4);
+		txtAlamatDokter.setText(ambilAlamatDokter);
+		
+		String ambilStatusDokter = (String) modelTabelDokter.getValueAt(i, 5);
+		cmboStatusDokter.setSelectedItem(ambilStatusDokter);
+
+	}
+	
+	/**
+	 * metode mengubah data dokter
+	 */
+	private void ubahDokter()
+	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			PreparedStatement ps = konek.prepareStatement("update dokter set no_id=?, nama_dokter=?, spesialis=?, no_telp=?, alamat=?, sttus=? where no_id=?");
+			ps.setString(1, txtIdDokter.getText());
+			ps.setString(2, txtNamaDokter.getText());
+			ps.setString(3, (String) cmboSpesialisDokter.getSelectedItem());
+			ps.setString(4, txtNoTelpDokter.getText());
+			ps.setString(5, txtAlamatDokter.getText());
+			ps.setString(6, (String) cmboStatusDokter.getSelectedItem());
+			ps.setString(7, txtIdDokter.getText());
+			ps.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Data berhasil diubah !");
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode ubahDokter : "+ex.getMessage());
+		}
+		finally
+		{
+			bersihDokter();
+			tampilIsiTabel();
+		}
+	}
+	
+	private void hapusDokter()
+	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			PreparedStatement ps = konek.prepareStatement("delete from dokter where no_id=?");
+			ps.setString(1, txtIdDokter.getText());
+			ps.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Data berhasil dihapus !");
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode hapusDokter : "+ex.getMessage());
+		}
+		finally
+		{
+			bersihDokter();
+			tampilIsiTabel();
+		}
+	}
+	
+	
+	/**
+	 * 	Mengoverride fungsi tombol
+	 * @author Imam Afriyadi
+	 *
+	 */
 	private class penghendel implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -489,6 +731,19 @@ public class panelPemeriksaan extends JPanel {
 			{
 				
 			}
+			else if(e.getSource()==btnUbah)
+			{
+				ubahDokter();
+			}
+			else if(e.getSource()==btnHapus)
+			{
+				hapusDokter();
+			}
+			else if(e.getSource()==btnRefresh)
+			{
+				bersihDokter();
+			}
+			
 			
 		}
 	}

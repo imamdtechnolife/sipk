@@ -9,6 +9,9 @@ import java.sql.Time;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.jfree.data.gantt.Task;
+
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
@@ -17,6 +20,7 @@ public class progres extends JFrame {
 	private JPanel contentPane;
 	private Timer time;
 	private int waktu = 0;
+	Task task;
 
 	public progres() {
 		super("Mohon tunggu sebentar... ");

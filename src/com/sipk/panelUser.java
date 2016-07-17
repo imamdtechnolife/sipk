@@ -54,7 +54,7 @@ public class panelUser extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Level", "Nama", "Username", "Password"
+				"Level", "Nama", "No. Telp / HP", "Alamat"
 			}
 		);
 	
@@ -333,7 +333,7 @@ public class panelUser extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select lvel,nama,username,pass from akun");
+			ResultSet result = state.executeQuery("select lvel,nama,no_telp,alamat from akun");
 			
 			while(result.next())
 			{
@@ -346,9 +346,9 @@ public class panelUser extends JPanel {
 				modelTabelUser.addRow(obj);
 			}
 			
-			//result.close();
-			//state.close();
-			//konek.close();
+			result.close();
+			state.close();
+			konek.close();
 		}
 		catch(Exception ex)
 		{

@@ -40,8 +40,8 @@ public class hal_utama extends JFrame {
 	private JPanel panel;
 	private JLabel lbl;
 	panelUser obj = new panelUser();
-	pasien_rawat_inap ii = new pasien_rawat_inap();
-	pasien_bersalin objBersalin = new pasien_bersalin();
+	pasien_rawat_inap objRawatInap = new pasien_rawat_inap();
+	//pasien_bersalin objBersalin = new pasien_bersalin();
 	panelBiayaRJ objBiaya = new panelBiayaRJ();
 	panelPemeriksaan objPemeriksaan = new panelPemeriksaan();
 	//jenis_penyakit objPenyakit = new jenis_penyakit();
@@ -54,7 +54,7 @@ public class hal_utama extends JFrame {
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
-	public JButton btnBersalin;
+	public JButton btnPasien;
 	public JButton btnPengguna;
 	public JButton btnPembayaran;
 	public JButton btnLaporan;
@@ -65,6 +65,7 @@ public class hal_utama extends JFrame {
 	Connection konek = null;
 	JMenuItem penggunaLogout;
 	JComboBox comboLevel;
+	panelLaporan tampilKunjungan;
 	
 	
 	/**
@@ -134,17 +135,19 @@ public class hal_utama extends JFrame {
 		toolBar.add(btnRawatInap);
 		toolBar.addSeparator();
 		
-		btnBersalin = new JButton("Bersalin");
-		btnBersalin.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/bersalin.png")));
-		btnBersalin.setEnabled(false);
-		toolBar.add(btnBersalin);
+		btnPasien = new JButton("Pasien");
+		btnPasien.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/bersalin.png")));
+		btnPasien.setEnabled(false);
+		toolBar.add(btnPasien);
 		toolBar.addSeparator();
 		
+		/**
 		btnPembayaran = new JButton("Pembayaran");
 		btnPembayaran.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/accessories-calculator.png")));
 		btnPembayaran.setEnabled(false);
 		toolBar.add(btnPembayaran);
 		toolBar.addSeparator();
+		**/
 		
 		btnLaporan = new JButton("Laporan");
 		btnLaporan.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/laporan-1.png")));
@@ -241,14 +244,17 @@ public class hal_utama extends JFrame {
 		penghendel hendel = new penghendel();
 		btnDaftarPenyakit.addActionListener(hendel);
 		btnDaftarPasien.addActionListener(hendel);
-		btnBersalin.addActionListener(hendel);
+		btnPasien.addActionListener(hendel);
 		btnPengguna.addActionListener(hendel);
-		btnPembayaran.addActionListener(hendel);
 		btnDokter.addActionListener(hendel);
 		btnLaporan.addActionListener(hendel);
 		btnMasuk.addActionListener(hendel);
 		penggunaLogout.addActionListener(hendel);
 		btnRawatJalan.addActionListener(hendel);
+		btnRawatInap.addActionListener(hendel);
+		
+		tampilKunjungan = new panelLaporan();
+		
 
 
 	}
@@ -284,6 +290,13 @@ public class hal_utama extends JFrame {
 				
 				btnDaftarPasien.setEnabled(true);
 				btnPengguna.setEnabled(true);
+				btnDaftarPenyakit.setEnabled(true);
+				btnPasien.setEnabled(true);
+				btnDokter.setEnabled(true);
+				btnLaporan.setEnabled(true);
+				btnRawatInap.setEnabled(true);
+				btnRawatJalan.setEnabled(true);
+				btnPembayaran.setEnabled(true);
 			}
 			else if(level == "Dokter")
 			{
@@ -298,7 +311,7 @@ public class hal_utama extends JFrame {
 				btnDokter.setEnabled(true);
 				btnRawatInap.setEnabled(true);
 				btnRawatJalan.setEnabled(true);
-				btnBersalin.setEnabled(true);
+				btnPasien.setEnabled(true);
 				btnPengguna.setEnabled(true);
 			}
 			else if(level == "Kasir")
@@ -353,7 +366,7 @@ public class hal_utama extends JFrame {
 				
 				btnRawatInap.setEnabled(true);
 				btnRawatJalan.setEnabled(true);
-				btnBersalin.setEnabled(true);
+				btnPasien.setEnabled(true);
 				btnPengguna.setEnabled(true);
 			}
 			
@@ -387,15 +400,15 @@ public class hal_utama extends JFrame {
 	 */
 	private void buttonDisabled()
 	{
-		btnBersalin.setEnabled(false);
+		btnPasien.setEnabled(false);
 		btnDaftarPasien.setEnabled(false);
 		btnDaftarPenyakit.setEnabled(false);
 		btnDokter.setEnabled(false);
 		btnLaporan.setEnabled(false);
-		btnPembayaran.setEnabled(false);
 		btnPengguna.setEnabled(false);
 		btnRawatInap.setEnabled(false);
 		btnRawatJalan.setEnabled(false);
+		comboLevel.setSelectedIndex(0);
 	}
 
 	/**
@@ -432,7 +445,7 @@ public class hal_utama extends JFrame {
 				panel.repaint();
 				panel.revalidate();
 			}
-			else if(e.getSource()==btnBersalin)
+			else if(e.getSource()==btnPasien)
 			{
 				panel.removeAll();
 				panel.repaint();
@@ -449,16 +462,6 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				panel.add(obj);
-				panel.repaint();
-				panel.revalidate();
-			}
-			else if(e.getSource()==btnPembayaran)
-			{
-				panel.removeAll();
-				panel.repaint();
-				panel.revalidate();
-				
-				panel.add(objBiaya);
 				panel.repaint();
 				panel.revalidate();
 			}
@@ -481,6 +484,8 @@ public class hal_utama extends JFrame {
 				panel.add(objLaporan);
 				panel.repaint();
 				panel.revalidate();
+				
+				tampilKunjungan.tampilTabelKunjunganPasienPolri();
 			}
 			else if(e.getSource()==btnMasuk)
 			{
@@ -505,6 +510,16 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				panel.add(objRMRawatJalan);
+				panel.repaint();
+				panel.revalidate();
+			}
+			else if(e.getSource()==btnRawatInap)
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objRawatInap);
 				panel.repaint();
 				panel.revalidate();
 			}
