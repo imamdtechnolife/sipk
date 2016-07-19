@@ -22,8 +22,8 @@ public class panelLogin extends JPanel {
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(panelLogin.class.getResource("/com/sipk/Image/home-panel.png")));
-		lblNewLabel.setBounds(0, 0, 1196, 584);
+		lblNewLabel.setIcon(new ImageIcon(panelLogin.class.getResource("/com/sipk/Image/home-panel2.png")));
+		lblNewLabel.setBounds(0, 0, 1356, 580);
 		add(lblNewLabel);
 
 	}

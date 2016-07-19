@@ -213,7 +213,7 @@ public class panelLaporan extends JPanel {
 		table.getColumnModel().getColumn(5).setPreferredWidth(91);
 		tabelPengunjung.setViewportView(table);
 		
-		JLabel lblLaporanBulanan = new JLabel("Laporan Bulanan Jumlah Pengunjung dan Kunjungan Rawat Jalan ");
+		JLabel lblLaporanBulanan = new JLabel("Laporan Jumlah Pengunjung dan Kunjungan Rawat Jalan ");
 		lblLaporanBulanan.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		lblLaporanBulanan.setBounds(121, 24, 995, 33);
 		panelLapKunjungan.add(lblLaporanBulanan);
@@ -234,7 +234,7 @@ public class panelLaporan extends JPanel {
 		panelLapKunjungan.add(btnReload4);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Laporan Bulanan Pelayanan Kesehatan");
+		JLabel lblNewLabel = new JLabel("Cetak Laporan Pelayanan Kesehatan");
 		lblNewLabel.setBounds(24, 11, 542, 33);
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
@@ -251,7 +251,7 @@ public class panelLaporan extends JPanel {
 		btnLaporan10JnsPenyakit.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnLaporan10JnsPenyakit.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
 		
-		btnLaporanJnsPenyakitGigi = new JButton("10 Jenis Penyakit Gigi dan Mulut dengan Pasien Terbanyak");
+		btnLaporanJnsPenyakitGigi = new JButton("10 Jenis Penyakit Gigi dan Mulut dengan Jumlah Pasien Terbanyak");
 		btnLaporanJnsPenyakitGigi.setBounds(186, 249, 671, 86);
 		panel.add(btnLaporanJnsPenyakitGigi);
 		btnLaporanJnsPenyakitGigi.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
@@ -297,7 +297,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/Laporan Macam Penyakit.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_macampenyakit_dan_jumlah.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -318,7 +318,7 @@ public class panelLaporan extends JPanel {
 		
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan 10 Jenis Penyakit.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_10macampenyakit.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -338,7 +338,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan 10 Jenis Penyakit Gigi.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_10macampenyakit_gigidanmulut.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -376,7 +376,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan Rawat Inap.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_rawat_inap.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -393,7 +393,6 @@ public class panelLaporan extends JPanel {
 		{
 			if(e.getSource()==btnLaporanJenisPenyakit)
 			{
-				progres progres = new progres();
 				printMacamPenyakit();
 			}
 			else if(e.getSource()==btnLaporan10JnsPenyakit)

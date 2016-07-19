@@ -7,7 +7,7 @@ package com.sipk;
  */
 
 /**
- * Frame : Pasien Rawat Inap
+ * Panel : Pasien Rawat Inap
  */
 
 import java.awt.*;
@@ -81,7 +81,7 @@ public class pasien_rawat_inap extends JPanel{
 	JTabbedPane tabRawatInap = new JTabbedPane();
 	//Container konten = getContentPane();
 	JTable tabelPasienRawatInap = new JTable();
-	String fieldPasienRawatInap[] = {"No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan"}; 
+	String fieldPasienRawatInap[] = {"Kode RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan"}; 
 	DefaultTableModel modelTabelPasienRawatInap = new DefaultTableModel(null, fieldPasienRawatInap);
 	JScrollPane scrollTable = new JScrollPane();
 	JPanel masterTabel = new JPanel();
@@ -119,6 +119,16 @@ public class pasien_rawat_inap extends JPanel{
 	private JTextField txtPasPurna = new JTextField(3);
 	private JPanel PanelHP = new JPanel();
 	private JComboBox cmboPoliklinik = new JComboBox();
+	private JPanel panelPasienKeluar = new JPanel();
+	private JTable tabelPasienKeluar = new JTable();
+	private JScrollPane scrollTabelPasienKeluar = new JScrollPane();
+	String kolomTabelPasienKeluar[] = {"Kode RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan","tanggal Keluar","Lama"};
+	DefaultTableModel modelTabelPasienKeluar = new DefaultTableModel(null, kolomTabelPasienKeluar);
+	private Icon iconPasienKeluar = new ImageIcon(getClass().getResource("image/pasien-keluar.png"));
+	private JButton btnPasienKeluar = new JButton("Pasien Keluar",iconPasienKeluar);
+	private JLabel lblKodeRI = new JLabel("Kode Rawat Jalan : ");
+	private JTextField txtKodeRI = new JTextField();
+	
 	
 	/**
 	 * konstruktor kelas pasien_rawat_inap
@@ -183,9 +193,13 @@ public class pasien_rawat_inap extends JPanel{
 		lblDokter.setFont(tnr);
 		cmboDokter.setFont(tnr);
 		tanggalKeluar.setFont(tnr);
+		lblKodeRI.setFont(tnr);
+		txtKodeRI.setFont(tnr);
 		
 		masterRawatInap.setBorder(BorderFactory.createTitledBorder("Input Pasien Rawat Inap"));
-		masterRawatInap.setLayout(new GridLayout(15,2));
+		masterRawatInap.setLayout(new GridLayout(16,2));
+		masterRawatInap.add(lblKodeRI);
+		masterRawatInap.add(txtKodeRI);
 		masterRawatInap.add(lblno_reg);
 		masterRawatInap.add(txtNoRm);
 		masterRawatInap.add(lblnama_penderita);
@@ -247,7 +261,7 @@ public class pasien_rawat_inap extends JPanel{
 		masterRawatInap.add(lblKeterangan);
 		masterRawatInap.add(scrollKeterangan);
 		
-		//masterTombol.add(btnTambah);
+		masterTombol.add(btnPasienKeluar);
 		masterTombol.add(btnSimpan);
 		masterTombol.add(btnSimpanUbah);
 		masterTombol.add(btnBatal);
@@ -295,8 +309,15 @@ public class pasien_rawat_inap extends JPanel{
 		gabungTabeldanTombolEkstra.add(masterTombolEkstra);
 		gabungTabeldanTombolEkstra.setLayout(new GridLayout(2,0));
 		
-		tabRawatInap.addTab("Formulir Input", scrollPanelInput);
-		tabRawatInap.addTab("Result", gabungTabeldanTombolEkstra);
+		panelPasienKeluar.setLayout(new GridLayout(1,1));
+		tabelPasienKeluar.setModel(modelTabelPasienKeluar);
+		tabelPasienKeluar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollTabelPasienKeluar.getViewport().add(tabelPasienKeluar);
+		panelPasienKeluar.add(scrollTabelPasienKeluar);
+		
+		tabRawatInap.addTab("Input Rawat Inap", scrollPanelInput);
+		tabRawatInap.addTab("Pasien Rawat Inap", gabungTabeldanTombolEkstra);
+		tabRawatInap.addTab("Pasien Keluar", panelPasienKeluar);
 		
 		add(tabRawatInap);
 		
@@ -310,9 +331,11 @@ public class pasien_rawat_inap extends JPanel{
 		btnHapus.addActionListener(hendelButton);
 		btnSimpanUbah.addActionListener(hendelButton);
 		txtNoRm.addActionListener(hendelButton);
+		btnPasienKeluar.addActionListener(hendelButton);
 		
 		item();
 		tampilTabel();
+		tampilPasienKeluar();
 		kembali();
 		
 		//hasil pilih penyakit
@@ -1019,7 +1042,7 @@ public class pasien_rawat_inap extends JPanel{
 					connect = konek_database.getKonekDB();
 					connect.setAutoCommit(false);
 					
-					ps = connect.prepareStatement("insert into pasien_rawat_inap (no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan,tanggal_keluar,lama) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					ps = connect.prepareStatement("insert into pasien_rawat_inap (no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan) values(?,?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setString(1, txtNoRm.getText());
 					ps.setString(2, txtNamaPenderita.getText());
 					ps.setInt(3, Integer.parseInt(txtUmur.getText()));
@@ -1032,8 +1055,6 @@ public class pasien_rawat_inap extends JPanel{
 					ps.setString(10, (String) cmboDokter.getSelectedItem());
 					ps.setString(11, areaDiagnosa.getText());
 					ps.setString(12, areaKeterangan.getText());
-					ps.setString(13, (String) tanggalKeluar.getSelectedItem());
-					ps.setInt(14, Integer.parseInt(lblResultLama.getText()));
 					ps.executeUpdate();
 					
 					ps = connect.prepareStatement("insert into daftar_penyakit (no_rm,no_icd10,status_pasien) values (?,?,?)");
@@ -1092,15 +1113,15 @@ public class pasien_rawat_inap extends JPanel{
 			else if(e.getSource()==btnUbah)
 			{
 				tabRawatInap.setSelectedIndex(0);
-				btnTambah.setEnabled(false);
 				btnSimpan.setVisible(false);
+				btnSimpanUbah.setVisible(true);
 			}		
 			else if(e.getSource()==btnSimpanUbah)
 			{
 				try
 				{
 					connect = konek_database.getKonekDB();
-					ps = connect.prepareStatement("update pasien_rawat_inap set no_rm=? nama =?, umur=?, alamat=?,sttus_nikah=?,status_pasien=?,tanggal_masuk=?,ruang_perawatan=?,poli=?,nama_dokter=?,diagnosa=?,keterangan=? where no_rm = ?");
+					ps = connect.prepareStatement("update pasien_rawat_inap set no_rm=?, nama =?, umur=?, alamat=?,sttus_nikah=?,status_pasien=?,tanggal_masuk=?,ruang_perawatan=?,poli=?,nama_dokter=?,diagnosa=?,keterangan=?,tanggal_keluar=?,lama=? where kd_rawat_inap = ?");
 					
 					ps.setString(1, txtNoRm.getText());
 					ps.setString(2, txtNamaPenderita.getText());
@@ -1114,10 +1135,13 @@ public class pasien_rawat_inap extends JPanel{
 					ps.setString(10, (String) cmboDokter.getSelectedItem());
 					ps.setString(11, areaDiagnosa.getText());
 					ps.setString(12, areaKeterangan.getText());
-					ps.setString(14, txtNoRm.getText());
+					ps.setString(13, (String) tanggalKeluar.getSelectedItem());
+					ps.setInt(14, Integer.parseInt(lblResultLama.getText()));
+					ps.setString(15, txtKodeRI.getText());
 					ps.executeUpdate();
 					
 					JOptionPane.showMessageDialog(null, "Data berhasil diubah");
+					ps.close();
 					connect.close();
 				}
 				catch(Exception ex)
@@ -1127,8 +1151,8 @@ public class pasien_rawat_inap extends JPanel{
 				finally
 				{
 					tampilTabel();
-					kembali();
-					tabRawatInap.setSelectedIndex(1);
+					btnSimpanUbah.setVisible(false);
+					btnPasienKeluar.setVisible(true);
 				}
 			}
 			else if(e.getSource()==btnHapus)
@@ -1136,12 +1160,14 @@ public class pasien_rawat_inap extends JPanel{
 				try
 				{
 					connect = konek_database.getKonekDB();
-					ps = connect.prepareStatement("delete from pasien_rawat_inap where no_rm = ?");
+					ps = connect.prepareStatement("delete from pasien_rawat_inap where kd_rawat_inap = ?");
 					
-					ps.setInt(1, Integer.parseInt(txtNoRm.getText()));
+					ps.setInt(1, Integer.parseInt(txtKodeRI.getText()));
 					ps.executeUpdate();
 					
 					JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+					ps.close();
+					connect.close();
 				}
 				catch(Exception ex)
 				{
@@ -1156,6 +1182,33 @@ public class pasien_rawat_inap extends JPanel{
 			else if(e.getSource()==txtNoRm)
 			{
 				ambilPasien();
+			}
+			else if(e.getSource()==btnPasienKeluar)
+			{
+				try
+				{
+					connect = konek_database.getKonekDB();
+					ps = connect.prepareStatement("delete from pasien_rawat_inap where kd_rawat_inap = ?");
+					
+					ps.setInt(1, Integer.parseInt(txtKodeRI.getText()));
+					ps.executeUpdate();
+					
+					JOptionPane.showMessageDialog(null, "Data berhasil tersimpan");
+					ps.close();
+					connect.close();
+				}
+				catch(Exception ex)
+				{
+					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada btnPasienKeluar : "+ex.getMessage());
+				}
+				finally
+				{
+				tampilTabel();
+				tampilHP();
+				tampilPasienKeluar();
+				kembali();
+				tabRawatInap.setSelectedIndex(2);
+				}
 			}
 		}
 	}
@@ -1194,6 +1247,29 @@ public class pasien_rawat_inap extends JPanel{
 	//modul membersihkan panel pasien rawat inap
 	void kembali()
 	{
+		 //pembuatan kode rawat inap otomatis
+		txtKodeRI.setEditable(false);
+		try
+		{
+			connect = konek_database.getKonekDB();
+			state = connect.createStatement();
+			result = state.executeQuery("select kd_rawat_inap from pasien_rawat_inap order by kd_rawat_inap desc");
+			
+			if(result.next())
+			{
+				int i = result.getInt(1) + 1;
+				txtKodeRI.setText(Integer.toString(i));
+			}
+			else
+			{
+				txtKodeRI.setText("1");
+			}
+			
+		}catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada pembuatan kode otomatis : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 		//lblResultLama.setText("");
 		txtNamaPenderita.setText("");
 		//areaAlamat.setText("");
@@ -1221,6 +1297,7 @@ public class pasien_rawat_inap extends JPanel{
 		tabelPasienRawatInap.clearSelection();
 		tampilHP();
 		cmboPoliklinik.setSelectedIndex(0);
+		btnPasienKeluar.setVisible(false);
 	}
 	
 	//tampil isi tabel pasien rawat inap
@@ -1233,23 +1310,24 @@ public class pasien_rawat_inap extends JPanel{
 		{
 			connect = konek_database.getKonekDB();
 			state = connect.createStatement();
-			result = state.executeQuery("select no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan from pasien_rawat_inap");
+			result = state.executeQuery("select kd_rawat_inap,no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan from pasien_rawat_inap");
 			
 			while(result.next())
 			{
-				Object obj[] = new Object[12];
-				obj[0] = result.getString(1);
+				Object obj[] = new Object[13];
+				obj[0] = result.getInt(1);
 				obj[1] = result.getString(2);
-				obj[2] = result.getInt(3);
-				obj[3] = result.getString(4);
+				obj[2] = result.getString(3);
+				obj[3] = result.getInt(4);
 				obj[4] = result.getString(5);
 				obj[5] = result.getString(6);
-				obj[6] = result.getDate(7);
-				obj[7] = result.getString(8);
+				obj[6] = result.getString(7);
+				obj[7] = result.getDate(8);
 				obj[8] = result.getString(9);
 				obj[9] = result.getString(10);
 				obj[10] = result.getString(11);
 				obj[11] = result.getString(12);
+				obj[12] = result.getString(13);
 				
 				modelTabelPasienRawatInap.addRow(obj);
 			}
@@ -1487,30 +1565,7 @@ public class pasien_rawat_inap extends JPanel{
 		**/
 
 		
-		/**
-		 * pembuatan kode otomatis
-		 
-		try
-		{
-			connect = konek_database.getKonekDB();
-			state = connect.createStatement();
-			result = state.executeQuery("select no_reg from pasien_rawat_inap order by no_reg desc");
-			
-			if(result.next())
-			{
-				int i = result.getInt(1) + 1;
-				txtNoRm.setText(Integer.toString(i));
-			}
-			else
-			{
-				txtNoRm.setText("1");
-			}
-			
-		}catch(Exception ex)
-		{
-			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada pembuatan kode otomatis : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
-		}
-		**/
+		
 		
 		/**
 		comboUmur.addItem("-- Pilih Tahun --");
@@ -1531,41 +1586,81 @@ public class pasien_rawat_inap extends JPanel{
 	{
 		int i = tabelPasienRawatInap.getSelectedRow();
 		
-		String ambilNoRm = (String) modelTabelPasienRawatInap.getValueAt(i, 0);
+		int ambilKdRI = (int) modelTabelPasienRawatInap.getValueAt(i, 0);
+		txtKodeRI.setText(""+ambilKdRI);
+		
+		String ambilNoRm = (String) modelTabelPasienRawatInap.getValueAt(i, 1);
 		txtNoRm.setText(ambilNoRm);
 		
-		String ambilNamaPasien = (String) modelTabelPasienRawatInap.getValueAt(i, 1);
+		String ambilNamaPasien = (String) modelTabelPasienRawatInap.getValueAt(i, 2);
 		txtNamaPenderita.setText(ambilNamaPasien);
 		
-		int ambilUmur = (int) modelTabelPasienRawatInap.getValueAt(i, 2);
+		int ambilUmur = (int) modelTabelPasienRawatInap.getValueAt(i, 3);
 		txtUmur.setText(""+ambilUmur);
 		
-		String ambilAlamat = (String) modelTabelPasienRawatInap.getValueAt(i, 3);
+		String ambilAlamat = (String) modelTabelPasienRawatInap.getValueAt(i, 4);
 		txtAlamat.setText(ambilAlamat);
 		
-		String ambilStatus = (String) modelTabelPasienRawatInap.getValueAt(i, 4);
+		String ambilStatus = (String) modelTabelPasienRawatInap.getValueAt(i, 5);
 		comboStatus.setSelectedItem(ambilStatus);
 		
-		String ambilStatusPasien = (String) modelTabelPasienRawatInap.getValueAt(i, 5);
+		String ambilStatusPasien = (String) modelTabelPasienRawatInap.getValueAt(i, 6);
 		cmboStatusPasien.setSelectedItem(ambilStatusPasien);
 		
-		Date ambilTanggalMasuk = (Date) modelTabelPasienRawatInap.getValueAt(i, 6);
+		Date ambilTanggalMasuk = (Date) modelTabelPasienRawatInap.getValueAt(i, 7);
 		tanggalMasuk.setDate(ambilTanggalMasuk);
 		
-		String ambilRuangPerawatan = (String) modelTabelPasienRawatInap.getValueAt(i, 7);
+		String ambilRuangPerawatan = (String) modelTabelPasienRawatInap.getValueAt(i, 8);
 		cmboRuangInap.setSelectedItem(ambilRuangPerawatan);
 		
-		String ambilPoli = (String) modelTabelPasienRawatInap.getValueAt(i, 8);
+		String ambilPoli = (String) modelTabelPasienRawatInap.getValueAt(i, 9);
 		cmboPoli.setSelectedItem(ambilPoli);
 		
-		String ambilDokter = (String) modelTabelPasienRawatInap.getValueAt(i, 9);
+		String ambilDokter = (String) modelTabelPasienRawatInap.getValueAt(i, 10);
 		cmboDokter.setSelectedItem(ambilDokter);
 		
-		String ambilDiagnosa = (String) modelTabelPasienRawatInap.getValueAt(i, 10);
+		String ambilDiagnosa = (String) modelTabelPasienRawatInap.getValueAt(i, 11);
 		areaDiagnosa.setText(ambilDiagnosa);
 		
-		String ambilKeterangan = (String) modelTabelPasienRawatInap.getValueAt(i, 11);
+		String ambilKeterangan = (String) modelTabelPasienRawatInap.getValueAt(i, 12);
 		areaKeterangan.setText(ambilKeterangan);
+	}
+	
+	private void tampilPasienKeluar()
+	{
+		modelTabelPasienKeluar.getDataVector().removeAllElements();
+		modelTabelPasienRawatInap.fireTableDataChanged();
+		try
+		{
+			connect = konek_database.getKonekDB();
+			Statement state = connect.createStatement();
+			ResultSet result = state.executeQuery("select * from pasien_rawat_inap_keluar where not tanggal_keluar is null");
+			while(result.next())
+			{
+				Object obj[] = new Object[15];
+				obj[0] = result.getInt(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getString(3);
+				obj[3] = result.getInt(4);
+				obj[4] = result.getString(5);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				obj[7] = result.getDate(8);
+				obj[8] = result.getString(9);
+				obj[9] = result.getString(10);
+				obj[10] = result.getString(11);
+				obj[11] = result.getString(12);
+				obj[12] = result.getString(13);
+				obj[13] = result.getDate(14);
+				obj[14] = result.getInt(15);
+				
+				modelTabelPasienKeluar.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tampilPasienKeluar : "+ex.getMessage());
+		}
 	}
 	
 

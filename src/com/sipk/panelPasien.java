@@ -406,7 +406,7 @@ public class panelPasien extends JPanel {
 		
 		bntEksekusiUbah = new JButton("Ubah");
 		bntEksekusiUbah.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Ubah.png")));
-		bntEksekusiUbah.setBounds(806, 513, 99, 43);
+		bntEksekusiUbah.setBounds(1053, 458, 99, 43);
 		bntEksekusiUbah.setEnabled(false);
 		panel.add(bntEksekusiUbah);
 		

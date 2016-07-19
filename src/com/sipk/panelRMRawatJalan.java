@@ -65,7 +65,7 @@ public class panelRMRawatJalan extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Nama", "Umur", "No. Reg", "No. RM", "Poliklinik", "Tanggal", "Jam", "Therapi", "TTD / ID Dokter"
+				"Kode RJ", "Nama", "Umur", "No. Reg", "No. RM", "Status Pasien", "Poliklinik", "Tanggal", "Jam", "Therapi", "TTD / ID Dokter"
 			}
 		);
 	private JButton btnUbah;
@@ -74,6 +74,9 @@ public class panelRMRawatJalan extends JPanel {
 	private JTabbedPane tabbedPane;
 	private JComboBox cmboStatusPasien;
 	private DefaultListModel modelListMacamPenyakit = new DefaultListModel();
+	private JTextField txtNoRJ;
+	private JButton btnRefresh2;
+	private JButton btnEksekusiUbah;
 
 	/**
 	 * Create the panel.
@@ -90,12 +93,12 @@ public class panelRMRawatJalan extends JPanel {
 		panelTabelRMRJ.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 92, 1180, 506);
+		scrollPane_2.setBounds(33, 92, 1180, 506);
 		panelTabelRMRJ.add(scrollPane_2);
 		
 		table = new JTable();
 		table.setModel(modelTabelRMRJ);
-		table.getColumnModel().getColumn(8).setPreferredWidth(126);
+		table.getColumnModel().getColumn(10).setPreferredWidth(126);
 		table.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent e)
@@ -167,27 +170,27 @@ public class panelRMRawatJalan extends JPanel {
 		//TimeFormat formatJam = new SimpleTimeFormat();
 		txtJam = new JFormattedTextField();
 		txtJam.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtJam.setBounds(1198, 44, 127, 29);
+		txtJam.setBounds(1214, 44, 127, 29);
 		panel.add(txtJam);
 		
 		JLabel lblJam = new JLabel("Jam :");
-		lblJam.setBounds(1123, 44, 46, 29);
+		lblJam.setBounds(1139, 44, 46, 29);
 		panel.add(lblJam);
 		lblJam.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
 		JLabel lblTanggal_1 = new JLabel("Tanggal :");
-		lblTanggal_1.setBounds(1123, 11, 69, 29);
+		lblTanggal_1.setBounds(1139, 11, 69, 29);
 		panel.add(lblTanggal_1);
 		lblTanggal_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtTanggal = new JFormattedTextField(df);
 		txtTanggal.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtTanggal.setBounds(1198, 11, 127, 29);
+		txtTanggal.setBounds(1214, 11, 127, 29);
 		txtTanggal.setValue(new Date());
 		panel.add(txtTanggal);
 		
 		cmboPoli = new JComboBox();
 		cmboPoli.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboPoli.setBounds(137, 152, 171, 29);
+		cmboPoli.setBounds(965, 84, 171, 29);
 		cmboPoli.addItem("-- Pilih Poli --");
 		cmboPoli.addItem("Gigi");
 		cmboPoli.addItem("Mata");
@@ -218,7 +221,7 @@ public class panelRMRawatJalan extends JPanel {
 		panel.add(cmboPoli);
 		
 		JLabel lblTanggal = new JLabel("Poli :");
-		lblTanggal.setBounds(62, 152, 46, 29);
+		lblTanggal.setBounds(847, 85, 46, 29);
 		panel.add(lblTanggal);
 		lblTanggal.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
@@ -252,23 +255,23 @@ public class panelRMRawatJalan extends JPanel {
 		
 		txtUmur = new JTextField();
 		txtUmur.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtUmur.setBounds(137, 115, 46, 29);
+		txtUmur.setBounds(140, 152, 46, 29);
 		panel.add(txtUmur);
 		txtUmur.setColumns(10);
 		
 		JLabel lblUmur = new JLabel("Umur :");
-		lblUmur.setBounds(62, 115, 65, 29);
+		lblUmur.setBounds(65, 152, 65, 29);
 		panel.add(lblUmur);
 		lblUmur.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
 		JLabel lblNama = new JLabel("Nama :");
-		lblNama.setBounds(62, 83, 65, 31);
+		lblNama.setBounds(65, 120, 65, 31);
 		panel.add(lblNama);
 		lblNama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
 		txtNama = new JTextField();
 		txtNama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtNama.setBounds(137, 85, 259, 29);
+		txtNama.setBounds(140, 122, 259, 29);
 		panel.add(txtNama);
 		txtNama.setColumns(10);
 		
@@ -323,28 +326,28 @@ public class panelRMRawatJalan extends JPanel {
 		
 		btnCariDokter = new JButton("Cari");
 		btnCariDokter.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Cari.png")));
-		btnCariDokter.setBounds(1063, 88, 89, 39);
+		btnCariDokter.setBounds(1061, 127, 89, 39);
 		panel.add(btnCariDokter);
 		
 		txtCariDokter = new JTextField();
 		txtCariDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtCariDokter.setBounds(967, 85, 86, 29);
+		txtCariDokter.setBounds(965, 124, 86, 29);
 		panel.add(txtCariDokter);
 		txtCariDokter.setColumns(10);
 		
 		JLabel lblNoIdDokter = new JLabel("No. ID Dokter :");
-		lblNoIdDokter.setBounds(849, 87, 104, 23);
+		lblNoIdDokter.setBounds(847, 126, 104, 23);
 		panel.add(lblNoIdDokter);
 		lblNoIdDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
 		lblDokter = new JLabel();
 		lblDokter.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblDokter.setBounds(929, 134, 396, 29);
+		lblDokter.setBounds(922, 173, 396, 29);
 		panel.add(lblDokter);
 		
 		JLabel lblDokter_1 = new JLabel("Dokter :");
 		lblDokter_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblDokter_1.setBounds(849, 140, 65, 23);
+		lblDokter_1.setBounds(847, 179, 65, 23);
 		panel.add(lblDokter_1);
 		
 		JLabel lblStatusPasien = new JLabel("Status Pasien :");
@@ -365,6 +368,30 @@ public class panelRMRawatJalan extends JPanel {
 		cmboStatusPasien.addItem("BPJS");
 		panel.add(cmboStatusPasien);
 		
+		JLabel lblNoRj = new JLabel("No. RJ :");
+		lblNoRj.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNoRj.setBounds(65, 82, 65, 31);
+		panel.add(lblNoRj);
+		
+		txtNoRJ = new JTextField();
+		txtNoRJ.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		txtNoRJ.setColumns(10);
+		txtNoRJ.setBounds(140, 84, 69, 29);
+		txtNoRJ.setEditable(false);
+		panel.add(txtNoRJ);
+		
+		btnEksekusiUbah = new JButton("Ubah");
+		btnEksekusiUbah.setEnabled(false);
+		btnEksekusiUbah.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnEksekusiUbah.setBounds(924, 273, 104, 39);
+		panel.add(btnEksekusiUbah);
+		
+		btnRefresh2 = new JButton("Refresh");
+		btnRefresh2.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh2.setBounds(1224, 113, 104, 39);
+		panel.add(btnRefresh2);
+		
+		
 		penghendel hendel = new penghendel();
 		btnCari.addActionListener(hendel);
 		btnDiagnose.addActionListener(hendel);
@@ -374,17 +401,41 @@ public class panelRMRawatJalan extends JPanel {
 		btnRefresh.addActionListener(hendel);
 		btnUbah.addActionListener(hendel);
 		btnHapus.addActionListener(hendel);
+		btnEksekusiUbah.addActionListener(hendel);
+		btnRefresh2.addActionListener(hendel);
 		
-		ambilDataMacamPenyakit();
-		membuatJam();
-		tampilTabelRMRJ();
-		
+		bersihPanelRMRJ();
 	}
 	
 	private void bersihPanelRMRJ()
 	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select no_rj from rm_pasien_rawat_jalan order by no_rj desc");
+			
+			if(result.next())
+			{
+				int i = result.getInt(1) + 1;
+				txtNoRJ.setText(""+i);
+			}
+			else
+			{
+				txtNoRJ.setText("1");
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada model no_rj otomatis : "+ex.getMessage());
+		}
+		ambilDataMacamPenyakit();
+		membuatJam();
+		tampilTabelRMRJ();
+		btnSimpan.setEnabled(true);
 		btnHapus.setEnabled(false);
 		btnUbah.setEnabled(false);
+		btnEksekusiUbah.setEnabled(false);
 		table.clearSelection();
 		txtCariDokter.setText("");
 		txtDtd.setText("");
@@ -399,7 +450,6 @@ public class panelRMRawatJalan extends JPanel {
 		txtTanggal.setValue(new Date());
 		lblDokter.setText("");
 		//listPenyakit.
-		membuatJam();
 		modelListMacamPenyakit.clear();
 		cmboStatusPasien.setSelectedIndex(0);
 	}
@@ -450,7 +500,7 @@ public class panelRMRawatJalan extends JPanel {
 	}
 	
 	
-	private void ambilDataMacamPenyakit() 
+	public void ambilDataMacamPenyakit() 
 	{
 		cmboMacamPenyakit.removeAllItems();
 		cmboMacamPenyakit.addItem("-- Pilih Macam Penyakit --");
@@ -548,7 +598,7 @@ public class panelRMRawatJalan extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into rm_pasien_rawat_jalan (no_reg,no_rm,nama, umur,poli,tanggal,jam,terapi,no_id) values (?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into rm_pasien_rawat_jalan (no_reg,no_rm,nama, umur,poli,tanggal,jam,terapi,no_id,status_pasien) values (?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, txtNoReg.getText());
 			ps.setString(2, txtNoRm.getText());
 			ps.setString(3, txtNama.getText());
@@ -558,11 +608,12 @@ public class panelRMRawatJalan extends JPanel {
 			ps.setString(7, txtJam.getText());
 			ps.setString(8, txtTherapi.getText());
 			ps.setString(9, txtCariDokter.getText());
+			ps.setString(10, (String) cmboStatusPasien.getSelectedItem());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil tersimpan !");
-			konek.close();
 			ps.close();
+			konek.close();
 		}
 		catch(Exception ex)
 		{
@@ -648,20 +699,22 @@ public class panelRMRawatJalan extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select * from rm_pasien_rawat_jalan");
+			ResultSet result = state.executeQuery("select no_rj,nama,umur,no_reg,no_rm,status_pasien,poli,tanggal,jam,terapi,no_id from rm_pasien_rawat_jalan");
 			
 			while(result.next())
 			{
-				Object obj[] = new Object[9];
-				obj[0] = result.getString(1);
-				obj[1] = result.getInt(2);
-				obj[2] = result.getString(3);
+				Object obj[] = new Object[11];
+				obj[0] = result.getInt(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getInt(3);
 				obj[3] = result.getString(4);
 				obj[4] = result.getString(5);
-				obj[5] = result.getDate(6);
-				obj[6] = result.getTime(7);
-				obj[7] = result.getString(8);
-				obj[8] = result.getString(9);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				obj[7] = result.getDate(8);
+				obj[8] = result.getTime(9);
+				obj[9] = result.getString(10);
+				obj[10] = result.getString(11);
 				
 				modelTabelRMRJ.addRow(obj);
 				
@@ -675,7 +728,39 @@ public class panelRMRawatJalan extends JPanel {
 		{
 			
 		}
-		
+	}
+	
+	private void ubahRMRJ()
+	{
+		try
+		{
+			konek = konek_database.getKonekDB();
+			PreparedStatement ps = konek.prepareStatement("update rm_pasien_rawat_jalan set nama=?,umur=?,no_reg=?,no_rm=?,poli=?,tanggal=?,jam=?,terapi=?,no_id=?,status_pasien=? where no_rj=?");
+			ps.setString(1, txtNama.getText());
+			ps.setInt(2, Integer.parseInt(txtUmur.getText()));
+			ps.setString(3, txtNoReg.getText());
+			ps.setString(4, txtNoRm.getText());
+			ps.setString(5, (String) cmboPoli.getSelectedItem());
+			ps.setString(6, txtTanggal.getText());
+			ps.setString(7, txtJam.getText());
+			ps.setString(8, txtTherapi.getText());
+			ps.setString(9, txtCariDokter.getText());
+			ps.setString(10, (String) cmboStatusPasien.getSelectedItem());
+			ps.setInt(11, Integer.parseInt(txtNoRJ.getText()));
+			ps.executeUpdate();
+			
+			JOptionPane.showMessageDialog(null, "Data berhasil diubah !");
+			ps.close();
+			konek.close();
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul ubahRMRJ : "+ex.getMessage());
+		}
+		finally
+		{
+			bersihPanelRMRJ();
+		}
 	}
 	
 	private void hapusRMRJ()
@@ -683,8 +768,8 @@ public class panelRMRawatJalan extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("delete from rm_pasien_rawat_jalan where no_reg=?");
-			ps.setString(1, txtNoReg.getText());
+			PreparedStatement ps = konek.prepareStatement("delete from rm_pasien_rawat_jalan where no_rj=?");
+			ps.setString(1, txtNoRJ.getText());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil dihapus !");
@@ -703,31 +788,37 @@ public class panelRMRawatJalan extends JPanel {
 	{
 		int i = table.getSelectedRow();
 		
-		String ambilNama = (String) modelTabelRMRJ.getValueAt(i, 0);
+		int ambilKodeRJ = (int) modelTabelRMRJ.getValueAt(i, 0);
+		txtNoRJ.setText(""+ambilKodeRJ);
+		
+		String ambilNama = (String) modelTabelRMRJ.getValueAt(i, 1);
 		txtNama.setText(ambilNama);
 		
-		int ambilUmur = (int) modelTabelRMRJ.getValueAt(i, 1);
+		int ambilUmur = (int) modelTabelRMRJ.getValueAt(i, 2);
 		txtUmur.setText(""+ambilUmur);
 		
-		String ambilNoReg = (String) modelTabelRMRJ.getValueAt(i, 2);
+		String ambilNoReg = (String) modelTabelRMRJ.getValueAt(i, 3);
 		txtNoReg.setText(ambilNoReg);
 		
-		String ambilNoRm = (String) modelTabelRMRJ.getValueAt(i, 3);
+		String ambilNoRm = (String) modelTabelRMRJ.getValueAt(i, 4);
 		txtNoRm.setText(ambilNoRm);
 		
-		String ambilPoli = (String) modelTabelRMRJ.getValueAt(i, 4);
+		String ambilStatusPasien = (String) modelTabelRMRJ.getValueAt(i, 5);
+		cmboStatusPasien.setSelectedItem(ambilStatusPasien);
+		
+		String ambilPoli = (String) modelTabelRMRJ.getValueAt(i, 6);
 		cmboPoli.setSelectedItem(ambilPoli);
 		
-		Date ambilTanggal = (Date) modelTabelRMRJ.getValueAt(i, 5);
+		Date ambilTanggal = (Date) modelTabelRMRJ.getValueAt(i, 7);
 		txtTanggal.setText(""+ambilTanggal);
 		
-		Time ambilJam = (Time) modelTabelRMRJ.getValueAt(i, 6);
+		Time ambilJam = (Time) modelTabelRMRJ.getValueAt(i, 8);
 		txtJam.setText(""+ambilJam);
 		
-		String ambilTerapi = (String) modelTabelRMRJ.getValueAt(i, 7);
+		String ambilTerapi = (String) modelTabelRMRJ.getValueAt(i, 9);
 		txtTherapi.setText(ambilTerapi);
 		
-		String ambilDokter = (String) modelTabelRMRJ.getValueAt(i, 8);
+		String ambilDokter = (String) modelTabelRMRJ.getValueAt(i, 10);
 		txtCariDokter.setText(ambilDokter);
 	}
 	
@@ -790,13 +881,48 @@ public class panelRMRawatJalan extends JPanel {
 			}
 			else if(e.getSource()==btnUbah)
 			{
+				btnSimpan.setEnabled(false);
+				btnEksekusiUbah.setEnabled(true);
 				tabbedPane.setSelectedIndex(1);
+				try
+				{
+					String nama_dokter = "";
+					konek = konek_database.getKonekDB();
+					Statement state = konek.createStatement();
+					ResultSet resultPenyakit = state.executeQuery("select no_icd10 from daftar_penyakit where no_rm="+txtNoRm.getText()+"");
+					while(resultPenyakit.next())
+					{
+						String i = resultPenyakit.getString(1);
+						modelListMacamPenyakit.addElement(i);
+					}
+					
+					ResultSet result = state.executeQuery("select nama_dokter from dokter where no_id like '%"+txtCariDokter.getText()+"%'");
+					
+					if(result.next())
+					{
+						nama_dokter = result.getString(1);
+					}
+					
+					lblDokter.setText(nama_dokter);
+				}
+				catch(Exception ex)
+				{
+					JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada btnUbah : "+ex.getMessage());
+				}
 			}
 			else if(e.getSource()==btnHapus)
 			{
 				hapusRMRJ();
 			}
 			else if(e.getSource()==btnRefresh)
+			{
+				bersihPanelRMRJ();
+			}
+			else if(e.getSource()==btnEksekusiUbah)
+			{
+				ubahRMRJ();
+			}
+			else if(e.getSource()==btnRefresh2)
 			{
 				bersihPanelRMRJ();
 			}

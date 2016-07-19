@@ -415,12 +415,7 @@ public class panelUser extends JPanel {
 			
 		}
 			
-			
-		
-		
-		
-	
-	
+
 	public void clear()
 	{
 		txtNama.setText("");

@@ -105,7 +105,7 @@ public class hal_utama extends JFrame {
 		toolBar.setBounds(0, 22, 1350, 65);
 		contentPane.add(toolBar);
 		
-		btnDaftarPasien = new JButton("Daftar Pasien");
+		btnDaftarPasien = new JButton("Daftar Pengunjung");
 		btnDaftarPasien.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/buku-daftar.png")));
 		btnDaftarPasien.setEnabled(false);
 		toolBar.add(btnDaftarPasien);
@@ -123,7 +123,7 @@ public class hal_utama extends JFrame {
 		toolBar.add(btnDokter);
 		toolBar.addSeparator();
 		
-		btnRawatJalan = new JButton("Rawat Jalan");
+		btnRawatJalan = new JButton("Pemeriksaan");
 		btnRawatJalan.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/rawat-jalan.png")));
 		btnRawatJalan.setEnabled(false);
 		toolBar.add(btnRawatJalan);
@@ -171,8 +171,8 @@ public class hal_utama extends JFrame {
 		panelMasuk.setLayout(null);
 		
 		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Bookman Old Style", Font.BOLD, 17));
-		lblLogin.setBounds(680, 181, 69, 29);
+		lblLogin.setFont(new Font("Bookman Old Style", Font.BOLD, 27));
+		lblLogin.setBounds(656, 174, 111, 35);
 		panelMasuk.add(lblLogin);
 		
 		JLabel lblNewLabel_1 = new JLabel("Username");
@@ -254,8 +254,6 @@ public class hal_utama extends JFrame {
 		btnRawatInap.addActionListener(hendel);
 		
 		tampilKunjungan = new panelLaporan();
-		
-
 
 	}
 	
@@ -296,7 +294,6 @@ public class hal_utama extends JFrame {
 				btnLaporan.setEnabled(true);
 				btnRawatInap.setEnabled(true);
 				btnRawatJalan.setEnabled(true);
-				btnPembayaran.setEnabled(true);
 			}
 			else if(level == "Dokter")
 			{
@@ -508,7 +505,6 @@ public class hal_utama extends JFrame {
 				panel.removeAll();
 				panel.repaint();
 				panel.revalidate();
-				
 				panel.add(objRMRawatJalan);
 				panel.repaint();
 				panel.revalidate();

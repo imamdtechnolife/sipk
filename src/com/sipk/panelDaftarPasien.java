@@ -184,12 +184,12 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(lblDaftarPasien);
 		lblDaftarPasien.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		
-		JLabel lblTanggal = new JLabel("Tanggal");
+		JLabel lblTanggal = new JLabel("Tanggal :");
 		lblTanggal.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblTanggal.setBounds(44, 111, 88, 20);
 		panelDaftarKunjungan.add(lblTanggal);
 		
-		JLabel lblNoUrut = new JLabel("No. Urut");
+		JLabel lblNoUrut = new JLabel("No. Urut :");
 		lblNoUrut.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblNoUrut.setBounds(43, 157, 88, 14);
 		panelDaftarKunjungan.add(lblNoUrut);
@@ -200,7 +200,7 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(txtNoUrut);
 		txtNoUrut.setColumns(10);
 		
-		JLabel lblNoCm = new JLabel("No. CM");
+		JLabel lblNoCm = new JLabel("No. CM :");
 		lblNoCm.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblNoCm.setBounds(43, 196, 88, 14);
 		panelDaftarKunjungan.add(lblNoCm);
@@ -211,9 +211,9 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(txtNoCM);
 		txtNoCM.setColumns(10);
 		
-		JLabel lblNama = new JLabel("Nama");
+		JLabel lblNama = new JLabel("Nama :");
 		lblNama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNama.setBounds(43, 237, 46, 14);
+		lblNama.setBounds(43, 237, 61, 14);
 		panelDaftarKunjungan.add(lblNama);
 		
 		txtNama = new JTextField();
@@ -222,9 +222,9 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(txtNama);
 		txtNama.setColumns(10);
 		
-		JLabel lblUmur = new JLabel("Umur");
+		JLabel lblUmur = new JLabel("Umur :");
 		lblUmur.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblUmur.setBounds(43, 279, 46, 14);
+		lblUmur.setBounds(43, 279, 61, 14);
 		panelDaftarKunjungan.add(lblUmur);
 		
 		txtUmur = new JTextField();
@@ -233,7 +233,7 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(txtUmur);
 		txtUmur.setColumns(10);
 		
-		JLabel lblJenisKelamin = new JLabel("Jenis Kelamin");
+		JLabel lblJenisKelamin = new JLabel("Jenis Kelamin :");
 		lblJenisKelamin.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblJenisKelamin.setBounds(43, 324, 119, 14);
 		panelDaftarKunjungan.add(lblJenisKelamin);
@@ -246,7 +246,7 @@ public class panelDaftarPasien extends JPanel {
 		cmboJK.addItem("Perempuan");
 		panelDaftarKunjungan.add(cmboJK);
 		
-		JLabel lblPangkat = new JLabel("Pangkat");
+		JLabel lblPangkat = new JLabel("Pangkat :");
 		lblPangkat.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblPangkat.setBounds(582, 141, 88, 20);
 		panelDaftarKunjungan.add(lblPangkat);
@@ -257,7 +257,7 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(cmboPangkat);
 		cmboPangkat.setEnabled(false);
 		
-		JLabel lblStatus = new JLabel("Status");
+		JLabel lblStatus = new JLabel("Status :");
 		lblStatus.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblStatus.setBounds(582, 108, 129, 14);
 		panelDaftarKunjungan.add(lblStatus);
@@ -296,7 +296,7 @@ public class panelDaftarPasien extends JPanel {
 		});
 		
 		
-		JLabel lblSatuan = new JLabel("Satuan");
+		JLabel lblSatuan = new JLabel("Satuan :");
 		lblSatuan.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblSatuan.setBounds(582, 184, 88, 14);
 		panelDaftarKunjungan.add(lblSatuan);
@@ -310,14 +310,14 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(cmboSatuan);
 		cmboSatuan.setEnabled(false);
 		
-		JLabel lblBagianYangDikunjungi = new JLabel("Bagian Yang dikunjungi");
+		JLabel lblBagianYangDikunjungi = new JLabel("Bagian Yang dikunjungi :");
 		lblBagianYangDikunjungi.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblBagianYangDikunjungi.setBounds(582, 220, 186, 20);
+		lblBagianYangDikunjungi.setBounds(582, 332, 186, 20);
 		panelDaftarKunjungan.add(lblBagianYangDikunjungi);
 		
 		cmboBagian = new JComboBox();
 		cmboBagian.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		cmboBagian.setBounds(778, 217, 197, 29);
+		cmboBagian.setBounds(778, 329, 197, 29);
 		cmboBagian.addItem("-- Pilih Bagian --");
 		cmboBagian.addItem("Poli Gigi");
 		cmboBagian.addItem("Poli Mata");
@@ -327,19 +327,19 @@ public class panelDaftarPasien extends JPanel {
 		cmboBagian.addItem("Poli Urologi");
 		panelDaftarKunjungan.add(cmboBagian);
 		
-		JLabel lblDiagnosa = new JLabel("Diagnosa");
+		JLabel lblDiagnosa = new JLabel("Diagnosa :");
 		lblDiagnosa.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblDiagnosa.setBounds(582, 259, 88, 20);
+		lblDiagnosa.setBounds(582, 219, 88, 20);
 		panelDaftarKunjungan.add(lblDiagnosa);
 		
-		JLabel lblKeterangan = new JLabel("Keterangan");
+		JLabel lblKeterangan = new JLabel("Keterangan :");
 		lblKeterangan.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblKeterangan.setBounds(582, 369, 88, 17);
+		lblKeterangan.setBounds(582, 375, 103, 17);
 		panelDaftarKunjungan.add(lblKeterangan);
 		
 		txtKeterangan = new JTextField();
 		txtKeterangan.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		txtKeterangan.setBounds(778, 366, 247, 29);
+		txtKeterangan.setBounds(778, 372, 247, 29);
 		panelDaftarKunjungan.add(txtKeterangan);
 		txtKeterangan.setColumns(10);
 		
@@ -359,7 +359,7 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(778, 257, 284, 100);
+		scrollPane.setBounds(778, 217, 284, 100);
 		panelDaftarKunjungan.add(scrollPane);
 		
 		txtDiagnosa = new JTextArea();
@@ -395,7 +395,6 @@ public class panelDaftarPasien extends JPanel {
 		penghendel hendel = new penghendel();
 		btnSimpan.addActionListener(hendel);
 		btnBatal.addActionListener(hendel);
-		btnCariNama.addActionListener(hendel);
 		btnCariBerdasarTanggal.addActionListener(hendel);
 		btnRefresh.addActionListener(hendel);
 		btnUbah.addActionListener(hendel);
@@ -403,6 +402,8 @@ public class panelDaftarPasien extends JPanel {
 		btnHapus.addActionListener(hendel);
 		btnDaftarUlang.addActionListener(hendel);
 		btnEksekusiDaftarUlang.addActionListener(hendel);
+		txtCariNama.addActionListener(hendel);
+		btnCariNama.addActionListener(hendel);
 		
 
 	}
@@ -487,6 +488,7 @@ public class panelDaftarPasien extends JPanel {
 		btnBatal.setEnabled(true);
 		table.clearSelection();
 		buatNoUrutOtomatis();
+
 	}
 	
 	//metode pencarian nama pasien
@@ -839,6 +841,10 @@ public class panelDaftarPasien extends JPanel {
 			else if(e.getSource()==btnEksekusiDaftarUlang)
 			{
 				simpanKunjunganUlang();
+			}
+			else if(e.getSource()==txtCariNama)
+			{
+				cariNama();
 			}
 		}
 	}
