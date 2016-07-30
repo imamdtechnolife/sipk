@@ -297,7 +297,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_macampenyakit_dan_jumlah.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_macampenyakit_dan_jumlah.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -318,7 +318,7 @@ public class panelLaporan extends JPanel {
 		
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_10macampenyakit.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_10macampenyakit.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -338,7 +338,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_10macampenyakit_gigidanmulut.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_10macampenyakit_gigidanmulut.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -357,7 +357,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/src/com/sipk/Laporan Rawat Jalan.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/Laporan Rawat Jalan.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -376,7 +376,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/user/Dropbox/Eclipse Workbench/sipk/lap_rawat_inap.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_rawat_inap.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);

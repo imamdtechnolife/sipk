@@ -89,7 +89,7 @@ public class panelRMRawatJalan extends JPanel {
 		add(tabbedPane);
 		
 		JPanel panelTabelRMRJ = new JPanel();
-		tabbedPane.addTab("Tabel Rekam Medis Pasien Rawat Jalan", null, panelTabelRMRJ, null);
+		tabbedPane.addTab("Review Rekam Medis Pasien Rawat Jalan", null, panelTabelRMRJ, null);
 		panelTabelRMRJ.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -110,9 +110,9 @@ public class panelRMRawatJalan extends JPanel {
 		});
 		scrollPane_2.setViewportView(table);
 		
-		JLabel lblTabelRekamMedis = new JLabel("Tabel Rekam Medis Pasien Rawat Jalan");
+		JLabel lblTabelRekamMedis = new JLabel("Review Rekam Medis Pasien Rawat Jalan");
 		lblTabelRekamMedis.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		lblTabelRekamMedis.setBounds(23, 11, 557, 40);
+		lblTabelRekamMedis.setBounds(23, 11, 607, 40);
 		panelTabelRMRJ.add(lblTabelRekamMedis);
 		
 		btnUbah = new JButton("Ubah");

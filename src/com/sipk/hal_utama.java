@@ -105,7 +105,7 @@ public class hal_utama extends JFrame {
 		toolBar.setBounds(0, 22, 1350, 65);
 		contentPane.add(toolBar);
 		
-		btnDaftarPasien = new JButton("Daftar Pengunjung");
+		btnDaftarPasien = new JButton("Rawat Jalan");
 		btnDaftarPasien.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/buku-daftar.png")));
 		btnDaftarPasien.setEnabled(false);
 		toolBar.add(btnDaftarPasien);
@@ -210,12 +210,11 @@ public class hal_utama extends JFrame {
 		comboLevel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		comboLevel.setBounds(686, 303, 163, 29);
 		comboLevel.addItem("-- Pilih Level --");
-		comboLevel.addItem("Administrator");
+		comboLevel.addItem("Petugas TPPRJ");
+		comboLevel.addItem("Petugas TPPRI");
 		comboLevel.addItem("Dokter");
-		comboLevel.addItem("Perawat");
-		comboLevel.addItem("Kasir");
 		comboLevel.addItem("Pengolah Data");
-		comboLevel.addItem("Manajemen");
+		comboLevel.addItem("Kepala RS");
 		panelMasuk.add(comboLevel);
 		
 		//menu
@@ -276,7 +275,7 @@ public class hal_utama extends JFrame {
 		{
 			JOptionPane.showMessageDialog(null, "Alhamdulillah Anda berhasil login :)");
 			
-			if(level == "Administrator")
+			if(level == "Pengolah Data")
 			{
 				panel.removeAll();
 				panel.repaint();
@@ -295,6 +294,18 @@ public class hal_utama extends JFrame {
 				btnRawatInap.setEnabled(true);
 				btnRawatJalan.setEnabled(true);
 			}
+			else if(level == "Petugas TPPRJ")
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				
+				panel.add(objLogin);
+				panel.repaint();
+				panel.revalidate();
+				
+				btnDaftarPasien.setEnabled(true);
+			}
 			else if(level == "Dokter")
 			{
 				panel.removeAll();
@@ -305,26 +316,9 @@ public class hal_utama extends JFrame {
 				panel.repaint();
 				panel.revalidate();
 				
-				btnDokter.setEnabled(true);
-				btnRawatInap.setEnabled(true);
 				btnRawatJalan.setEnabled(true);
-				btnPasien.setEnabled(true);
-				btnPengguna.setEnabled(true);
 			}
-			else if(level == "Kasir")
-			{
-				panel.removeAll();
-				panel.repaint();
-				panel.revalidate();
-				
-				panel.add(objLogin);
-				panel.repaint();
-				panel.revalidate();
-				
-				btnPembayaran.setEnabled(true);
-				btnPengguna.setEnabled(true);
-			}
-			else if(level == "Manajemen")
+			else if(level == "Kepala RS")
 			{
 				panel.removeAll();
 				panel.repaint();
@@ -335,23 +329,8 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				btnLaporan.setEnabled(true);
-				btnPengguna.setEnabled(true);
 			}
-			else if(level == "Pengolah Data")
-			{
-				panel.removeAll();
-				panel.repaint();
-				panel.revalidate();
-				
-				panel.add(objLogin);
-				panel.repaint();
-				panel.revalidate();
-				
-				btnLaporan.setEnabled(true);
-				btnPengguna.setEnabled(true);
-				btnDaftarPenyakit.setEnabled(true);
-			}
-			else if(level == "Perawat")
+			else if(level == "Petugas TPPRI")
 			{
 				panel.removeAll();
 				panel.repaint();
@@ -362,13 +341,7 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				btnRawatInap.setEnabled(true);
-				btnRawatJalan.setEnabled(true);
-				btnPasien.setEnabled(true);
-				btnPengguna.setEnabled(true);
-			}
-			
-			
-			
+			}	
 		}		
 		else
 		{

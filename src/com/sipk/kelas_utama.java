@@ -13,11 +13,11 @@ import java.awt.EventQueue;
 public class kelas_utama {
 	public static void main(String[]args)
 	{	
-		EventQueue.invokeLater(new Runnable()
+		//EventQueue.invokeLater(new Runnable()
 		{
 			
-			@Override
-			public void run() {
+			//@Override
+		//	public void run() {
 				// TODO Auto-generated method stub
 				try{
 					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
@@ -42,10 +42,10 @@ public class kelas_utama {
 				frame.setLocationRelativeTo(null);
 			}
 		}
-				);
+//				);
 		
 		
 		
 		
 	}
-}
+//}

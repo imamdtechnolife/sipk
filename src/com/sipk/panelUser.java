@@ -57,6 +57,18 @@ public class panelUser extends JPanel {
 				"Level", "Nama", "No. Telp / HP", "Alamat"
 			}
 		);
+	DefaultTableModel modeTabelPenggunaLengkap = new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"No. ID", "Nama", "Username", "Password", "Level", "No. Telp / HP", "Alamat"
+			}
+		);
+	private JTable tabelPenggunaLengkap;
+	private JTextField txtNoID;
+	private JTextField txtNoID2;
+	private JTextField txtCariNoID;
+	private JButton btnRefresh;
 	
 	/**
 	 * Create the panel.
@@ -72,7 +84,6 @@ public class panelUser extends JPanel {
 		
 		JPanel panelDaftarPengguna = new JPanel();
 		tabbedPane.addTab("Daftar Pengguna", null, panelDaftarPengguna, null);
-		//tabbedPane.addTab("Tes Tes", null, newPanel2, null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(42, 36, 324, 123);
@@ -84,87 +95,90 @@ public class panelUser extends JPanel {
 		panelDaftarPengguna.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(525, 47, 489, 393);
+		panel_2.setBounds(525, 47, 489, 462);
 		panelDaftarPengguna.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNama = new JLabel("Nama");
+		JLabel lblNama = new JLabel("Nama :");
 		lblNama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNama.setBounds(30, 34, 64, 14);
+		lblNama.setBounds(26, 79, 64, 14);
 		panel_2.add(lblNama);
 		
-		JLabel lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel("Username :");
 		lblUsername.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblUsername.setBounds(30, 65, 96, 14);
+		lblUsername.setBounds(27, 113, 96, 14);
 		panel_2.add(lblUsername);
 		
 		txtNama = new JTextField();
-		txtNama.setBounds(209, 34, 233, 29);
+		txtNama.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
+		txtNama.setBounds(209, 73, 233, 29);
 		panel_2.add(txtNama);
 		txtNama.setColumns(10);
 		
 		btnSimpan = new JButton("Simpan");
 		btnSimpan.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Simpan.png")));
-		btnSimpan.setBounds(155, 336, 105, 33);
+		btnSimpan.setBounds(145, 379, 105, 33);
 		panel_2.add(btnSimpan);
 		
 		txtUsername = new JTextField();
+		txtUsername.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
 		txtUsername.setColumns(10);
-		txtUsername.setBounds(209, 65, 233, 29);
+		txtUsername.setBounds(209, 107, 233, 29);
 		panel_2.add(txtUsername);
 		
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Password :");
 		lblPassword.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblPassword.setBounds(30, 99, 96, 14);
+		lblPassword.setBounds(27, 147, 96, 14);
 		panel_2.add(lblPassword);
 		
-		JLabel lblKonfirmasiPassword = new JLabel("Konfirmasi Password");
+		JLabel lblKonfirmasiPassword = new JLabel("Konfirmasi Password :");
 		lblKonfirmasiPassword.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblKonfirmasiPassword.setBounds(30, 135, 154, 14);
+		lblKonfirmasiPassword.setBounds(27, 183, 154, 14);
 		panel_2.add(lblKonfirmasiPassword);
 		
-		JLabel lblLevel = new JLabel("Level");
+		JLabel lblLevel = new JLabel("Level :");
 		lblLevel.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblLevel.setBounds(30, 169, 105, 14);
+		lblLevel.setBounds(26, 208, 105, 30);
 		panel_2.add(lblLevel);
 		
-		JLabel lblNoTelpon = new JLabel("No. Telpon");
+		JLabel lblNoTelpon = new JLabel("No. Telpon :");
 		lblNoTelpon.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoTelpon.setBounds(30, 201, 105, 14);
+		lblNoTelpon.setBounds(27, 249, 105, 18);
 		panel_2.add(lblNoTelpon);
 		
-		JLabel lblAlamat = new JLabel("Alamat");
+		JLabel lblAlamat = new JLabel("Alamat :");
 		lblAlamat.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblAlamat.setBounds(30, 237, 105, 14);
+		lblAlamat.setBounds(27, 285, 105, 14);
 		panel_2.add(lblAlamat);
 		
 		cmbLevel = new JComboBox();
-		cmbLevel.setBounds(209, 169, 135, 29);
+		cmbLevel.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
+		cmbLevel.setBounds(209, 211, 177, 29);
 		cmbLevel.addItem("-- Pilih Level --");
-		cmbLevel.addItem("Administrator");
+		cmbLevel.addItem("Petugas TPPRJ");
+		cmbLevel.addItem("Petugas TPPRI");
 		cmbLevel.addItem("Dokter");
-		cmbLevel.addItem("Perawat");
-		cmbLevel.addItem("Kasir");
 		cmbLevel.addItem("Pengolah Data");
-		cmbLevel.addItem("Manajemen");
+		cmbLevel.addItem("Kepala RS");
 		panel_2.add(cmbLevel);
 		
 		txtNoTelp = new JTextField();
+		txtNoTelp.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
 		txtNoTelp.setColumns(10);
-		txtNoTelp.setBounds(209, 204, 233, 29);
+		txtNoTelp.setBounds(209, 243, 233, 29);
 		panel_2.add(txtNoTelp);
 		
 		btnBatal = new JButton("Batal");
 		btnBatal.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Batal.png")));
-		btnBatal.setBounds(280, 336, 105, 33);
+		btnBatal.setBounds(270, 379, 105, 33);
 		panel_2.add(btnBatal);
 		
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(209, 96, 233, 29);
+		txtPassword.setBounds(209, 141, 233, 29);
 		panel_2.add(txtPassword);
 		
 		txtCpassword = new JPasswordField();
-		txtCpassword.setBounds(209, 131, 233, 29);
+		txtCpassword.setBounds(209, 177, 233, 29);
 		panel_2.add(txtCpassword);
 		
 		JLabel lblPerhatian = new JLabel("");
@@ -172,11 +186,22 @@ public class panelUser extends JPanel {
 		panel_2.add(lblPerhatian);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(209, 240, 233, 59);
+		scrollPane_1.setBounds(209, 280, 233, 59);
 		panel_2.add(scrollPane_1);
 		
 		txtAlamat = new JTextArea();
 		scrollPane_1.setViewportView(txtAlamat);
+		
+		JLabel lblNoId = new JLabel("No ID :");
+		lblNoId.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNoId.setBounds(26, 43, 64, 14);
+		panel_2.add(lblNoId);
+		
+		txtNoID = new JTextField();
+		txtNoID.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
+		txtNoID.setColumns(10);
+		txtNoID.setBounds(209, 36, 233, 29);
+		panel_2.add(txtNoID);
 		
 		JLabel lblDaftarPengguna = new JLabel("Daftar Pengguna");
 		lblDaftarPengguna.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
@@ -193,56 +218,105 @@ public class panelUser extends JPanel {
 		tabbedPane.addTab("Ubah Password", null, panelUbahPassword, null);
 		panelUbahPassword.setLayout(null);
 		
-		JLabel lblUsername_1 = new JLabel("Username");
+		JLabel lblUsername_1 = new JLabel("Username :");
 		lblUsername_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblUsername_1.setBounds(61, 74, 85, 26);
+		lblUsername_1.setBounds(58, 117, 85, 26);
 		panelUbahPassword.add(lblUsername_1);
 		
-		JLabel lblPasswordBaru = new JLabel("Password Baru");
+		JLabel lblPasswordBaru = new JLabel("Password Baru :");
 		lblPasswordBaru.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblPasswordBaru.setBounds(61, 150, 132, 26);
+		lblPasswordBaru.setBounds(58, 193, 132, 26);
 		panelUbahPassword.add(lblPasswordBaru);
 		
 		txtUsername2 = new JTextField();
 		txtUsername2.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
-		txtUsername2.setBounds(232, 71, 141, 29);
+		txtUsername2.setBounds(231, 111, 198, 29);
 		panelUbahPassword.add(txtUsername2);
 		txtUsername2.setColumns(10);
 		
 		btnUbah = new JButton("Ubah");
 		btnUbah.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Ubah.png")));
-		btnUbah.setBounds(176, 252, 105, 33);
+		btnUbah.setBounds(174, 313, 105, 33);
 		panelUbahPassword.add(btnUbah);
 		
 		passwordLama = new JPasswordField();
 		passwordLama.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
-		passwordLama.setBounds(232, 108, 141, 29);
+		passwordLama.setBounds(231, 148, 198, 29);
 		panelUbahPassword.add(passwordLama);
 		
 		passwordBaru = new JPasswordField();
 		passwordBaru.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
-		passwordBaru.setBounds(232, 147, 141, 29);
+		passwordBaru.setBounds(231, 187, 198, 29);
 		panelUbahPassword.add(passwordBaru);
 		
 		passwordCfmPassBaru = new JPasswordField();
 		passwordCfmPassBaru.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
-		passwordCfmPassBaru.setBounds(232, 190, 141, 29);
+		passwordCfmPassBaru.setBounds(231, 230, 198, 29);
 		panelUbahPassword.add(passwordCfmPassBaru);
 		
-		JLabel lblUlangPasswordBaru = new JLabel("Ulang Password Baru");
+		JLabel lblUlangPasswordBaru = new JLabel("Ulang Password Baru :");
 		lblUlangPasswordBaru.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblUlangPasswordBaru.setBounds(61, 193, 161, 23);
+		lblUlangPasswordBaru.setBounds(58, 236, 161, 23);
 		panelUbahPassword.add(lblUlangPasswordBaru);
 		
-		JLabel lblPasswordLama = new JLabel("Password Lama");
+		JLabel lblPasswordLama = new JLabel("Password Lama :");
 		lblPasswordLama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblPasswordLama.setBounds(61, 111, 132, 28);
+		lblPasswordLama.setBounds(58, 154, 132, 28);
 		panelUbahPassword.add(lblPasswordLama);
 		
 		JLabel lblUbahPassword = new JLabel("Ubah Password");
 		lblUbahPassword.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		lblUbahPassword.setBounds(24, 11, 254, 36);
 		panelUbahPassword.add(lblUbahPassword);
+		
+		JLabel lblNoId_1 = new JLabel("No. ID :");
+		lblNoId_1.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblNoId_1.setBounds(58, 79, 85, 26);
+		panelUbahPassword.add(lblNoId_1);
+		
+		txtNoID2 = new JTextField();
+		txtNoID2.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
+		txtNoID2.setColumns(10);
+		txtNoID2.setBounds(231, 71, 198, 29);
+		panelUbahPassword.add(txtNoID2);
+		JPanel panelPenggunaLengkap = new JPanel();
+		tabbedPane.addTab("Pengguna Lengkap", null, panelPenggunaLengkap, null);
+		panelPenggunaLengkap.setLayout(null);
+		
+		JLabel lblDaftarLengkapPengguna = new JLabel("Daftar Lengkap Pengguna");
+		lblDaftarLengkapPengguna.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		lblDaftarLengkapPengguna.setBounds(24, 11, 389, 38);
+		panelPenggunaLengkap.add(lblDaftarLengkapPengguna);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(34, 105, 1009, 522);
+		panelPenggunaLengkap.add(scrollPane_3);
+		
+		tabelPenggunaLengkap = new JTable();
+		tabelPenggunaLengkap.setModel(modeTabelPenggunaLengkap);
+		tabelPenggunaLengkap.getColumnModel().getColumn(0).setPreferredWidth(132);
+		tabelPenggunaLengkap.getColumnModel().getColumn(1).setPreferredWidth(178);
+		tabelPenggunaLengkap.getColumnModel().getColumn(2).setPreferredWidth(126);
+		tabelPenggunaLengkap.getColumnModel().getColumn(3).setPreferredWidth(136);
+		tabelPenggunaLengkap.getColumnModel().getColumn(4).setPreferredWidth(116);
+		tabelPenggunaLengkap.getColumnModel().getColumn(5).setPreferredWidth(123);
+		tabelPenggunaLengkap.getColumnModel().getColumn(6).setPreferredWidth(194);
+		scrollPane_3.setViewportView(tabelPenggunaLengkap);
+		
+		JLabel lblCariNoId = new JLabel("Cari No. ID :");
+		lblCariNoId.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblCariNoId.setBounds(697, 80, 93, 14);
+		panelPenggunaLengkap.add(lblCariNoId);
+		
+		txtCariNoID = new JTextField();
+		txtCariNoID.setBounds(795, 74, 248, 20);
+		panelPenggunaLengkap.add(txtCariNoID);
+		txtCariNoID.setColumns(10);
+		
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setBounds(944, 26, 99, 33);
+		panelPenggunaLengkap.add(btnRefresh);
 		
 		table = new JTable();
 		table.setToolTipText("Daftar Pengguna");
@@ -260,15 +334,16 @@ public class panelUser extends JPanel {
 		btnSimpan.addActionListener(hendel);
 		btnBatal.addActionListener(hendel);
 		btnUbah.addActionListener(hendel);
+		btnRefresh.addActionListener(hendel);
+		txtCariNoID.addActionListener(hendel);
 		
-		tampilIsiTabelUser();
-
+		clear();
 	}
 	
 	private void add()
 	{
 		
-		if(	txtAlamat.getText().equals("") || txtNama.getText().equals("") ||	txtNoTelp.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtCpassword.getText().equals(""))
+		if( txtNoID.getText().equals("") ||	txtAlamat.getText().equals("") || txtNama.getText().equals("") ||	txtNoTelp.getText().equals("") || txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtCpassword.getText().equals(""))
 		{
 			JOptionPane.showMessageDialog(null, "Anda belum mengisi semua kolom yang ada.");
 			clear();
@@ -287,15 +362,14 @@ public class panelUser extends JPanel {
 					}
 					
 					konek = konek_database.getKonekDB();
-					//String query = "insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)";
-					PreparedStatement ps = konek.prepareStatement("insert into akun (nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?)");
-					
-					ps.setString(1, txtNama.getText());
-					ps.setString(2, txtUsername.getText());
-					ps.setString(3, sandi);
-					ps.setString(4, (String) cmbLevel.getSelectedItem());
-					ps.setString(5, txtNoTelp.getText());
-					ps.setString(6, txtAlamat.getText());
+					PreparedStatement ps = konek.prepareStatement("insert into akun (no_id_pengguna, nama, username, pass, lvel, no_telp, alamat) values (?,?,?,?,?,?,?)");
+					ps.setString(1, txtNoID.getText());
+					ps.setString(2, txtNama.getText());
+					ps.setString(3, txtUsername.getText());
+					ps.setString(4, sandi);
+					ps.setString(5, (String) cmbLevel.getSelectedItem());
+					ps.setString(6, txtNoTelp.getText());
+					ps.setString(7, txtAlamat.getText());
 					ps.executeUpdate();
 					ps.close();
 					
@@ -310,6 +384,7 @@ public class panelUser extends JPanel {
 				{
 					clear();
 					tampilIsiTabelUser();
+					tampilTabelUserLengkap();
 				}
 				
 			}
@@ -360,17 +435,78 @@ public class panelUser extends JPanel {
 		}
 	}
 	
+	public void tampilTabelUserLengkap()
+	{
+		modeTabelPenggunaLengkap.getDataVector().removeAllElements();
+		modeTabelPenggunaLengkap.fireTableDataChanged();
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select * from akun");
+			
+			while(result.next())
+			{
+				Object obj[] = new Object[7];
+				obj[0] = result.getString(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getString(3);
+				obj[3] = result.getString(4);
+				obj[4] = result.getString(5);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				
+				modeTabelPenggunaLengkap.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tampilTabelUserLengkap : "+ex.getMessage());
+		}
+	}
+	
+	public void cariAkun()
+	{
+		modeTabelPenggunaLengkap.getDataVector().removeAllElements();
+		modeTabelPenggunaLengkap.fireTableDataChanged();
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select * from akun where no_id_pengguna='"+txtCariNoID.getText()+"'");
+			
+			while(result.next())
+			{
+				Object obj[] = new Object[7];
+				obj[0] = result.getString(1);
+				obj[1] = result.getString(2);
+				obj[2] = result.getString(3);
+				obj[3] = result.getString(4);
+				obj[4] = result.getString(5);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				
+				modeTabelPenggunaLengkap.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tampilTabelUserLengkap : "+ex.getMessage());
+		}
+	}
+	
 	
 	private void change()
 	{
 		try
 		{
+			String no_id_pengguna = txtNoID2.getText();
 			String username = txtUsername2.getText().toString();
 			String password = passwordLama.getText().toString();
 				
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select username, pass, lvel from akun where username='"+username+"' and pass='"+password+"' ");
+			ResultSet result = state.executeQuery("select no_id_pengguna, username, pass, lvel from akun where no_id='"+no_id_pengguna+"'username='"+username+"' and pass='"+password+"' ");
 			
 			if(result.next())
 			{
@@ -385,13 +521,19 @@ public class panelUser extends JPanel {
 						ps.executeUpdate();
 						
 						JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
-						clear2();
+						
 						
 						konek.close();
 					}
 					catch(Exception ex)
 					{
 						JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+					}
+					finally
+					{
+						clear2();
+						tampilIsiTabelUser();
+						tampilTabelUserLengkap();
 					}
 				}
 				else
@@ -425,6 +567,12 @@ public class panelUser extends JPanel {
 		txtAlamat.setText("");
 		txtPassword.setText("");
 		txtCpassword.setText("");
+		txtNoID.setText("");
+		txtNoID2.setText("");
+		txtCariNoID.setText("");
+		tampilIsiTabelUser();
+		tampilTabelUserLengkap();
+		clear2();
 	}
 	
 	public void clear2()
@@ -450,6 +598,14 @@ public class panelUser extends JPanel {
 			else if(e.getSource()==btnUbah)
 			{
 				change();
+			}
+			else if(e.getSource()==btnRefresh)
+			{
+				clear();
+			}
+			else if(e.getSource()==txtCariNoID)
+			{
+				cariAkun();
 			}
 		}
 	}

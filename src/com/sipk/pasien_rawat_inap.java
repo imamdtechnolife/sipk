@@ -1298,6 +1298,8 @@ public class pasien_rawat_inap extends JPanel{
 		tampilHP();
 		cmboPoliklinik.setSelectedIndex(0);
 		btnPasienKeluar.setVisible(false);
+		tanggalKeluar.setDate(new Date());
+		tanggalMasuk.setDate(new Date());
 	}
 	
 	//tampil isi tabel pasien rawat inap

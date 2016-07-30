@@ -65,11 +65,11 @@ public class panelDaftarPasien extends JPanel {
 	private JButton btnRefresh;
 	private JButton btnUbah;
 	private JButton btnHapus;
-	private JButton btnReset;
 	private JButton btnEksekusiDaftarUlang;
 	private JTabbedPane tabbedPane;
 	private JButton btnEksekusiUbah;
 	private JButton btnDaftarUlang;
+	private DateFormat format;
 	
 	/**
 	 * Create the panel.
@@ -82,7 +82,7 @@ public class panelDaftarPasien extends JPanel {
 		add(tabbedPane);
 		
 		JPanel panelTabelKunjungan = new JPanel();
-		tabbedPane.addTab("Tabel Kunjungan", null, panelTabelKunjungan, null);
+		tabbedPane.addTab("Kunjungan", null, panelTabelKunjungan, null);
 		panelTabelKunjungan.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -103,9 +103,9 @@ public class panelDaftarPasien extends JPanel {
 			}
 		});
 		
-		JLabel lblTabelKunjungan = new JLabel("Tabel Kunjungan");
+		JLabel lblTabelKunjungan = new JLabel("Kunjungan Rawat Jalan");
 		lblTabelKunjungan.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		lblTabelKunjungan.setBounds(24, 11, 268, 33);
+		lblTabelKunjungan.setBounds(24, 11, 358, 33);
 		panelTabelKunjungan.add(lblTabelKunjungan);
 		
 		cmboAwal = new JCalendarCombo();
@@ -164,11 +164,6 @@ public class panelDaftarPasien extends JPanel {
 		btnHapus.setBounds(572, 472, 103, 43);
 		panelTabelKunjungan.add(btnHapus);
 		
-		btnReset = new JButton("Reset");
-		btnReset.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/reset.png")));
-		btnReset.setBounds(1212, 472, 106, 41);
-		panelTabelKunjungan.add(btnReset);
-		
 		btnDaftarUlang = new JButton("Daftar Ulang");
 		btnDaftarUlang.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/daftar-ulang.png")));
 		btnDaftarUlang.setBounds(685, 472, 121, 43);
@@ -176,11 +171,11 @@ public class panelDaftarPasien extends JPanel {
 		
 		
 		JPanel panelDaftarKunjungan = new JPanel();
-		tabbedPane.addTab("Daftar Kunjungan", null, panelDaftarKunjungan, null);
+		tabbedPane.addTab("Daftar Pengunjung", null, panelDaftarKunjungan, null);
 		panelDaftarKunjungan.setLayout(null);
 		
-		JLabel lblDaftarPasien = new JLabel("Daftar Kunjungan");
-		lblDaftarPasien.setBounds(24, 11, 265, 33);
+		JLabel lblDaftarPasien = new JLabel("Daftar Pengunjung Rawat Jalan");
+		lblDaftarPasien.setBounds(24, 11, 460, 33);
 		panelDaftarKunjungan.add(lblDaftarPasien);
 		lblDaftarPasien.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		
@@ -366,11 +361,10 @@ public class panelDaftarPasien extends JPanel {
 		scrollPane.setViewportView(txtDiagnosa);
 		txtDiagnosa.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format = new SimpleDateFormat("yyyy-MM-dd");
 		calendarCombo = new JCalendarCombo();
 		calendarCombo.setBounds(239, 108, 158, 29);
 		calendarCombo.setDateFormat(format);
-		//calendarCombo.
 		panelDaftarKunjungan.add(calendarCombo);
 		
 		/**
@@ -439,6 +433,46 @@ public class panelDaftarPasien extends JPanel {
 		
 	}
 	
+	private void cariNomorRM()
+	{
+		modelTabelDaftarKunjungan.getDataVector().removeAllElements();
+		modelTabelDaftarKunjungan.fireTableDataChanged();
+		
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select * from pasien_daftar where nomor_rm like '%"+txtCariNama.getText()+"%'");
+			
+			while(result.next())
+			{
+				Object obj[] = new Object[12];
+				obj[0] = result.getDate(1); 
+				obj[1] = result.getInt(2);
+				obj[2] = result.getInt(3);
+				obj[3] = result.getString(4);
+				obj[4] = result.getInt(5);
+				obj[5] = result.getString(6);
+				obj[6] = result.getString(7);
+				obj[7] = result.getString(8);
+				obj[8] = result.getString(9);
+				obj[9] = result.getString(10);
+				obj[10] = result.getString(11);
+				obj[11] = result.getString(12);
+				
+				modelTabelDaftarKunjungan.addRow(obj);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada metode cariNoRM : "+ex.getMessage());
+		}
+		finally
+		{
+			
+		}
+	}
+	
 	//daftar isi cmboPangkat
 	private void daftarPangkat()
 	{
@@ -488,6 +522,8 @@ public class panelDaftarPasien extends JPanel {
 		btnBatal.setEnabled(true);
 		table.clearSelection();
 		buatNoUrutOtomatis();
+		calendarCombo.setDate(new Date());
+		
 
 	}
 	
@@ -542,7 +578,7 @@ public class panelDaftarPasien extends JPanel {
 			konek = konek_database.getKonekDB();
 			//konek.setAutoCommit(false);
 			
-			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar(tgl,nomor_urut,nomor_cm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar(tgl,nomor_urut,nomor_rm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
 			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));
@@ -584,7 +620,7 @@ public class panelDaftarPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("update pasien_daftar set tgl=?,nomor_urut=?,nomor_cm=?,nama=?,umur=?,jenis_kelamin=?,status_personil=?,pangkat=?,kesatuan=?,bagian_dikunjungi=?,diagnosa=?,keterangan=? where nomor_cm=?");
+			PreparedStatement ps = konek.prepareStatement("update pasien_daftar set tgl=?,nomor_urut=?,nomor_rm=?,nama=?,umur=?,jenis_kelamin=?,status_personil=?,pangkat=?,kesatuan=?,bagian_dikunjungi=?,diagnosa=?,keterangan=? where nomor_cm=?");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
 			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));
@@ -618,7 +654,7 @@ public class panelDaftarPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar_ulang (tgl,nomor_urut,nomor_cm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar_ulang (tgl,nomor_urut,nomor_rm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
 			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));
@@ -774,7 +810,7 @@ public class panelDaftarPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("delete from pasien_daftar where nomor_cm ="+txtNoCM.getText()+"");
+			PreparedStatement ps = konek.prepareStatement("delete from pasien_daftar where nomor_rm ="+txtNoCM.getText()+"");
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil dihapus !");
@@ -805,7 +841,7 @@ public class panelDaftarPasien extends JPanel {
 			}
 			else if(e.getSource()==btnCariNama)
 			{
-				cariNama();
+				cariNomorRM();
 			}
 			else if(e.getSource()==btnRefresh)
 			{
