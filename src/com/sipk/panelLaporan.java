@@ -23,12 +23,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class panelLaporan extends JPanel {
-	
-	private JButton btnLaporanJenisPenyakit; 
-	private JButton btnLaporan10JnsPenyakit;
-	private JButton btnLaporanRawatJalan;
-	private JButton btnLaporanJnsPenyakitGigi;
-	private JButton btnLaporanRawatInap;
 	Connection konek = null;
 	private JTable table;
 	DefaultTableModel modelTabelPengunjung = new DefaultTableModel(
@@ -83,6 +77,14 @@ public class panelLaporan extends JPanel {
 	private JButton btnReload2;
 	private JButton btnReload;
 	private JButton btnReload5;
+	private JButton btnCetakYankes1;
+	private JButton btnCetakYankes2;
+	private JPanel panelLap10PenyakitGigiMulut;
+	private JButton btnCetakYankes4;
+	private JPanel panelLapKunjungan;
+	private JButton btnCetakYankes4_2;
+	private JButton btnCetakYankes5;
+	private JButton btnCetakYankes3;
 	
 	/**
 	 * Create the panel.
@@ -93,10 +95,8 @@ public class panelLaporan extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1096, 584);
 		add(tabbedPane);
-		
-		JPanel panel = new JPanel();
-		JPanel panelLapKunjungan = new JPanel();
-		JPanel panelLap10PenyakitGigiMulut = new JPanel();
+		panelLapKunjungan = new JPanel();
+		panelLap10PenyakitGigiMulut = new JPanel();
 		JPanel panelLapRawatInap = new JPanel();
 		JPanel panelLapPenyakit = new JPanel();
 		tabbedPane.addTab("YANKES-RUMKIT 1", null, panelLapPenyakit, null);
@@ -123,6 +123,11 @@ public class panelLaporan extends JPanel {
 		btnReload.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload.setBounds(524, 464, 96, 33);
 		panelLapPenyakit.add(btnReload);
+		
+		btnCetakYankes1 = new JButton("Cetak");
+		btnCetakYankes1.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes1.setBounds(989, 49, 96, 33);
+		panelLapPenyakit.add(btnCetakYankes1);
 		JPanel panelLap10Penyakit = new JPanel();
 		tabbedPane.addTab("YANKES-RUMKIT 2", null, panelLap10Penyakit, null);
 		panelLap10Penyakit.setLayout(null);
@@ -149,6 +154,11 @@ public class panelLaporan extends JPanel {
 		btnReload2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload2.setBounds(524, 464, 96, 33);
 		panelLap10Penyakit.add(btnReload2);
+		
+		btnCetakYankes2 = new JButton("Cetak");
+		btnCetakYankes2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes2.setBounds(987, 52, 96, 33);
+		panelLap10Penyakit.add(btnCetakYankes2);
 		tabbedPane.addTab("YANKES-RUMKIT 3", null, panelLap10PenyakitGigiMulut, null);
 		panelLap10PenyakitGigiMulut.setLayout(null);
 		
@@ -174,6 +184,11 @@ public class panelLaporan extends JPanel {
 		btnReload3.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload3.setBounds(524, 464, 96, 33);
 		panelLap10PenyakitGigiMulut.add(btnReload3);
+		
+		btnCetakYankes3 = new JButton("Cetak");
+		btnCetakYankes3.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes3.setBounds(996, 68, 89, 23);
+		panelLap10PenyakitGigiMulut.add(btnCetakYankes3);
 		tabbedPane.addTab("YANKES-RUMKIT 4", null, panelLapKunjungan, null);
 		tabbedPane.addTab("YANKES-RUMKIT 5", null, panelLapRawatInap, null);
 		panelLapRawatInap.setLayout(null);
@@ -184,7 +199,7 @@ public class panelLaporan extends JPanel {
 		panelLapRawatInap.add(lblNewLabel_2);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(32, 109, 1280, 280);
+		scrollPane_3.setBounds(32, 109, 1280, 297);
 		panelLapRawatInap.add(scrollPane_3);
 		
 		tabelRawatInap = new JTable();
@@ -200,7 +215,11 @@ public class panelLaporan extends JPanel {
 		btnReload5.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload5.setBounds(524, 454, 96, 33);
 		panelLapRawatInap.add(btnReload5);
-		tabbedPane.addTab("Cetak", null, panel, null);
+		
+		btnCetakYankes5 = new JButton("Cetak");
+		btnCetakYankes5.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes5.setBounds(1216, 68, 96, 33);
+		panelLapRawatInap.add(btnCetakYankes5);
 		panelLapKunjungan.setLayout(null);
 		
 		JScrollPane tabelPengunjung = new JScrollPane();
@@ -219,7 +238,7 @@ public class panelLaporan extends JPanel {
 		panelLapKunjungan.add(lblLaporanBulanan);
 		
 		JScrollPane tabelKunjungan = new JScrollPane();
-		tabelKunjungan.setBounds(181, 247, 719, 78);
+		tabelKunjungan.setBounds(181, 267, 719, 78);
 		panelLapKunjungan.add(tabelKunjungan);
 		
 		table_1 = new JTable();
@@ -232,49 +251,24 @@ public class panelLaporan extends JPanel {
 		btnReload4.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload4.setBounds(477, 377, 96, 33);
 		panelLapKunjungan.add(btnReload4);
-		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Cetak Laporan Pelayanan Kesehatan");
-		lblNewLabel.setBounds(24, 11, 542, 33);
-		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
+		btnCetakYankes4 = new JButton("Cetak");
+		btnCetakYankes4.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes4.setBounds(804, 88, 96, 33);
+		panelLapKunjungan.add(btnCetakYankes4);
 		
-		btnLaporanJenisPenyakit = new JButton("Macam Penyakit dengan Jumlah Pasien");
-		btnLaporanJenisPenyakit.setBounds(186, 55, 671, 86);
-		panel.add(btnLaporanJenisPenyakit);
-		btnLaporanJenisPenyakit.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnLaporanJenisPenyakit.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
-		
-		btnLaporan10JnsPenyakit = new JButton("10 Jenis Penyakit dengan Jumlah Pasien Terbanyak");
-		btnLaporan10JnsPenyakit.setBounds(186, 152, 671, 86);
-		panel.add(btnLaporan10JnsPenyakit);
-		btnLaporan10JnsPenyakit.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnLaporan10JnsPenyakit.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
-		
-		btnLaporanJnsPenyakitGigi = new JButton("10 Jenis Penyakit Gigi dan Mulut dengan Jumlah Pasien Terbanyak");
-		btnLaporanJnsPenyakitGigi.setBounds(186, 249, 671, 86);
-		panel.add(btnLaporanJnsPenyakitGigi);
-		btnLaporanJnsPenyakitGigi.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
-		btnLaporanJnsPenyakitGigi.setFont(new Font("Tahoma", Font.BOLD, 17));
-		
-		btnLaporanRawatJalan = new JButton("Jumlah Pengunjung dan Kunjungan Rawat Jalan");
-		btnLaporanRawatJalan.setBounds(186, 346, 671, 86);
-		panel.add(btnLaporanRawatJalan);
-		btnLaporanRawatJalan.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnLaporanRawatJalan.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
-		
-		btnLaporanRawatInap = new JButton("Jumlah Pasien Rawat Inap");
-		btnLaporanRawatInap.setBounds(186, 443, 671, 86);
-		panel.add(btnLaporanRawatInap);
-		btnLaporanRawatInap.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/report.png")));
-		btnLaporanRawatInap.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnCetakYankes4_2 = new JButton("Cetak");
+		btnCetakYankes4_2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes4_2.setBounds(804, 228, 96, 33);
+		panelLapKunjungan.add(btnCetakYankes4_2);
 		
 		penghendel hendel = new penghendel();
-		btnLaporanRawatInap.addActionListener(hendel);
-		btnLaporanRawatJalan.addActionListener(hendel);
-		btnLaporanJnsPenyakitGigi.addActionListener(hendel);
-		btnLaporan10JnsPenyakit.addActionListener(hendel);
-		btnLaporanJenisPenyakit.addActionListener(hendel);
+		btnCetakYankes1.addActionListener(hendel);
+		btnCetakYankes2.addActionListener(hendel);
+		btnCetakYankes3.addActionListener(hendel);
+		btnCetakYankes4.addActionListener(hendel);
+		btnCetakYankes4_2.addActionListener(hendel);
+		btnCetakYankes5.addActionListener(hendel);
 		btnReload.addActionListener(hendel);
 		btnReload2.addActionListener(hendel);
 		btnReload3.addActionListener(hendel);
@@ -357,7 +351,23 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/Laporan Rawat Jalan.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_kunjungan_rawat_jalan.jrxml");
+			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
+			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
+			JasperViewer.viewReport(ljpPrint, false);
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol tampil report : "+e.getMessage());
+		}
+	}
+	
+	private void printRawatJalan2()
+	{
+		konek = konek_database.getKonekDB();
+		try
+		{	
+			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_kunjungan_ulang_rawat_jalan.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -391,23 +401,27 @@ public class panelLaporan extends JPanel {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if(e.getSource()==btnLaporanJenisPenyakit)
+			if(e.getSource()==btnCetakYankes1)
 			{
 				printMacamPenyakit();
 			}
-			else if(e.getSource()==btnLaporan10JnsPenyakit)
+			else if(e.getSource()==btnCetakYankes2)
 			{
 				print10JenisPenyakit();
 			}
-			else if(e.getSource()==btnLaporanJnsPenyakitGigi)
+			else if(e.getSource()==btnCetakYankes3)
 			{
 				print10JenisPenyakitGigi();
 			}
-			else if (e.getSource()==btnLaporanRawatJalan)
+			else if (e.getSource()==btnCetakYankes4)
 			{
 				printRawatJalan();
 			}
-			else if (e.getSource()==btnLaporanRawatInap)
+			else if (e.getSource()==btnCetakYankes4_2)
+			{
+				printRawatJalan2();
+			}
+			else if(e.getSource()==btnCetakYankes5)
 			{
 				printRawatInap();
 			}

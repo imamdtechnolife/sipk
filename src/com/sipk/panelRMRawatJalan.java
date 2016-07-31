@@ -192,6 +192,7 @@ public class panelRMRawatJalan extends JPanel {
 		cmboPoli.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		cmboPoli.setBounds(965, 84, 171, 29);
 		cmboPoli.addItem("-- Pilih Poli --");
+		cmboPoli.addItem("Umum");
 		cmboPoli.addItem("Gigi");
 		cmboPoli.addItem("Mata");
 		cmboPoli.addItem("Bedah");

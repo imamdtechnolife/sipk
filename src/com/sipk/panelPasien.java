@@ -61,7 +61,7 @@ public class panelPasien extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"No. RM", "No. Reg", "Nama", "Tempat Lahir", "Tgl. Lahir", "Status Nikah", "Agama", "Suku", "Pendidikan", "Pekerjaan", "Alamat", "Kelurahan", "Kecamatan", "Kabupaten", "No. Telp", "No. KTP/SIM", "Anak-Ke", "Umur", "Gol. Darah", "No. BPJS", "No. Rujukan"
+				"No. RM", "No. Reg", "Nama", "Tempat Lahir", "Tgl. Lahir", "Jns Kelamin", "Status Nikah", "Agama", "Suku", "Pendidikan", "Pekerjaan", "Alamat", "Kelurahan", "Kecamatan", "Kabupaten", "No. Telp", "No. KTP/SIM", "Anak-Ke", "Umur", "Gol. Darah", "No. BPJS", "No. Rujukan"
 			}
 		);
 	private JTable table;
@@ -70,6 +70,7 @@ public class panelPasien extends JPanel {
 	private JButton btnHapus;
 	private JTabbedPane tabbedPane;
 	private JButton bntEksekusiUbah;
+	private JComboBox cmboJenisKelamin;
 
 	/**
 	 * Create the panel.
@@ -176,12 +177,12 @@ public class panelPasien extends JPanel {
 		
 		JLabel lblAgama = new JLabel("Agama");
 		lblAgama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblAgama.setBounds(48, 312, 126, 25);
+		lblAgama.setBounds(48, 347, 126, 25);
 		panel.add(lblAgama);
 		
 		JLabel lblSuku = new JLabel("Suku");
 		lblSuku.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblSuku.setBounds(48, 348, 126, 23);
+		lblSuku.setBounds(48, 383, 126, 23);
 		panel.add(lblSuku);
 		
 		JLabel lblPendidikan = new JLabel("Pendidikan");
@@ -216,37 +217,37 @@ public class panelPasien extends JPanel {
 		
 		JLabel lblNoTelp = new JLabel("Telepon");
 		lblNoTelp.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoTelp.setBounds(758, 84, 94, 32);
+		lblNoTelp.setBounds(383, 390, 70, 32);
 		panel.add(lblNoTelp);
 		
 		JLabel lblNoKtp = new JLabel("No. KTP / SIM");
 		lblNoKtp.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoKtp.setBounds(758, 120, 112, 33);
+		lblNoKtp.setBounds(758, 95, 112, 33);
 		panel.add(lblNoKtp);
 		
 		JLabel lblAnakKe = new JLabel("Anak Ke");
 		lblAnakKe.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblAnakKe.setBounds(758, 164, 85, 23);
+		lblAnakKe.setBounds(758, 139, 85, 23);
 		panel.add(lblAnakKe);
 		
 		JLabel lblUmur = new JLabel("Umur");
 		lblUmur.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblUmur.setBounds(758, 198, 46, 28);
+		lblUmur.setBounds(758, 173, 46, 28);
 		panel.add(lblUmur);
 		
 		JLabel lblGolDarah = new JLabel("Gol. Darah");
 		lblGolDarah.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblGolDarah.setBounds(758, 237, 94, 29);
+		lblGolDarah.setBounds(758, 212, 94, 29);
 		panel.add(lblGolDarah);
 		
 		JLabel lblNoBpjs = new JLabel("No. BPJS");
 		lblNoBpjs.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoBpjs.setBounds(758, 277, 94, 24);
+		lblNoBpjs.setBounds(758, 253, 94, 24);
 		panel.add(lblNoBpjs);
 		
 		JLabel lblNoRujukan = new JLabel("No. Rujukan");
 		lblNoRujukan.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
-		lblNoRujukan.setBounds(758, 312, 94, 25);
+		lblNoRujukan.setBounds(758, 288, 94, 25);
 		panel.add(lblNoRujukan);
 		
 		txtNoRM = new JTextField();
@@ -276,13 +277,13 @@ public class panelPasien extends JPanel {
 		txtAgama = new JTextField();
 		txtAgama.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtAgama.setColumns(10);
-		txtAgama.setBounds(169, 315, 101, 29);
+		txtAgama.setBounds(169, 350, 101, 29);
 		panel.add(txtAgama);
 		
 		txtSuku = new JTextField();
 		txtSuku.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtSuku.setColumns(10);
-		txtSuku.setBounds(169, 350, 101, 29);
+		txtSuku.setBounds(169, 385, 126, 29);
 		panel.add(txtSuku);
 		
 		txtPendidikan = new JTextField();
@@ -318,37 +319,37 @@ public class panelPasien extends JPanel {
 		txtTelepon = new JTextField();
 		txtTelepon.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtTelepon.setColumns(10);
-		txtTelepon.setBounds(872, 87, 138, 29);
+		txtTelepon.setBounds(478, 392, 138, 29);
 		panel.add(txtTelepon);
 		
 		txtNoKtpsim = new JTextField();
 		txtNoKtpsim.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoKtpsim.setColumns(10);
-		txtNoKtpsim.setBounds(872, 129, 197, 29);
+		txtNoKtpsim.setBounds(872, 104, 197, 29);
 		panel.add(txtNoKtpsim);
 		
 		txtAnakke = new JTextField();
 		txtAnakke.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtAnakke.setColumns(10);
-		txtAnakke.setBounds(872, 162, 46, 29);
+		txtAnakke.setBounds(872, 137, 46, 29);
 		panel.add(txtAnakke);
 		
 		txtUmur = new JTextField();
 		txtUmur.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtUmur.setColumns(10);
-		txtUmur.setBounds(872, 199, 46, 29);
+		txtUmur.setBounds(872, 174, 46, 29);
 		panel.add(txtUmur);
 		
 		txtNoBpjs = new JTextField();
 		txtNoBpjs.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoBpjs.setColumns(10);
-		txtNoBpjs.setBounds(872, 276, 216, 29);
+		txtNoBpjs.setBounds(872, 252, 216, 29);
 		panel.add(txtNoBpjs);
 		
 		txtNoRujukan = new JTextField();
 		txtNoRujukan.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoRujukan.setColumns(10);
-		txtNoRujukan.setBounds(872, 311, 207, 29);
+		txtNoRujukan.setBounds(872, 287, 207, 29);
 		panel.add(txtNoRujukan);
 		
 		cmboStatusNikah = new JComboBox();
@@ -381,12 +382,12 @@ public class panelPasien extends JPanel {
 		
 		cmboGolDarah = new JComboBox();
 		cmboGolDarah.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
-		cmboGolDarah.setBounds(872, 238, 197, 29);
+		cmboGolDarah.setBounds(872, 213, 197, 29);
 		cmboGolDarah.addItem("-- Pilih Gol. Darah --");
-		cmboGolDarah.addItem(" A ");
-		cmboGolDarah.addItem(" B ");
-		cmboGolDarah.addItem(" O");
-		cmboGolDarah.addItem(" AB ");
+		cmboGolDarah.addItem("A");
+		cmboGolDarah.addItem("B");
+		cmboGolDarah.addItem("O");
+		cmboGolDarah.addItem("AB");
 		panel.add(cmboGolDarah);
 		
 		btnSimpan = new JButton("Simpan");
@@ -410,6 +411,19 @@ public class panelPasien extends JPanel {
 		bntEksekusiUbah.setEnabled(false);
 		panel.add(bntEksekusiUbah);
 		
+		JLabel lblJenisKelamin = new JLabel("Jenis Kelamin");
+		lblJenisKelamin.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		lblJenisKelamin.setBounds(48, 312, 126, 25);
+		panel.add(lblJenisKelamin);
+		
+		cmboJenisKelamin = new JComboBox();
+		cmboJenisKelamin.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
+		cmboJenisKelamin.setBounds(169, 312, 176, 29);
+		cmboJenisKelamin.addItem("-- Pilih  Jenis Kelamin --");
+		cmboJenisKelamin.addItem("Laki-laki");
+		cmboJenisKelamin.addItem("Perempuan");
+		panel.add(cmboJenisKelamin);
+		
 		penghendel hendel = new penghendel();
 		btnSimpan.addActionListener(hendel);
 		btnBatal.addActionListener(hendel);
@@ -427,33 +441,34 @@ public class panelPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into pasien(no_rm,no_reg,nama,tempat_lahir,tanggal_lahir,sttus_nikah,agama,suku,pendidikan,pekerjaan,alamat,kelurahan,kecamatan,kabupaten,no_telp,no_ktp_sim,anak_ke,umur,gol_darah,no_bpjs,no_rujukan) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = konek.prepareStatement("insert into pasien(no_rm,no_reg,nama,tempat_lahir,tanggal_lahir,jenis_kelamin,sttus_nikah,agama,suku,pendidikan,pekerjaan,alamat,kelurahan,kecamatan,kabupaten,no_telp,no_ktp_sim,anak_ke,umur,gol_darah,no_bpjs,no_rujukan) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, txtNoRM.getText());
 			ps.setString(2, txtNoReg.getText());
 			ps.setString(3, txtNama.getText());
 			ps.setString(4, txtTempatLahir.getText());
 			ps.setString(5, (String) cmboTanggal.getSelectedItem());
-			ps.setString(6, (String) cmboStatusNikah.getSelectedItem());
-			ps.setString(7, txtAgama.getText());
-			ps.setString(8, txtSuku.getText());
-			ps.setString(9, txtPendidikan.getText());
-			ps.setString(10, txtPekerjaan.getText());
-			ps.setString(11, txtAlamat.getText());
-			ps.setString(12, txtKelurahan.getText());
-			ps.setString(13, txtKecamatan.getText());
-			ps.setString(14, txtKabupaten.getText());
-			ps.setString(15, txtTelepon.getText());
-			ps.setString(16, txtNoKtpsim.getText());
-			ps.setString(17, txtAnakke.getText());
-			ps.setInt(18, (int) Integer.parseInt(txtUmur.getText()));
-			ps.setString(19, (String) cmboGolDarah.getSelectedItem());
-			ps.setString(20, txtNoBpjs.getText());
-			ps.setString(21, txtNoReg.getText());
+			ps.setString(6, (String) cmboJenisKelamin.getSelectedItem());
+			ps.setString(7, (String) cmboStatusNikah.getSelectedItem());
+			ps.setString(8, txtAgama.getText());
+			ps.setString(9, txtSuku.getText());
+			ps.setString(10, txtPendidikan.getText());
+			ps.setString(11, txtPekerjaan.getText());
+			ps.setString(12, txtAlamat.getText());
+			ps.setString(13, txtKelurahan.getText());
+			ps.setString(14, txtKecamatan.getText());
+			ps.setString(15, txtKabupaten.getText());
+			ps.setString(16, txtTelepon.getText());
+			ps.setString(17, txtNoKtpsim.getText());
+			ps.setString(18, txtAnakke.getText());
+			ps.setInt(19, (int) Integer.parseInt(txtUmur.getText()));
+			ps.setString(20, (String) cmboGolDarah.getSelectedItem());
+			ps.setString(21, txtNoBpjs.getText());
+			ps.setString(22, txtNoReg.getText());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil tersimpan!");
-			konek.close();
 			ps.close();
+			konek.close();
 		}
 		catch(Exception ex)
 		{
@@ -478,7 +493,7 @@ public class panelPasien extends JPanel {
 			
 			while(result.next())
 			{
-				Object obj[] = new Object[21];
+				Object obj[] = new Object[22];
 				obj[0] = result.getString(1);
 				obj[1] = result.getString(2);
 				obj[2] = result.getString(3);
@@ -496,10 +511,11 @@ public class panelPasien extends JPanel {
 				obj[14] = result.getString(15);
 				obj[15] = result.getString(16);
 				obj[16] = result.getString(17);
-				obj[17] = result.getInt(18);
-				obj[18] = result.getString(19);
+				obj[17] = result.getString(18);
+				obj[18] = result.getInt(19);
 				obj[19] = result.getString(20);
 				obj[20] = result.getString(21);
+				obj[21] = result.getString(22);
 				
 				tabelIdentitasPasien.addRow(obj);
 			}
@@ -522,7 +538,7 @@ public class panelPasien extends JPanel {
 			
 			while(result.next())
 			{
-				Object obj[] = new Object[21];
+				Object obj[] = new Object[22];
 				obj[0] = result.getString(1);
 				obj[1] = result.getString(2);
 				obj[2] = result.getString(3);
@@ -540,10 +556,11 @@ public class panelPasien extends JPanel {
 				obj[14] = result.getString(15);
 				obj[15] = result.getString(16);
 				obj[16] = result.getString(17);
-				obj[17] = result.getInt(18);
-				obj[18] = result.getString(19);
+				obj[17] = result.getString(18);
+				obj[18] = result.getInt(19);
 				obj[19] = result.getString(20);
 				obj[20] = result.getString(21);
+				obj[21] = result.getString(22);
 				
 				tabelIdentitasPasien.addRow(obj);
 			}
@@ -577,6 +594,7 @@ public class panelPasien extends JPanel {
 		txtNoBpjs.setText("");
 		txtNoRujukan.setText("");
 		txtAlamat.setText("");
+		cmboJenisKelamin.setSelectedIndex(0);
 		cmboStatusNikah.setSelectedIndex(0);
 		cmboGolDarah.setSelectedIndex(0);
 		table.clearSelection();
@@ -584,6 +602,8 @@ public class panelPasien extends JPanel {
 		bntEksekusiUbah.setEnabled(false);
 		btnHapus.setEnabled(false);
 		btnUbah.setEnabled(false);
+		cmboTanggal.setDate(new Date());
+	
 	}
 	
 	private void ambilDataPasien()
@@ -605,52 +625,55 @@ public class panelPasien extends JPanel {
 		Date ambilTanggalLahir = (Date) tabelIdentitasPasien.getValueAt(i, 4);
 		cmboTanggal.setDate(ambilTanggalLahir);
 		
-		String ambilStatusNikah = (String) tabelIdentitasPasien.getValueAt(i, 5);
+		String ambilJenisKelamin = (String) tabelIdentitasPasien.getValueAt(i, 5);
+		cmboJenisKelamin.setSelectedItem(ambilJenisKelamin);
+		
+		String ambilStatusNikah = (String) tabelIdentitasPasien.getValueAt(i, 6);
 		cmboStatusNikah.setSelectedItem(ambilStatusNikah);
 		
-		String ambilAgama = (String) tabelIdentitasPasien.getValueAt(i, 6);
+		String ambilAgama = (String) tabelIdentitasPasien.getValueAt(i, 7);
 		txtAgama.setText(ambilAgama);
 		
-		String ambilSuku = (String) tabelIdentitasPasien.getValueAt(i, 7);
+		String ambilSuku = (String) tabelIdentitasPasien.getValueAt(i, 8);
 		txtSuku.setText(ambilSuku);
 		
-		String ambilPendidikan = (String) tabelIdentitasPasien.getValueAt(i, 8);
+		String ambilPendidikan = (String) tabelIdentitasPasien.getValueAt(i, 9);
 		txtPendidikan.setText(ambilPendidikan);
 		
-		String ambilPekerjaan = (String) tabelIdentitasPasien.getValueAt(i, 9);
+		String ambilPekerjaan = (String) tabelIdentitasPasien.getValueAt(i, 10);
 		txtPekerjaan.setText(ambilPekerjaan);
 		
-		String ambilAlamat = (String) tabelIdentitasPasien.getValueAt(i, 10);
+		String ambilAlamat = (String) tabelIdentitasPasien.getValueAt(i, 11);
 		txtAlamat.setText(ambilAlamat);
 		
-		String ambilKelurahan = (String) tabelIdentitasPasien.getValueAt(i, 11);
+		String ambilKelurahan = (String) tabelIdentitasPasien.getValueAt(i, 12);
 		txtKelurahan.setText(ambilKelurahan);
 		
-		String ambilKecamatan = (String) tabelIdentitasPasien.getValueAt(i, 12);
+		String ambilKecamatan = (String) tabelIdentitasPasien.getValueAt(i, 13);
 		txtKecamatan.setText(ambilKecamatan);
 		
-		String ambilKabupaten = (String) tabelIdentitasPasien.getValueAt(i, 13);
+		String ambilKabupaten = (String) tabelIdentitasPasien.getValueAt(i, 14);
 		txtKabupaten.setText(ambilKabupaten);
 		
-		String ambilTelp = (String) tabelIdentitasPasien.getValueAt(i, 14);
+		String ambilTelp = (String) tabelIdentitasPasien.getValueAt(i, 15);
 		txtTelepon.setText(ambilTelp);
 		
-		String ambilKtpsim = (String) tabelIdentitasPasien.getValueAt(i, 15);
+		String ambilKtpsim = (String) tabelIdentitasPasien.getValueAt(i, 16);
 		txtNoKtpsim.setText(ambilKtpsim);
 		
-		String ambilAnakke = (String) tabelIdentitasPasien.getValueAt(i, 16);
+		String ambilAnakke = (String) tabelIdentitasPasien.getValueAt(i, 17);
 		txtAnakke.setText(ambilAnakke);
 		
-		int ambilUmur = (int) tabelIdentitasPasien.getValueAt(i, 17);
+		int ambilUmur = (int) tabelIdentitasPasien.getValueAt(i, 18);
 		txtUmur.setText(""+ambilUmur);
 		
-		String ambilGoldarah = (String) tabelIdentitasPasien.getValueAt(i, 18);
+		String ambilGoldarah = (String) tabelIdentitasPasien.getValueAt(i, 19);
 		cmboGolDarah.setSelectedItem(ambilGoldarah);
 		
-		String ambilNobpjs = (String) tabelIdentitasPasien.getValueAt(i, 19);
+		String ambilNobpjs = (String) tabelIdentitasPasien.getValueAt(i, 20);
 		txtNoBpjs.setText(ambilNobpjs);
 		
-		String ambilNorujukan = (String) tabelIdentitasPasien.getValueAt(i, 20);
+		String ambilNorujukan = (String) tabelIdentitasPasien.getValueAt(i, 21);
 		txtNoRujukan.setText(ambilNorujukan);
 		
 	}
@@ -660,34 +683,35 @@ public class panelPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("update pasien set no_rm=?,no_reg=?,nama=?,tempat_lahir=?,tanggal_lahir=?,sttus_nikah=?,agama=?,suku=?,pendidikan=?,pekerjaan=?,alamat=?,kelurahan=?,kecamatan=?,kabupaten=?,no_telp=?,no_ktp_sim=?,anak_ke=?,umur=?,gol_darah=?,no_bpjs=?,no_rujukan=? where no_rm=?");
+			PreparedStatement ps = konek.prepareStatement("update pasien set no_rm=?,no_reg=?,nama=?,tempat_lahir=?,tanggal_lahir=?,jenis_kelamin=?,sttus_nikah=?,agama=?,suku=?,pendidikan=?,pekerjaan=?,alamat=?,kelurahan=?,kecamatan=?,kabupaten=?,no_telp=?,no_ktp_sim=?,anak_ke=?,umur=?,gol_darah=?,no_bpjs=?,no_rujukan=? where no_rm=?");
 			ps.setString(1, txtNoRM.getText());
 			ps.setString(2, txtNoReg.getText());
 			ps.setString(3, txtNama.getText());
 			ps.setString(4, txtTempatLahir.getText());
 			ps.setString(5, (String) cmboTanggal.getSelectedItem());
-			ps.setString(6, (String) cmboStatusNikah.getSelectedItem());
-			ps.setString(7, txtAgama.getText());
-			ps.setString(8, txtSuku.getText());
-			ps.setString(9, txtPendidikan.getText());
-			ps.setString(10, txtPekerjaan.getText());
-			ps.setString(11, txtAlamat.getText());
-			ps.setString(12, txtKelurahan.getText());
-			ps.setString(13, txtKecamatan.getText());
-			ps.setString(14, txtKabupaten.getText());
-			ps.setString(15, txtTelepon.getText());
-			ps.setString(16, txtNoKtpsim.getText());
-			ps.setString(17, txtAnakke.getText());
-			ps.setInt(18, (int) Integer.parseInt(txtUmur.getText()));
-			ps.setString(19, (String) cmboGolDarah.getSelectedItem());
-			ps.setString(20, txtNoBpjs.getText());
-			ps.setString(21, txtNoReg.getText());
-			ps.setString(22, txtNoRM.getText());
+			ps.setString(6, (String) cmboJenisKelamin.getSelectedItem());
+			ps.setString(7, (String) cmboStatusNikah.getSelectedItem());
+			ps.setString(8, txtAgama.getText());
+			ps.setString(9, txtSuku.getText());
+			ps.setString(10, txtPendidikan.getText());
+			ps.setString(11, txtPekerjaan.getText());
+			ps.setString(12, txtAlamat.getText());
+			ps.setString(13, txtKelurahan.getText());
+			ps.setString(14, txtKecamatan.getText());
+			ps.setString(15, txtKabupaten.getText());
+			ps.setString(16, txtTelepon.getText());
+			ps.setString(17, txtNoKtpsim.getText());
+			ps.setString(18, txtAnakke.getText());
+			ps.setInt(19, (int) Integer.parseInt(txtUmur.getText()));
+			ps.setString(20, (String) cmboGolDarah.getSelectedItem());
+			ps.setString(21, txtNoBpjs.getText());
+			ps.setString(22, txtNoReg.getText());
+			ps.setString(23, txtNoRM.getText());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil diubah !");
-			konek.close();
 			ps.close();
+			konek.close();
 		}
 		catch(Exception ex)
 		{

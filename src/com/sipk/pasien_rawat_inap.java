@@ -126,8 +126,10 @@ public class pasien_rawat_inap extends JPanel{
 	DefaultTableModel modelTabelPasienKeluar = new DefaultTableModel(null, kolomTabelPasienKeluar);
 	private Icon iconPasienKeluar = new ImageIcon(getClass().getResource("image/pasien-keluar.png"));
 	private JButton btnPasienKeluar = new JButton("Pasien Keluar",iconPasienKeluar);
-	private JLabel lblKodeRI = new JLabel("Kode Rawat Jalan : ");
+	private JLabel lblKodeRI = new JLabel("No. RI : ");
 	private JTextField txtKodeRI = new JTextField();
+	private Icon iconRefresh3 = new ImageIcon(getClass().getResource("image/refresh.png"));
+	private JButton btnRefresh3 = new JButton("Refresh",iconRefresh3);
 	
 	
 	/**
@@ -265,6 +267,7 @@ public class pasien_rawat_inap extends JPanel{
 		masterTombol.add(btnSimpan);
 		masterTombol.add(btnSimpanUbah);
 		masterTombol.add(btnBatal);
+		masterTombol.add(btnRefresh3);
 		masterTombol.setBorder(BorderFactory.createTitledBorder("Tombol Aksi"));
 		
 		JPanel pnlGabungInputdanTombolUtm = new JPanel();
@@ -332,6 +335,7 @@ public class pasien_rawat_inap extends JPanel{
 		btnSimpanUbah.addActionListener(hendelButton);
 		txtNoRm.addActionListener(hendelButton);
 		btnPasienKeluar.addActionListener(hendelButton);
+		btnRefresh3.addActionListener(hendelButton);
 		
 		item();
 		tampilTabel();
@@ -1210,6 +1214,10 @@ public class pasien_rawat_inap extends JPanel{
 				tabRawatInap.setSelectedIndex(2);
 				}
 			}
+			else if(e.getSource()==btnRefresh3)
+			{
+				refreshDaftarRawatInap();
+			}
 		}
 	}
 	
@@ -1463,6 +1471,7 @@ public class pasien_rawat_inap extends JPanel{
 		cmboStatusPasien.addItem("Purnawirawan");
 		
 		cmboPoli.addItem("-- Pilih Poli --");
+		cmboPoli.addItem("Poli Umum");
 		cmboPoli.addItem("Poli Gigi");
 		cmboPoli.addItem("Poli Mata");
 		cmboPoli.addItem("Poli Bedah");
@@ -1662,6 +1671,41 @@ public class pasien_rawat_inap extends JPanel{
 		catch(Exception ex)
 		{
 			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tampilPasienKeluar : "+ex.getMessage());
+		}
+	}
+	
+	private void refreshDaftarRawatInap()
+	{
+		String macam_penyakit = "";
+		String dokter = "";
+		cmboPenyakit.removeAllItems();
+		cmboPenyakit.addItem("-- Pilih Macam Penyakit --");
+		cmboDokter.removeAllItems();
+		cmboDokter.addItem("-- Pilih Dokter --");
+		
+		try
+		{
+			connect = konek_database.getKonekDB();
+			Statement state = connect.createStatement();
+			ResultSet result = state.executeQuery("select macam_penyakit from macam_penyakit");
+			
+			while(result.next())
+			{
+				macam_penyakit = result.getString(1);
+				cmboPenyakit.addItem(macam_penyakit);
+			}
+			
+			ResultSet result2 = state.executeQuery("select nama_dokter from dokter");
+			
+			while(result2.next())
+			{
+				dokter = result2.getString(1);
+				cmboDokter.addItem(dokter);
+			}
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul refreshDaftarRawatInap : "+ex.getMessage());
 		}
 	}
 	

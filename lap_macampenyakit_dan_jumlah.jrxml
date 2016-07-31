@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
-<!-- 2016-07-17T21:32:21 -->
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-30T15:33:23 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tes2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86962601-2b7b-49a5-bb97-69c8dee295d4">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
@@ -67,7 +67,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="104" splitType="Stretch">
+		<band height="126" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="10" width="255" height="50" uuid="88a3003d-0d52-4f8c-af7b-7428ac27e8dc"/>
 				<text><![CDATA[ KEPOLISIAN NEGARA REPUBLIK INDONESIA
@@ -78,7 +78,7 @@
 				<reportElement x="0" y="60" width="251" height="1" uuid="93a7ab1d-8ca9-44ad-bc7e-a7516905592f"/>
 			</line>
 			<staticText>
-				<reportElement x="161" y="70" width="430" height="31" uuid="c8c93d69-0b73-4b31-a9e7-618347063267"/>
+				<reportElement x="180" y="90" width="430" height="31" uuid="c8c93d69-0b73-4b31-a9e7-618347063267"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -92,16 +92,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="59" splitType="Stretch">
-			<staticText>
-				<reportElement x="380" y="8" width="50" height="21" uuid="2d454e43-c15b-4355-8e9b-df7915b6b114"/>
-				<text><![CDATA[SATKER :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="380" y="31" width="50" height="21" uuid="560dab98-ecd4-49d2-ab16-64072f108463"/>
-				<text><![CDATA[BULAN   :]]></text>
-			</staticText>
-		</band>
+		<band height="17" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="78" splitType="Stretch">

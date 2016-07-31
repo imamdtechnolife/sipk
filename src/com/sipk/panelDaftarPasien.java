@@ -59,7 +59,7 @@ public class panelDaftarPasien extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Tanggal", "No. Urut", "No. CM", "Nama", "Umur", "Jenis Kelamin", "Pangkat", "Status Personil", "Kesatuan", "Bagian dikunjungi", "Diagnosa", "Keterangan"
+				"Tanggal", "No. Urut", "No. RM", "Nama", "Umur", "Jenis Kelamin", "Pangkat", "Status Personil", "Kesatuan", "Bagian dikunjungi", "Diagnosa", "Keterangan"
 			}
 		);
 	private JButton btnRefresh;
@@ -195,7 +195,7 @@ public class panelDaftarPasien extends JPanel {
 		panelDaftarKunjungan.add(txtNoUrut);
 		txtNoUrut.setColumns(10);
 		
-		JLabel lblNoCm = new JLabel("No. CM :");
+		JLabel lblNoCm = new JLabel("No. RM :");
 		lblNoCm.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblNoCm.setBounds(43, 196, 88, 14);
 		panelDaftarKunjungan.add(lblNoCm);
@@ -314,12 +314,17 @@ public class panelDaftarPasien extends JPanel {
 		cmboBagian.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		cmboBagian.setBounds(778, 329, 197, 29);
 		cmboBagian.addItem("-- Pilih Bagian --");
+		cmboBagian.addItem("Poli Umum");
 		cmboBagian.addItem("Poli Gigi");
 		cmboBagian.addItem("Poli Mata");
 		cmboBagian.addItem("Poli Bedah");
-		cmboBagian.addItem("Poli Fishioterapi");
-		cmboBagian.addItem("Poli BKIA");
 		cmboBagian.addItem("Poli Urologi");
+		cmboBagian.addItem("Poli Radiologi");
+		cmboBagian.addItem("Poli THT");
+		cmboBagian.addItem("Poli Penyakit Dalam");
+		cmboBagian.addItem("Poli BKIA");
+		cmboBagian.addItem("Poli Laktasi");
+		
 		panelDaftarKunjungan.add(cmboBagian);
 		
 		JLabel lblDiagnosa = new JLabel("Diagnosa :");
@@ -398,7 +403,7 @@ public class panelDaftarPasien extends JPanel {
 		btnEksekusiDaftarUlang.addActionListener(hendel);
 		txtCariNama.addActionListener(hendel);
 		btnCariNama.addActionListener(hendel);
-		
+		txtNoCM.addActionListener(hendel);
 
 	}
 	
@@ -581,7 +586,7 @@ public class panelDaftarPasien extends JPanel {
 			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar(tgl,nomor_urut,nomor_rm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
-			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));
+			ps.setString(3, txtNoCM.getText());
 			ps.setString(4, txtNama.getText());
 			ps.setInt(5, (int) Integer.parseInt(txtUmur.getText()));
 			ps.setString(6, (String) cmboJK.getSelectedItem());
@@ -657,7 +662,7 @@ public class panelDaftarPasien extends JPanel {
 			PreparedStatement ps = konek.prepareStatement("insert into pasien_daftar_ulang (tgl,nomor_urut,nomor_rm,nama,umur,jenis_kelamin,status_personil,pangkat,kesatuan,bagian_dikunjungi,diagnosa,keterangan) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
-			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));
+			ps.setString(3, txtNoCM.getText());
 			ps.setString(4, txtNama.getText());
 			ps.setInt(5, (int) Integer.parseInt(txtUmur.getText()));
 			ps.setString(6, (String) cmboJK.getSelectedItem());
@@ -699,7 +704,7 @@ public class panelDaftarPasien extends JPanel {
 				Object obj[] = new Object[12];
 					obj[0] = result.getDate(1); 
 					obj[1] = result.getInt(2);
-					obj[2] = result.getInt(3);
+					obj[2] = result.getString(3);
 					obj[3] = result.getString(4);
 					obj[4] = result.getInt(5);
 					obj[5] = result.getString(6);
@@ -739,7 +744,7 @@ public class panelDaftarPasien extends JPanel {
 				Object obj[] = new Object[12];
 					obj[0] = result.getDate(1); 
 					obj[1] = result.getInt(2);
-					obj[2] = result.getInt(3);
+					obj[2] = result.getString(3);
 					obj[3] = result.getString(4);
 					obj[4] = result.getInt(5);
 					obj[5] = result.getString(6);
@@ -763,6 +768,35 @@ public class panelDaftarPasien extends JPanel {
 		}
 	}
 	
+	private void cariNoRM()
+	{
+		String nama="",jenis_kelamin="";
+		int umur = 0;
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select nama,umur,jenis_kelamin from pasien where no_rm='"+txtNoCM.getText()+"'");
+			
+			if(result.next())
+			{
+				nama = result.getString(1);
+				umur = result.getInt(2);
+				jenis_kelamin = result.getString(3);	
+			}
+			
+			txtNama.setText(nama);
+			txtUmur.setText(""+umur);
+			cmboJK.setSelectedItem(jenis_kelamin);
+			
+			
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul cariNoRM : "+ex.getMessage());
+		}
+	}
+	
 	
 	private void ambilDaftarPengunjung()
 	{
@@ -774,8 +808,8 @@ public class panelDaftarPasien extends JPanel {
 		int ambilNoUrut = (int) modelTabelDaftarKunjungan.getValueAt(i, 1);
 		txtNoUrut.setText(""+ambilNoUrut);
 		
-		int ambilNoCM = (int) modelTabelDaftarKunjungan.getValueAt(i, 2);
-		txtNoCM.setText(""+ambilNoCM);
+		String ambilNoCM = (String) modelTabelDaftarKunjungan.getValueAt(i, 2);
+		txtNoCM.setText(ambilNoCM);
 		
 		String ambilNama = (String) modelTabelDaftarKunjungan.getValueAt(i, 3);
 		txtNama.setText(ambilNama);
@@ -810,7 +844,7 @@ public class panelDaftarPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("delete from pasien_daftar where nomor_rm ="+txtNoCM.getText()+"");
+			PreparedStatement ps = konek.prepareStatement("delete from pasien_daftar where nomor_urut ="+txtNoUrut.getText()+"");
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil dihapus !");
@@ -881,6 +915,10 @@ public class panelDaftarPasien extends JPanel {
 			else if(e.getSource()==txtCariNama)
 			{
 				cariNama();
+			}
+			else if(e.getSource()==txtNoCM)
+			{
+				cariNoRM();
 			}
 		}
 	}
