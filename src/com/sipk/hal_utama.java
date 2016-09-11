@@ -1,13 +1,8 @@
 package com.sipk;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.PanelUI;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -19,38 +14,32 @@ import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
-
-import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+
 public class hal_utama extends JFrame {
 
-	/**
-	 * initial
-	 */
 	private JPanel contentPane;
 	public JButton btnDaftarPenyakit;
 	public JButton btnDaftarPasien;
 	private JPanel panel;
 	private JLabel lbl;
-	panelUser obj = new panelUser();
-	pasien_rawat_inap objRawatInap = new pasien_rawat_inap();
-	//pasien_bersalin objBersalin = new pasien_bersalin();
-	panelBiayaRJ objBiaya = new panelBiayaRJ();
-	panelPemeriksaan objPemeriksaan = new panelPemeriksaan();
-	//jenis_penyakit objPenyakit = new jenis_penyakit();
-	panelLogin objLogin = new panelLogin();
-	panelLaporan objLaporan = new panelLaporan();
-	panelDaftarPasien objDaftarPasien = new panelDaftarPasien();
-	panelRMRawatJalan objRMRawatJalan = new panelRMRawatJalan();
-	panelPasien objPasien = new panelPasien();
-	panelMacamPenyakit objMacamPenyakit = new panelMacamPenyakit();
+	menuPengguna obj = new menuPengguna();
+	menuRawatInap objRawatInap = new menuRawatInap();
+	panelDaftarDokter objPemeriksaan = new panelDaftarDokter();
+	panelHalamanAwal objLogin = new panelHalamanAwal();
+	menuLaporan objLaporan = new menuLaporan();
+	menuRawatJalan objDaftarPasien = new menuRawatJalan();
+	menuPemeriksaan objRMRawatJalan = new menuPemeriksaan();
+	menuPasien objPasien = new menuPasien();
+	panelDaftarPenyakit objMacamPenyakit = new panelDaftarPenyakit();
+	panelProfilKu objProfil = new panelProfilKu();
+	panelProfilRS objProfilRS = new panelProfilRS();
 	public JButton btnDokter;
 	public JButton btnRawatJalan;
 	public JButton btnRawatInap;
@@ -65,34 +54,16 @@ public class hal_utama extends JFrame {
 	Connection konek = null;
 	JMenuItem penggunaLogout;
 	JComboBox comboLevel;
-	panelLaporan tampilKunjungan;
-	
-	
-	/**
-	 * Launch the application.
-	 */
+	menuLaporan tampilKunjungan;
+	private JMenuItem aboutDeveloper;
+	private JMenuItem aboutRS;
 	
 	/**
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					hal_utama frame = new hal_utama();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-
-	/**
-	 * Create the frame.
+	 * membuat frame.
 	 */
 	public hal_utama() {
 		super("Sistem Informasi Pelayanan Kesehatan Rumah Sakit Bhayangkara Mataram");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(hal_utama.class.getResource("image/address-book-new.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(hal_utama.class.getResource("image/icon.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 701);
 		contentPane = new JPanel();
@@ -140,14 +111,6 @@ public class hal_utama extends JFrame {
 		btnPasien.setEnabled(false);
 		toolBar.add(btnPasien);
 		toolBar.addSeparator();
-		
-		/**
-		btnPembayaran = new JButton("Pembayaran");
-		btnPembayaran.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/accessories-calculator.png")));
-		btnPembayaran.setEnabled(false);
-		toolBar.add(btnPembayaran);
-		toolBar.addSeparator();
-		**/
 		
 		btnLaporan = new JButton("Laporan");
 		btnLaporan.setIcon(new ImageIcon(hal_utama.class.getResource("/com/sipk/Image/laporan-1.png")));
@@ -217,19 +180,18 @@ public class hal_utama extends JFrame {
 		comboLevel.addItem("Kepala RS");
 		panelMasuk.add(comboLevel);
 		
-		//menu
 		
 		JMenu menuPengguna = new JMenu("Pengguna");
 		JMenu menuAbout = new JMenu("Tentang");
 		
 		penggunaLogout = new JMenuItem("Logout");
 		
-		JMenuItem aboutRM = new JMenuItem("RM. Bhayangkara Mataram");
-		JMenuItem aboutDeveloper = new JMenuItem("Pengembang");
+		aboutRS = new JMenuItem("RS. Bhayangkara Mataram");
+		aboutDeveloper = new JMenuItem("Pengembang");
 		
 		menuPengguna.add(penggunaLogout);
 		
-		menuAbout.add(aboutRM);
+		menuAbout.add(aboutRS);
 		menuAbout.add(aboutDeveloper);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -251,8 +213,10 @@ public class hal_utama extends JFrame {
 		penggunaLogout.addActionListener(hendel);
 		btnRawatJalan.addActionListener(hendel);
 		btnRawatInap.addActionListener(hendel);
+		aboutDeveloper.addActionListener(hendel);
+		aboutRS.addActionListener(hendel);
 		
-		tampilKunjungan = new panelLaporan();
+		tampilKunjungan = new menuLaporan();
 
 	}
 	
@@ -317,6 +281,8 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				btnRawatJalan.setEnabled(true);
+				btnRawatInap.setEnabled(true);
+				btnDokter.setEnabled(true);
 			}
 			else if(level == "Kepala RS")
 			{
@@ -329,6 +295,8 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				btnLaporan.setEnabled(true);
+				btnRawatJalan.setEnabled(true);
+				btnRawatInap.setEnabled(true);
 			}
 			else if(level == "Petugas TPPRI")
 			{
@@ -489,6 +457,24 @@ public class hal_utama extends JFrame {
 				panel.revalidate();
 				
 				panel.add(objRawatInap);
+				panel.repaint();
+				panel.revalidate();
+			}
+			else if(e.getSource()==aboutDeveloper)
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				panel.add(objProfil);
+				panel.repaint();
+				panel.revalidate();
+			}
+			else if(e.getSource()==aboutRS)
+			{
+				panel.removeAll();
+				panel.repaint();
+				panel.revalidate();
+				panel.add(objProfilRS);
 				panel.repaint();
 				panel.revalidate();
 			}

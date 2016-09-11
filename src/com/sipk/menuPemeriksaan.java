@@ -3,7 +3,6 @@ package com.sipk;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,13 +14,11 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.JComboBox;
@@ -32,13 +29,12 @@ import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class panelRMRawatJalan extends JPanel {
+public class menuPemeriksaan extends JPanel {
 	private JTextField txtNama;
 	private JTextField txtUmur;
 	private JTextField txtNoReg;
@@ -65,7 +61,7 @@ public class panelRMRawatJalan extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Kode RJ", "Nama", "Umur", "No. Reg", "No. RM", "Status Pasien", "Poliklinik", "Tanggal", "Jam", "Therapi", "TTD / ID Dokter"
+				"No. RJ", "Nama", "Umur", "No. Reg", "No. RM", "Status Pasien", "Poliklinik", "Tanggal", "Jam", "Therapi", "TTD / ID Dokter"
 			}
 		);
 	private JButton btnUbah;
@@ -81,7 +77,7 @@ public class panelRMRawatJalan extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelRMRawatJalan() {
+	public menuPemeriksaan() {
 		setLayout(new GridLayout(0,1));
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -116,19 +112,19 @@ public class panelRMRawatJalan extends JPanel {
 		panelTabelRMRJ.add(lblTabelRekamMedis);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnUbah.setBounds(683, 48, 98, 33);
 		btnUbah.setEnabled(false);
 		panelTabelRMRJ.add(btnUbah);
 		
 		btnHapus = new JButton("Hapus");
-		btnHapus.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Hapus.png")));
+		btnHapus.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Hapus.png")));
 		btnHapus.setBounds(786, 48, 98, 33);
 		btnHapus.setEnabled(false);
 		panelTabelRMRJ.add(btnHapus);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh.setBounds(894, 48, 98, 33);
 		panelTabelRMRJ.add(btnRefresh);
 		
@@ -191,17 +187,29 @@ public class panelRMRawatJalan extends JPanel {
 		cmboPoli = new JComboBox();
 		cmboPoli.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		cmboPoli.setBounds(965, 84, 171, 29);
+		/**
+		cmboBagian.addItem("Poli Umum");
+		cmboBagian.addItem("Poli Gigi");
+		cmboBagian.addItem("Poli Mata");
+		cmboBagian.addItem("Poli Bedah");
+		cmboBagian.addItem("Poli Urologi");
+		cmboBagian.addItem("Poli Radiologi");
+		cmboBagian.addItem("Poli THT");
+		cmboBagian.addItem("Poli Penyakit Dalam");
+		cmboBagian.addItem("Poli BKIA");
+		cmboBagian.addItem("Poli Laktasi");
+		**/
 		cmboPoli.addItem("-- Pilih Poli --");
-		cmboPoli.addItem("Umum");
-		cmboPoli.addItem("Gigi");
-		cmboPoli.addItem("Mata");
-		cmboPoli.addItem("Bedah");
-		cmboPoli.addItem("Urologi");
-		cmboPoli.addItem("Radiologi");
-		cmboPoli.addItem("THT");
-		cmboPoli.addItem("Penyakit Dalam");
-		cmboPoli.addItem("BKIA");
-		cmboPoli.addItem("Laktasi");
+		cmboPoli.addItem("Poli Umum");
+		cmboPoli.addItem("Poli Gigi");
+		cmboPoli.addItem("Poli Mata");
+		cmboPoli.addItem("Poli Bedah");
+		cmboPoli.addItem("Poli Urologi");
+		cmboPoli.addItem("Poli Radiologi");
+		cmboPoli.addItem("Poli THT");
+		cmboPoli.addItem("Poli Penyakit Dalam");
+		cmboPoli.addItem("Poli BKIA");
+		cmboPoli.addItem("Poli Laktasi");
 		cmboPoli.addItemListener(new ItemListener()
 				{
 					public void itemStateChanged(ItemEvent e)
@@ -227,7 +235,7 @@ public class panelRMRawatJalan extends JPanel {
 		lblTanggal.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		
 		btnCari = new JButton("Cari");
-		btnCari.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Cari.png")));
+		btnCari.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Cari.png")));
 		btnCari.setBounds(711, 113, 89, 39);
 		panel.add(btnCari);
 		
@@ -282,17 +290,17 @@ public class panelRMRawatJalan extends JPanel {
 		lblRekamMedisRawat.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		
 		btnSimpan = new JButton("Simpan");
-		btnSimpan.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Simpan.png")));
 		btnSimpan.setBounds(810, 273, 104, 39);
 		panel.add(btnSimpan);
 		
 		btnBatal = new JButton("Batal");
-		btnBatal.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Batal.png")));
 		btnBatal.setBounds(810, 315, 104, 39);
 		panel.add(btnBatal);
 		
 		btnDiagnose = new JButton("Diagnose");
-		btnDiagnose.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/oke.png")));
+		btnDiagnose.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/oke.png")));
 		btnDiagnose.setBounds(566, 383, 112, 26);
 		panel.add(btnDiagnose);
 		
@@ -326,7 +334,7 @@ public class panelRMRawatJalan extends JPanel {
 		panel.add(lblNoDtd);
 		
 		btnCariDokter = new JButton("Cari");
-		btnCariDokter.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Cari.png")));
+		btnCariDokter.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Cari.png")));
 		btnCariDokter.setBounds(1061, 127, 89, 39);
 		panel.add(btnCariDokter);
 		
@@ -367,6 +375,7 @@ public class panelRMRawatJalan extends JPanel {
 		cmboStatusPasien.addItem("Tahanan");
 		cmboStatusPasien.addItem("Mandiri");
 		cmboStatusPasien.addItem("BPJS");
+		cmboStatusPasien.addItem("Purnawirawan");
 		panel.add(cmboStatusPasien);
 		
 		JLabel lblNoRj = new JLabel("No. RJ :");
@@ -378,17 +387,17 @@ public class panelRMRawatJalan extends JPanel {
 		txtNoRJ.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		txtNoRJ.setColumns(10);
 		txtNoRJ.setBounds(140, 84, 69, 29);
-		txtNoRJ.setEditable(false);
+		txtNoRJ.setEditable(true);
 		panel.add(txtNoRJ);
 		
 		btnEksekusiUbah = new JButton("Ubah");
 		btnEksekusiUbah.setEnabled(false);
-		btnEksekusiUbah.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnEksekusiUbah.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnEksekusiUbah.setBounds(924, 273, 104, 39);
 		panel.add(btnEksekusiUbah);
 		
 		btnRefresh2 = new JButton("Refresh");
-		btnRefresh2.setIcon(new ImageIcon(panelRMRawatJalan.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh2.setIcon(new ImageIcon(menuPemeriksaan.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh2.setBounds(1224, 113, 104, 39);
 		panel.add(btnRefresh2);
 		
@@ -404,12 +413,14 @@ public class panelRMRawatJalan extends JPanel {
 		btnHapus.addActionListener(hendel);
 		btnEksekusiUbah.addActionListener(hendel);
 		btnRefresh2.addActionListener(hendel);
+		txtNoRJ.addActionListener(hendel);
 		
 		bersihPanelRMRJ();
 	}
 	
 	private void bersihPanelRMRJ()
 	{
+		/**
 		try
 		{
 			konek = konek_database.getKonekDB();
@@ -430,6 +441,7 @@ public class panelRMRawatJalan extends JPanel {
 		{
 			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada model no_rj otomatis : "+ex.getMessage());
 		}
+		**/
 		ambilDataMacamPenyakit();
 		membuatJam();
 		tampilTabelRMRJ();
@@ -453,6 +465,7 @@ public class panelRMRawatJalan extends JPanel {
 		//listPenyakit.
 		modelListMacamPenyakit.clear();
 		cmboStatusPasien.setSelectedIndex(0);
+		txtNoRJ.setText("");
 	}
 	
 	private class itemCombo implements ItemListener
@@ -599,17 +612,18 @@ public class panelRMRawatJalan extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("insert into rm_pasien_rawat_jalan (no_reg,no_rm,nama, umur,poli,tanggal,jam,terapi,no_id,status_pasien) values (?,?,?,?,?,?,?,?,?,?)");
-			ps.setString(1, txtNoReg.getText());
-			ps.setString(2, txtNoRm.getText());
-			ps.setString(3, txtNama.getText());
-			ps.setString(4, txtUmur.getText());
-			ps.setString(5, (String) cmboPoli.getSelectedItem());
-			ps.setString(6, txtTanggal.getText());
-			ps.setString(7, txtJam.getText());
-			ps.setString(8, txtTherapi.getText());
-			ps.setString(9, txtCariDokter.getText());
-			ps.setString(10, (String) cmboStatusPasien.getSelectedItem());
+			PreparedStatement ps = konek.prepareStatement("insert into rm_pasien_rawat_jalan (no_rj,no_reg,no_rm,nama, umur,poli,tanggal,jam,terapi,no_id,status_pasien) values (?,?,?,?,?,?,?,?,?,?,?)");
+			ps.setInt(1, (int) Integer.parseInt(txtNoRJ.getText()));
+			ps.setString(2, txtNoReg.getText());
+			ps.setString(3, txtNoRm.getText());
+			ps.setString(4, txtNama.getText());
+			ps.setString(5, txtUmur.getText());
+			ps.setString(6, (String) cmboPoli.getSelectedItem());
+			ps.setString(7, txtTanggal.getText());
+			ps.setString(8, txtJam.getText());
+			ps.setString(9, txtTherapi.getText());
+			ps.setString(10, txtCariDokter.getText());
+			ps.setString(11, (String) cmboStatusPasien.getSelectedItem());
 			ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil tersimpan !");
@@ -637,7 +651,7 @@ public class panelRMRawatJalan extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select nama,umur,no_reg from pasien where no_rm like  '%"+txtNoRm.getText()+"%'");
+			ResultSet result = state.executeQuery("select nama,umur,no_reg from pasien where no_rm ='"+txtNoRm.getText()+"'");
 			
 			if(result.next())
 			{
@@ -676,7 +690,7 @@ public class panelRMRawatJalan extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select nama_dokter from dokter where no_id like '%"+txtCariDokter.getText()+"%'");
+			ResultSet result = state.executeQuery("select nama_dokter from dokter where no_id='"+txtCariDokter.getText()+"'");
 			
 			if(result.next())
 			{
@@ -782,6 +796,32 @@ public class panelRMRawatJalan extends JPanel {
 		finally
 		{
 			tampilTabelRMRJ();
+		}
+	}
+	
+	private void ambilDaftarRawatJalan()
+	{
+		String no_rm="",status_pasien="",poli="";
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select nomor_rm,status_personil,bagian_dikunjungi from pasien_daftar where nomor_urut="+txtNoRJ.getText()+"");
+			
+			if(result.next())
+			{
+				no_rm = result.getString(1);
+				status_pasien = result.getString(2);
+				poli = result.getString(3);
+			}
+			
+			txtNoRm.setText(no_rm);
+			cmboStatusPasien.setSelectedItem(status_pasien);
+			cmboPoli.setSelectedItem(poli);
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul ambilPasienRawatJalan() : "+ex.getMessage());
 		}
 	}
 	
@@ -897,7 +937,7 @@ public class panelRMRawatJalan extends JPanel {
 						modelListMacamPenyakit.addElement(i);
 					}
 					
-					ResultSet result = state.executeQuery("select nama_dokter from dokter where no_id like '%"+txtCariDokter.getText()+"%'");
+					ResultSet result = state.executeQuery("select nama_dokter from dokter where no_id='"+txtCariDokter.getText()+"'");
 					
 					if(result.next())
 					{
@@ -926,6 +966,10 @@ public class panelRMRawatJalan extends JPanel {
 			else if(e.getSource()==btnRefresh2)
 			{
 				bersihPanelRMRJ();
+			}
+			else if(e.getSource()==txtNoRJ)
+			{
+				ambilDaftarRawatJalan();
 			}
 		}
 		

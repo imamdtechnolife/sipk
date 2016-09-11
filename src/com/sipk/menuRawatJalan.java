@@ -19,21 +19,19 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.freixas.jcalendar.JCalendarCombo;
-import javax.swing.JRadioButton;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
-public class panelDaftarPasien extends JPanel {
+public class menuRawatJalan extends JPanel {
 	private JTextField txtKeterangan;
 	private JTextField txtNoUrut;
 	private JTextField txtNoCM;
@@ -59,7 +57,7 @@ public class panelDaftarPasien extends JPanel {
 			new Object[][] {
 			},
 			new String[] {
-				"Tanggal", "No. Urut", "No. RM", "Nama", "Umur", "Jenis Kelamin", "Pangkat", "Status Personil", "Kesatuan", "Bagian dikunjungi", "Diagnosa", "Keterangan"
+				"Tanggal", "No. RJ", "No. RM", "Nama", "Umur", "Jenis Kelamin", "Pangkat", "Status Personil", "Kesatuan", "Bagian dikunjungi", "Diagnosa", "Keterangan"
 			}
 		);
 	private JButton btnRefresh;
@@ -74,7 +72,7 @@ public class panelDaftarPasien extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelDaftarPasien() {
+	public menuRawatJalan() {
 		setLayout(new GridLayout(0,1));
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -129,7 +127,7 @@ public class panelDaftarPasien extends JPanel {
 		panelTabelKunjungan.add(lblPencarianBerdasarkanTanggal);
 		
 		btnCariBerdasarTanggal = new JButton("");
-		btnCariBerdasarTanggal.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Cari.png")));
+		btnCariBerdasarTanggal.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Cari.png")));
 		btnCariBerdasarTanggal.setBounds(1295, 74, 44, 33);
 		panelTabelKunjungan.add(btnCariBerdasarTanggal);
 		
@@ -145,27 +143,27 @@ public class panelDaftarPasien extends JPanel {
 		panelTabelKunjungan.add(lblNama_1);
 		
 		btnCariNama = new JButton("");
-		btnCariNama.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Cari.png")));
+		btnCariNama.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Cari.png")));
 		btnCariNama.setBounds(777, 74, 44, 33);
 		panelTabelKunjungan.add(btnCariNama);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh.setBounds(1240, 11, 99, 33);
 		panelTabelKunjungan.add(btnRefresh);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnUbah.setBounds(465, 472, 103, 43);
 		panelTabelKunjungan.add(btnUbah);
 		
 		btnHapus = new JButton("Hapus");
-		btnHapus.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Hapus.png")));
+		btnHapus.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Hapus.png")));
 		btnHapus.setBounds(572, 472, 103, 43);
 		panelTabelKunjungan.add(btnHapus);
 		
 		btnDaftarUlang = new JButton("Daftar Ulang");
-		btnDaftarUlang.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/daftar-ulang.png")));
+		btnDaftarUlang.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/daftar-ulang.png")));
 		btnDaftarUlang.setBounds(685, 472, 121, 43);
 		panelTabelKunjungan.add(btnDaftarUlang);
 		
@@ -184,7 +182,7 @@ public class panelDaftarPasien extends JPanel {
 		lblTanggal.setBounds(44, 111, 88, 20);
 		panelDaftarKunjungan.add(lblTanggal);
 		
-		JLabel lblNoUrut = new JLabel("No. Urut :");
+		JLabel lblNoUrut = new JLabel("No. RJ :");
 		lblNoUrut.setFont(new Font("Bookman Old Style", Font.PLAIN, 14));
 		lblNoUrut.setBounds(43, 157, 88, 14);
 		panelDaftarKunjungan.add(lblNoUrut);
@@ -346,15 +344,15 @@ public class panelDaftarPasien extends JPanel {
 		btnSimpan = new JButton("Simpan");
 		btnSimpan.setBounds(820, 438, 103, 43);
 		panelDaftarKunjungan.add(btnSimpan);
-		btnSimpan.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Simpan.png")));
 		
 		btnBatal = new JButton("Batal");
 		btnBatal.setBounds(933, 438, 103, 43);
 		panelDaftarKunjungan.add(btnBatal);
-		btnBatal.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Batal.png")));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/b-daftar.png")));
+		lblNewLabel.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/b-daftar.png")));
 		lblNewLabel.setBounds(1088, 108, 256, 266);
 		panelDaftarKunjungan.add(lblNewLabel);
 		
@@ -378,14 +376,15 @@ public class panelDaftarPasien extends JPanel {
 		txtNoUrut.setEditable(false);
 		
 		btnEksekusiDaftarUlang = new JButton("Daftar Ulang");
-		btnEksekusiDaftarUlang.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/daftar-ulang.png")));
+		btnEksekusiDaftarUlang.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/daftar-ulang.png")));
 		btnEksekusiDaftarUlang.setBounds(1158, 438, 129, 43);
 		panelDaftarKunjungan.add(btnEksekusiDaftarUlang);
 		
 		btnEksekusiUbah = new JButton("Ubah");
-		btnEksekusiUbah.setIcon(new ImageIcon(panelDaftarPasien.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnEksekusiUbah.setIcon(new ImageIcon(menuRawatJalan.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnEksekusiUbah.setBounds(1045, 438, 103, 43);
 		panelDaftarKunjungan.add(btnEksekusiUbah);
+		panelDaftarKunjungan.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtNoUrut, txtNoCM, txtNama, txtUmur, cmboJK, cmboSttsPersonil, cmboPangkat, cmboSatuan, txtDiagnosa, cmboBagian, txtKeterangan, btnSimpan, btnBatal, lblDaftarPasien, lblTanggal, lblNoUrut, lblNoCm, lblNama, lblUmur, lblJenisKelamin, lblPangkat, lblStatus, lblSatuan, lblBagianYangDikunjungi, lblDiagnosa, lblKeterangan, lblNewLabel, scrollPane, calendarCombo, btnEksekusiDaftarUlang, btnEksekusiUbah}));
 		
 		daftarPangkat();
 		buatNoUrutOtomatis();
@@ -625,7 +624,7 @@ public class panelDaftarPasien extends JPanel {
 		try
 		{
 			konek = konek_database.getKonekDB();
-			PreparedStatement ps = konek.prepareStatement("update pasien_daftar set tgl=?,nomor_urut=?,nomor_rm=?,nama=?,umur=?,jenis_kelamin=?,status_personil=?,pangkat=?,kesatuan=?,bagian_dikunjungi=?,diagnosa=?,keterangan=? where nomor_cm=?");
+			PreparedStatement ps = konek.prepareStatement("update pasien_daftar set tgl=?,nomor_urut=?,nomor_rm=?,nama=?,umur=?,jenis_kelamin=?,status_personil=?,pangkat=?,kesatuan=?,bagian_dikunjungi=?,diagnosa=?,keterangan=? where nomor_rm=?");
 			ps.setString(1, (String) calendarCombo.getSelectedItem());
 			ps.setInt(2, (int) Integer.parseInt(txtNoUrut.getText()));
 			ps.setInt(3, (int) Integer.parseInt(txtNoCM.getText()));

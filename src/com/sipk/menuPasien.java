@@ -13,11 +13,9 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
 import org.freixas.jcalendar.JCalendarCombo;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -29,7 +27,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Statement;
 
-public class panelPasien extends JPanel {
+public class menuPasien extends JPanel {
 	private JTextField txtNoRM;
 	private JTextField txtNoReg;
 	private JTextField txtNama;
@@ -71,11 +69,15 @@ public class panelPasien extends JPanel {
 	private JTabbedPane tabbedPane;
 	private JButton bntEksekusiUbah;
 	private JComboBox cmboJenisKelamin;
+	private JButton btnPasienRjBaru;
+	private JButton btnPasienRiBaru;
+	private JLabel lblNoRJ;
+	private JLabel lblNoRI;
 
 	/**
 	 * Create the panel.
 	 */
-	public panelPasien() {
+	public menuPasien() {
 		setLayout(new GridLayout(0,1));
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -109,6 +111,7 @@ public class panelPasien extends JPanel {
 		panelTabelPasien.add(lblNewLabel);
 		
 		txtCariPasien = new JTextField();
+		txtCariPasien.setToolTipText("Masukkan Nomor RM Pasien");
 		txtCariPasien.setFont(new Font("Bookman Old Style", Font.PLAIN, 13));
 		txtCariPasien.setBounds(126, 75, 190, 29);
 		panelTabelPasien.add(txtCariPasien);
@@ -120,18 +123,18 @@ public class panelPasien extends JPanel {
 		panelTabelPasien.add(lblCariPasien);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh.setBounds(1251, 23, 99, 33);
 		panelTabelPasien.add(btnRefresh);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnUbah.setBounds(484, 479, 99, 33);
 		btnUbah.setEnabled(false);
 		panelTabelPasien.add(btnUbah);
 		
 		btnHapus = new JButton("Hapus");
-		btnHapus.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Hapus.png")));
+		btnHapus.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Hapus.png")));
 		btnHapus.setBounds(591, 479, 99, 33);
 		btnHapus.setEnabled(false);
 		panelTabelPasien.add(btnHapus);
@@ -391,12 +394,12 @@ public class panelPasien extends JPanel {
 		panel.add(cmboGolDarah);
 		
 		btnSimpan = new JButton("Simpan");
-		btnSimpan.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Simpan.png")));
 		btnSimpan.setBounds(806, 458, 99, 43);
 		panel.add(btnSimpan);
 		
 		btnBatal = new JButton("Batal");
-		btnBatal.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Batal.png")));
 		btnBatal.setBounds(931, 458, 102, 43);
 		panel.add(btnBatal);
 		
@@ -406,7 +409,7 @@ public class panelPasien extends JPanel {
 		panel.add(cmboTanggal);
 		
 		bntEksekusiUbah = new JButton("Ubah");
-		bntEksekusiUbah.setIcon(new ImageIcon(panelPasien.class.getResource("/com/sipk/Image/Ubah.png")));
+		bntEksekusiUbah.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/Ubah.png")));
 		bntEksekusiUbah.setBounds(1053, 458, 99, 43);
 		bntEksekusiUbah.setEnabled(false);
 		panel.add(bntEksekusiUbah);
@@ -424,6 +427,26 @@ public class panelPasien extends JPanel {
 		cmboJenisKelamin.addItem("Perempuan");
 		panel.add(cmboJenisKelamin);
 		
+		btnPasienRjBaru = new JButton("Pasien RJ Baru");
+		btnPasienRjBaru.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/buku-daftar.png")));
+		btnPasienRjBaru.setBounds(991, 28, 155, 57);
+		panel.add(btnPasienRjBaru);
+		
+		btnPasienRiBaru = new JButton("Pasien RI Baru");
+		btnPasienRiBaru.setIcon(new ImageIcon(menuPasien.class.getResource("/com/sipk/Image/rawat-inap.png")));
+		btnPasienRiBaru.setBounds(1163, 28, 155, 57);
+		panel.add(btnPasienRiBaru);
+		
+		lblNoRJ = new JLabel("New label");
+		lblNoRJ.setBounds(1042, 11, 46, 14);
+		lblNoRJ.setVisible(false);
+		panel.add(lblNoRJ);
+		
+		lblNoRI = new JLabel("New label");
+		lblNoRI.setBounds(1229, 11, 46, 14);
+		lblNoRI.setVisible(false);
+		panel.add(lblNoRI);
+		
 		penghendel hendel = new penghendel();
 		btnSimpan.addActionListener(hendel);
 		btnBatal.addActionListener(hendel);
@@ -432,6 +455,8 @@ public class panelPasien extends JPanel {
 		btnUbah.addActionListener(hendel);
 		btnHapus.addActionListener(hendel);
 		bntEksekusiUbah.addActionListener(hendel);
+		btnPasienRjBaru.addActionListener(hendel);
+		btnPasienRiBaru.addActionListener(hendel);
 		
 		tampilPasien();
 	}
@@ -465,6 +490,17 @@ public class panelPasien extends JPanel {
 			ps.setString(21, txtNoBpjs.getText());
 			ps.setString(22, txtNoReg.getText());
 			ps.executeUpdate();
+			
+			if(lblNoRI.getText().equals(""))
+			{
+				PreparedStatement ps2 = konek.prepareStatement("update pasien_daftar set nomor_rm='"+txtNoRM.getText()+"' where nomor_urut="+lblNoRJ.getText()+"");
+				ps2.executeUpdate();
+			}
+			else
+			{
+				
+			}
+			
 			
 			JOptionPane.showMessageDialog(null, "Data berhasil tersimpan!");
 			ps.close();
@@ -534,7 +570,7 @@ public class panelPasien extends JPanel {
 		{
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select * from pasien where nama like '%"+txtCariPasien.getText()+"%' ");
+			ResultSet result = state.executeQuery("select * from pasien where no_rm like '%"+txtCariPasien.getText()+"%' ");
 			
 			while(result.next())
 			{
@@ -599,10 +635,13 @@ public class panelPasien extends JPanel {
 		cmboGolDarah.setSelectedIndex(0);
 		table.clearSelection();
 		tampilPasien();
+		btnSimpan.setEnabled(true);
 		bntEksekusiUbah.setEnabled(false);
 		btnHapus.setEnabled(false);
 		btnUbah.setEnabled(false);
 		cmboTanggal.setDate(new Date());
+		lblNoRJ.setText("");
+		lblNoRI.setText("");
 	
 	}
 	
@@ -667,8 +706,8 @@ public class panelPasien extends JPanel {
 		int ambilUmur = (int) tabelIdentitasPasien.getValueAt(i, 18);
 		txtUmur.setText(""+ambilUmur);
 		
-		String ambilGoldarah = (String) tabelIdentitasPasien.getValueAt(i, 19);
-		cmboGolDarah.setSelectedItem(ambilGoldarah);
+		String ambilGolDarah = (String) tabelIdentitasPasien.getValueAt(i, 19);
+		cmboGolDarah.setSelectedItem(ambilGolDarah);
 		
 		String ambilNobpjs = (String) tabelIdentitasPasien.getValueAt(i, 20);
 		txtNoBpjs.setText(ambilNobpjs);
@@ -747,14 +786,85 @@ public class panelPasien extends JPanel {
 		}
 	}
 	
+	private void ambilDaftarPasienRJ()
+	{
+		String nama="",jenis_kelamin="";
+		int umur=0,no_rj=0;
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select nomor_urut,nama,umur,jenis_kelamin from pasien_daftar order by nomor_urut desc");
+			
+			if(result.next())
+			{
+				no_rj = result.getInt(1);
+				nama = result.getString(2);
+				umur = result.getInt(3);
+				jenis_kelamin = result.getString(4);
+				
+			}
+			
+			lblNoRJ.setText(""+no_rj);
+			txtNama.setText(nama);
+			txtUmur.setText(""+umur);
+			cmboJenisKelamin.setSelectedItem(jenis_kelamin);
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul ambilDaftarPasienRJ() : "+ex.getMessage());
+		}
+	}
+	
+	private void ambilDaftarPasienRI()
+	{
+		String nama="",status_nikah="",alamat="";
+		int umur=0, no_ri=0;
+		try
+		{
+			konek = konek_database.getKonekDB();
+			Statement state = konek.createStatement();
+			ResultSet result = state.executeQuery("select kd_rawat_inap,nama,umur,alamat,sttus_nikah from pasien_rawat_inap order by kd_rawat_inap desc");
+			
+			if(result.next())
+			{
+				no_ri = result.getInt(1);
+				nama = result.getString(2);
+				umur = result.getInt(3);
+				alamat = result.getString(4);
+				status_nikah = result.getString(5);
+			}
+			
+			lblNoRI.setText(""+no_ri);
+			txtNama.setText(nama);
+			txtUmur.setText(""+umur);
+			txtAlamat.setText(alamat);
+			cmboStatusNikah.setSelectedItem(status_nikah);
+		}
+		catch(Exception ex)
+		{
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada modul ambilDaftarPasienRI() : "+ex.getMessage());
+		}
+	}
+	
 	private class penghendel implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			if(e.getSource()==btnSimpan)
 			{
-				simpanPasien();
-				tampilPasien();
+				if(txtNoRM.getText().equals("") || txtAlamat.getText().equals("") || txtNoReg.getText().equals("") || txtNama.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Anda belum mengisi kolom yang utama ");
+					JOptionPane.showMessageDialog(null, "silahkan diisi :)");
+				}
+				else
+				{
+					simpanPasien();
+					tampilPasien();
+					tabbedPane.setSelectedIndex(0);
+				}
+				
 			}
 			else if(e.getSource()==btnBatal)
 			{
@@ -775,11 +885,20 @@ public class panelPasien extends JPanel {
 			else if(e.getSource()==btnUbah)
 			{
 				tabbedPane.setSelectedIndex(1);
+				btnSimpan.setEnabled(false);
 				bntEksekusiUbah.setEnabled(true);
 			}
 			else if(e.getSource()==bntEksekusiUbah)
 			{
 				ubahDataPasien();
+			}
+			else if(e.getSource()==btnPasienRjBaru)
+			{
+				ambilDaftarPasienRJ();
+			}
+			else if(e.getSource()==btnPasienRiBaru)
+			{
+				ambilDaftarPasienRI();
 			}
 		}
 	}

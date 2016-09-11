@@ -7,23 +7,19 @@ package com.sipk;
  */
 
 /**
- * Panel : Pasien Rawat Inap
+ * Menu : Rawat Inap
  */
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-
 import javax.swing.*;
 import javax.swing.table.*;
-
 import java.text.*;
-
 import org.freixas.jcalendar.*;
-
 import java.util.Date;
 
-public class pasien_rawat_inap extends JPanel{
+public class menuRawatInap extends JPanel{
 
 	/**
 	 * inisialisasi
@@ -81,7 +77,7 @@ public class pasien_rawat_inap extends JPanel{
 	JTabbedPane tabRawatInap = new JTabbedPane();
 	//Container konten = getContentPane();
 	JTable tabelPasienRawatInap = new JTable();
-	String fieldPasienRawatInap[] = {"Kode RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan"}; 
+	String fieldPasienRawatInap[] = {"No. RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan"}; 
 	DefaultTableModel modelTabelPasienRawatInap = new DefaultTableModel(null, fieldPasienRawatInap);
 	JScrollPane scrollTable = new JScrollPane();
 	JPanel masterTabel = new JPanel();
@@ -122,7 +118,7 @@ public class pasien_rawat_inap extends JPanel{
 	private JPanel panelPasienKeluar = new JPanel();
 	private JTable tabelPasienKeluar = new JTable();
 	private JScrollPane scrollTabelPasienKeluar = new JScrollPane();
-	String kolomTabelPasienKeluar[] = {"Kode RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Ruang Perawatan","Poli","Dokter","Diagnosa","Keterangan","tanggal Keluar","Lama"};
+	String kolomTabelPasienKeluar[] = {"No. RI","No. RM","Nama Penderita","Umur (Tahun)","Alamat","Status Nikah","Status Pasien","Tanggal Masuk","Poli","Diagnosa","Keterangan","Ruang Perawatan","Nama Dokter","tanggal Keluar","Lama"};
 	DefaultTableModel modelTabelPasienKeluar = new DefaultTableModel(null, kolomTabelPasienKeluar);
 	private Icon iconPasienKeluar = new ImageIcon(getClass().getResource("image/pasien-keluar.png"));
 	private JButton btnPasienKeluar = new JButton("Pasien Keluar",iconPasienKeluar);
@@ -130,12 +126,13 @@ public class pasien_rawat_inap extends JPanel{
 	private JTextField txtKodeRI = new JTextField();
 	private Icon iconRefresh3 = new ImageIcon(getClass().getResource("image/refresh.png"));
 	private JButton btnRefresh3 = new JButton("Refresh",iconRefresh3);
-	
+	private JLabel lblIdDokter = new JLabel("No. ID Dokter : ");
+	private JTextField txtIdDokter = new JTextField();
 	
 	/**
 	 * konstruktor kelas pasien_rawat_inap
 	 */
-	public pasien_rawat_inap()
+	public menuRawatInap()
 	{
 		//super("Pasien Rawat Inap");
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(pasien_rawat_inap.class.getResource("Image/address-book-new.png")));
@@ -197,9 +194,11 @@ public class pasien_rawat_inap extends JPanel{
 		tanggalKeluar.setFont(tnr);
 		lblKodeRI.setFont(tnr);
 		txtKodeRI.setFont(tnr);
+		lblIdDokter.setFont(tnr);
+		txtIdDokter.setFont(tnr);
 		
-		masterRawatInap.setBorder(BorderFactory.createTitledBorder("Input Pasien Rawat Inap"));
-		masterRawatInap.setLayout(new GridLayout(16,2));
+		masterRawatInap.setBorder(BorderFactory.createTitledBorder("Daftar Pasien Rawat Inap"));
+		masterRawatInap.setLayout(new GridLayout(17,2));
 		masterRawatInap.add(lblKodeRI);
 		masterRawatInap.add(txtKodeRI);
 		masterRawatInap.add(lblno_reg);
@@ -256,9 +255,13 @@ public class pasien_rawat_inap extends JPanel{
 		masterRawatInap.add(cmboPoli);
 		masterRawatInap.add(lblDokter);
 		masterRawatInap.add(cmboDokter);
+		masterRawatInap.add(lblIdDokter);
+		txtIdDokter.setEditable(false);
+		masterRawatInap.add(txtIdDokter);
 		masterRawatInap.add(lbldiagnosa);
 		masterRawatInap.add(cmboPenyakit);
 		masterRawatInap.add(lblIcd10);
+		areaDiagnosa.setEditable(false);
 		masterRawatInap.add(scrollDiagnosa);
 		masterRawatInap.add(lblKeterangan);
 		masterRawatInap.add(scrollKeterangan);
@@ -318,7 +321,8 @@ public class pasien_rawat_inap extends JPanel{
 		scrollTabelPasienKeluar.getViewport().add(tabelPasienKeluar);
 		panelPasienKeluar.add(scrollTabelPasienKeluar);
 		
-		tabRawatInap.addTab("Input Rawat Inap", scrollPanelInput);
+		//tab master
+		tabRawatInap.addTab("Daftar Pasien Rawat Inap", scrollPanelInput);
 		tabRawatInap.addTab("Pasien Rawat Inap", gabungTabeldanTombolEkstra);
 		tabRawatInap.addTab("Pasien Keluar", panelPasienKeluar);
 		
@@ -392,7 +396,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Gigi'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Gigi'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -400,7 +404,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Gigi'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Gigi'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -408,7 +412,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Gigi'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Gigi'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -416,7 +420,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Gigi'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Gigi'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -424,28 +428,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Gigi'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Gigi'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Gigi'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Gigi'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Gigi'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Gigi'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Gigi'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Gigi'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -463,7 +467,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Mata'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Mata'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -471,7 +475,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Mata'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Mata'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -479,7 +483,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Mata'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Mata'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -487,7 +491,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Mata'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Mata'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -495,28 +499,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Mata'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Mata'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Mata'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Mata'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Mata'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Mata'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Mata'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Mata'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -534,7 +538,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Bedah'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Bedah'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -542,7 +546,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Bedah'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Bedah'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -550,7 +554,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Bedah'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Bedah'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -558,7 +562,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Bedah'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Bedah'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -566,28 +570,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Bedah'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Bedah'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Bedah'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Bedah'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Bedah'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Bedah'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Bedah'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Bedah'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -605,7 +609,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Urologi'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Urologi'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -613,7 +617,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Urologi'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Urologi'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -621,7 +625,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Urologi'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Urologi'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -629,7 +633,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Urologi'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Urologi'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -637,28 +641,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Urologi'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Urologi'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Urologi'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Urologi'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Urologi'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Urologi'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Urologi'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Urologi'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -676,7 +680,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Radiologi'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Radiologi'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -684,7 +688,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Radiologi'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Radiologi'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -692,7 +696,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Radiologi'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Radiologi'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -700,7 +704,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Radiologi'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Radiologi'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -708,28 +712,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Radiologi'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Radiologi'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Radiologi'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Radiologi'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Radiologi'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Radiologi'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Radiologi'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Radiologi'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -747,7 +751,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli THT'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli THT'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -755,7 +759,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli THT'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli THT'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -763,7 +767,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli THT'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli THT'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -771,7 +775,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli THT'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli THT'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -779,28 +783,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli THT'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli THT'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli THT'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli THT'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli THT'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli THT'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli THT'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli THT'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -818,7 +822,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Penyakit Dalam'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Penyakit Dalam'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -826,7 +830,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Penyakit Dalam'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Penyakit Dalam'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -834,7 +838,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Penyakit Dalam'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Penyakit Dalam'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -842,7 +846,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Penyakit Dalam'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Penyakit Dalam'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -850,28 +854,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Penyakit Dalam'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Penyakit Dalam'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Penyakit Dalam'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Penyakit Dalam'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Penyakit Dalam'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Penyakit Dalam'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Penyakit Dalam'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Penyakit Dalam'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -889,7 +893,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli BKIA'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli BKIA'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -897,7 +901,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli BKIA'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli BKIA'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -905,7 +909,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli BKIA'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli BKIA'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -913,7 +917,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli BKIA'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli BKIA'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -921,28 +925,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli BKIA'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli BKIA'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli BKIA'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli BKIA'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli BKIA'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli BKIA'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli BKIA'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli BKIA'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -960,7 +964,7 @@ public class pasien_rawat_inap extends JPanel{
 							{
 								connect = konek_database.getKonekDB();
 								Statement state = connect.createStatement();
-								ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil' and poli='Poli Laktasi'");
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Laktasi'");
 								if(result.next())
 								{
 									int anggota = result.getInt(1);
@@ -968,7 +972,7 @@ public class pasien_rawat_inap extends JPanel{
 									result.close();
 								}
 								
-								ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS' and poli='Poli Laktasi'");
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Laktasi'");
 								if(result2.next())
 								{
 									int pns = result2.getInt(1);
@@ -976,7 +980,7 @@ public class pasien_rawat_inap extends JPanel{
 									result2.close();
 								}
 								
-								ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Laktasi'");
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Laktasi'");
 								if(result3.next())
 								{
 									int siswa_dikbang = result3.getInt(1);
@@ -984,7 +988,7 @@ public class pasien_rawat_inap extends JPanel{
 									result3.close();
 								}
 								
-								ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Laktasi'");
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Laktasi'");
 								if(result4.next())
 								{
 									int siswa_diktuk = result4.getInt(1);
@@ -992,28 +996,28 @@ public class pasien_rawat_inap extends JPanel{
 								}
 								
 								
-								ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan' and poli='Poli Laktasi'");
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Laktasi'");
 								if(result5.next())
 								{
 									int tahanan = result5.getInt(1);
 									txtPasTahanan.setText(""+tahanan);
 								}
 								
-								ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri' and poli='Poli Laktasi'");
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Laktasi'");
 								if(result6.next())
 								{
 									int mandiri = result6.getInt(1);
 									txtPasMandiri.setText(""+mandiri);
 								}
 								
-								ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS' and poli='Poli Laktasi'");
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Laktasi'");
 								if(result7.next())
 								{
 									int bpjs = result7.getInt(1);
 									txtPasBpjs.setText(""+bpjs);
 								}
 								
-								ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Laktasi'");
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Laktasi'");
 								if(result8.next())
 								{
 									int purna = result8.getInt(1);
@@ -1023,6 +1027,77 @@ public class pasien_rawat_inap extends JPanel{
 							catch(Exception ex)
 							{
 								JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada overide cmboPoliklinik laktasi : "+ex.getMessage());
+							}
+						}
+						if(cmboPoliklinik.getSelectedItem().equals("Poli Umum"))
+						{
+							try
+							{
+								connect = konek_database.getKonekDB();
+								Statement state = connect.createStatement();
+								ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil' and poli='Poli Umum'");
+								if(result.next())
+								{
+									int anggota = result.getInt(1);
+									txtPasAnggota.setText(""+anggota);
+									result.close();
+								}
+								
+								ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS' and poli='Poli Umum'");
+								if(result2.next())
+								{
+									int pns = result2.getInt(1);
+									txtPasPns.setText(""+pns);
+									result2.close();
+								}
+								
+								ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG' and poli='Poli Umum'");
+								if(result3.next())
+								{
+									int siswa_dikbang = result3.getInt(1);
+									txtPasSiswaDikbang.setText(""+siswa_dikbang);
+									result3.close();
+								}
+								
+								ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK' and poli='Poli Umum'");
+								if(result4.next())
+								{
+									int siswa_diktuk = result4.getInt(1);
+									txtPasSiswaDiktuk.setText(""+siswa_diktuk);
+								}
+								
+								
+								ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan' and poli='Poli Umum'");
+								if(result5.next())
+								{
+									int tahanan = result5.getInt(1);
+									txtPasTahanan.setText(""+tahanan);
+								}
+								
+								ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri' and poli='Poli Umum'");
+								if(result6.next())
+								{
+									int mandiri = result6.getInt(1);
+									txtPasMandiri.setText(""+mandiri);
+								}
+								
+								ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS' and poli='Poli Umum'");
+								if(result7.next())
+								{
+									int bpjs = result7.getInt(1);
+									txtPasBpjs.setText(""+bpjs);
+								}
+								
+								ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan' and poli='Poli Umum'");
+								if(result8.next())
+								{
+									int purna = result8.getInt(1);
+									txtPasPurna.setText(""+purna);
+								}
+							}
+							catch(Exception ex)
+							{
+								JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada overide cmboPoliklinik Umum : "+ex.getMessage());
 							}
 						}
 					}
@@ -1044,9 +1119,9 @@ public class pasien_rawat_inap extends JPanel{
 				{
 					
 					connect = konek_database.getKonekDB();
-					connect.setAutoCommit(false);
+					//connect.setAutoCommit(false);
 					
-					ps = connect.prepareStatement("insert into pasien_rawat_inap (no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+					ps = connect.prepareStatement("insert into daftar_rawat_inap (no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,no_id,no_icd10,keterangan) values(?,?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setString(1, txtNoRm.getText());
 					ps.setString(2, txtNamaPenderita.getText());
 					ps.setInt(3, Integer.parseInt(txtUmur.getText()));
@@ -1056,18 +1131,19 @@ public class pasien_rawat_inap extends JPanel{
 					ps.setString(7, (String) tanggalMasuk.getSelectedItem());
 					ps.setString(8, (String) cmboRuangInap.getSelectedItem());
 					ps.setString(9, (String) cmboPoli.getSelectedItem());
-					ps.setString(10, (String) cmboDokter.getSelectedItem());
+					ps.setString(10, txtIdDokter.getText());
 					ps.setString(11, areaDiagnosa.getText());
 					ps.setString(12, areaKeterangan.getText());
 					ps.executeUpdate();
 					
-					ps = connect.prepareStatement("insert into daftar_penyakit (no_rm,no_icd10,status_pasien) values (?,?,?)");
-					ps.setString(1, txtNoRm.getText());
-					ps.setString(2, areaDiagnosa.getText());
-					ps.setString(3, (String) cmboStatusPasien.getSelectedItem());
-					ps.executeUpdate();
 					
-					connect.commit();
+					PreparedStatement ps2 = connect.prepareStatement("insert into daftar_penyakit (no_rm,no_icd10,status_pasien) values (?,?,?)");
+					ps2.setString(1, txtNoRm.getText());
+					ps2.setString(2, areaDiagnosa.getText());
+					ps2.setString(3, (String) cmboStatusPasien.getSelectedItem());
+					ps2.executeUpdate();
+					
+					//connect.commit();
 					
 					JOptionPane.showMessageDialog(null, "Data berhasil tersimpan","Sukses",JOptionPane.INFORMATION_MESSAGE);	
 					connect.close();
@@ -1125,7 +1201,7 @@ public class pasien_rawat_inap extends JPanel{
 				try
 				{
 					connect = konek_database.getKonekDB();
-					ps = connect.prepareStatement("update pasien_rawat_inap set no_rm=?, nama =?, umur=?, alamat=?,sttus_nikah=?,status_pasien=?,tanggal_masuk=?,ruang_perawatan=?,poli=?,nama_dokter=?,diagnosa=?,keterangan=?,tanggal_keluar=?,lama=? where kd_rawat_inap = ?");
+					ps = connect.prepareStatement("update daftar_rawat_inap set no_rm=?, nama =?, umur=?, alamat=?,sttus_nikah=?,status_pasien=?,tanggal_masuk=?,ruang_perawatan=?,poli=?,no_id=?,no_icd10=?,keterangan=?,tanggal_keluar=?,lama=? where no_ri = ?");
 					
 					ps.setString(1, txtNoRm.getText());
 					ps.setString(2, txtNamaPenderita.getText());
@@ -1136,7 +1212,7 @@ public class pasien_rawat_inap extends JPanel{
 					ps.setString(7, (String) tanggalMasuk.getSelectedItem());
 					ps.setString(8, (String) cmboRuangInap.getSelectedItem());
 					ps.setString(9, (String) cmboPoli.getSelectedItem());
-					ps.setString(10, (String) cmboDokter.getSelectedItem());
+					ps.setString(10, txtIdDokter.getText());
 					ps.setString(11, areaDiagnosa.getText());
 					ps.setString(12, areaKeterangan.getText());
 					ps.setString(13, (String) tanggalKeluar.getSelectedItem());
@@ -1261,7 +1337,7 @@ public class pasien_rawat_inap extends JPanel{
 		{
 			connect = konek_database.getKonekDB();
 			state = connect.createStatement();
-			result = state.executeQuery("select kd_rawat_inap from pasien_rawat_inap order by kd_rawat_inap desc");
+			result = state.executeQuery("select no_ri from daftar_rawat_inap order by no_ri desc");
 			
 			if(result.next())
 			{
@@ -1275,7 +1351,7 @@ public class pasien_rawat_inap extends JPanel{
 			
 		}catch(Exception ex)
 		{
-			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada pembuatan kode otomatis : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada pembuatan No. RI otomatis : "+ex.getMessage(),"Pesan Kesalahan",JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		//lblResultLama.setText("");
@@ -1308,6 +1384,8 @@ public class pasien_rawat_inap extends JPanel{
 		btnPasienKeluar.setVisible(false);
 		tanggalKeluar.setDate(new Date());
 		tanggalMasuk.setDate(new Date());
+		lblResultLama.setText("");
+		txtIdDokter.setText("");
 	}
 	
 	//tampil isi tabel pasien rawat inap
@@ -1320,7 +1398,7 @@ public class pasien_rawat_inap extends JPanel{
 		{
 			connect = konek_database.getKonekDB();
 			state = connect.createStatement();
-			result = state.executeQuery("select kd_rawat_inap,no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,nama_dokter,diagnosa,keterangan from pasien_rawat_inap");
+			result = state.executeQuery("select no_ri,no_rm,nama,umur,alamat,sttus_nikah,status_pasien,tanggal_masuk,ruang_perawatan,poli,no_id,no_icd10,keterangan from daftar_rawat_inap");
 			
 			while(result.next())
 			{
@@ -1355,7 +1433,7 @@ public class pasien_rawat_inap extends JPanel{
 		{
 			connect = konek_database.getKonekDB();
 			Statement state = connect.createStatement();
-			ResultSet result = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Personil'");
+			ResultSet result = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Personil'");
 			if(result.next())
 			{
 				int anggota = result.getInt(1);
@@ -1363,7 +1441,7 @@ public class pasien_rawat_inap extends JPanel{
 				result.close();
 			}
 			
-			ResultSet result2 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='PNS'");
+			ResultSet result2 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='PNS'");
 			if(result2.next())
 			{
 				int pns = result2.getInt(1);
@@ -1371,7 +1449,7 @@ public class pasien_rawat_inap extends JPanel{
 				result2.close();
 			}
 			
-			ResultSet result3 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKBANG'");
+			ResultSet result3 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKBANG'");
 			if(result3.next())
 			{
 				int siswa_dikbang = result3.getInt(1);
@@ -1379,7 +1457,7 @@ public class pasien_rawat_inap extends JPanel{
 				result3.close();
 			}
 			
-			ResultSet result4 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Siswa DIKTUK'");
+			ResultSet result4 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Siswa DIKTUK'");
 			if(result4.next())
 			{
 				int siswa_diktuk = result4.getInt(1);
@@ -1387,28 +1465,28 @@ public class pasien_rawat_inap extends JPanel{
 			}
 			
 			
-			ResultSet result5 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Tahanan'");
+			ResultSet result5 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Tahanan'");
 			if(result5.next())
 			{
 				int tahanan = result5.getInt(1);
 				txtPasTahanan.setText(""+tahanan);
 			}
 			
-			ResultSet result6 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Mandiri'");
+			ResultSet result6 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Mandiri'");
 			if(result6.next())
 			{
 				int mandiri = result6.getInt(1);
 				txtPasMandiri.setText(""+mandiri);
 			}
 			
-			ResultSet result7 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='BPJS'");
+			ResultSet result7 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='BPJS'");
 			if(result7.next())
 			{
 				int bpjs = result7.getInt(1);
 				txtPasBpjs.setText(""+bpjs);
 			}
 			
-			ResultSet result8 = state.executeQuery("select count(*) from pasien_rawat_inap where status_pasien='Purnawirawan'");
+			ResultSet result8 = state.executeQuery("select count(*) from daftar_rawat_inap where status_pasien='Purnawirawan'");
 			if(result8.next())
 			{
 				int purna = result8.getInt(1);
@@ -1537,6 +1615,32 @@ public class pasien_rawat_inap extends JPanel{
 		{
 			JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada cari dokter : "+ex.getMessage());
 		}
+		cmboDokter.addItemListener(new ItemListener()
+				{
+					public void itemStateChanged(ItemEvent e)
+					{
+						String iddokter = "";
+						try
+						{
+							connect = konek_database.getKonekDB();
+							state = connect.createStatement();
+							result = state.executeQuery("select no_id from dokter where nama_dokter='"+cmboDokter.getSelectedItem()+"'");
+							
+							if(result.next())
+							{
+								iddokter = result.getString(1);
+								txtIdDokter.setText(iddokter);
+							}
+							
+						}
+						catch(Exception ex)
+						{
+							JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada overide cmboDokter : "+ex.getMessage());
+						}
+					}
+				}
+		);
+		
 		
 		cmboPoliklinik.addItem("-- Pilih Poli --");
 		cmboPoliklinik.addItem("Poli Gigi");
@@ -1548,6 +1652,7 @@ public class pasien_rawat_inap extends JPanel{
 		cmboPoliklinik.addItem("Poli Penyakit Dalam");
 		cmboPoliklinik.addItem("Poli BKIA");
 		cmboPoliklinik.addItem("Poli Laktasi");
+		cmboPoliklinik.addItem("Poli Umum");
 		/**
 		 * Menyimpan data pada RadioButton (Pekerjaan)
 		 

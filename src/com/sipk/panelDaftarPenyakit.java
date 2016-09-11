@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,10 +13,8 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -27,7 +24,7 @@ import java.sql.Statement;
 import javax.swing.ListSelectionModel;
 import javax.swing.JCheckBox;
 
-public class panelMacamPenyakit extends JPanel {
+public class panelDaftarPenyakit extends JPanel {
 	private JTextField txtDaftarTerperinci;
 	private JTable table;
 	private JTextField txtNoDtd;
@@ -50,7 +47,7 @@ public class panelMacamPenyakit extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelMacamPenyakit() {
+	public panelDaftarPenyakit() {
 		setLayout(new GridLayout(0,1));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -97,12 +94,12 @@ public class panelMacamPenyakit extends JPanel {
 		btnSimpan = new JButton("Simpan");
 		btnSimpan.setBounds(225, 305, 99, 33);
 		panel.add(btnSimpan);
-		btnSimpan.setIcon(new ImageIcon(panelMacamPenyakit.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setIcon(new ImageIcon(panelDaftarPenyakit.class.getResource("/com/sipk/Image/Simpan.png")));
 		
 		btnBatal = new JButton("Batal");
 		btnBatal.setBounds(345, 305, 99, 33);
 		panel.add(btnBatal);
-		btnBatal.setIcon(new ImageIcon(panelMacamPenyakit.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setIcon(new ImageIcon(panelDaftarPenyakit.class.getResource("/com/sipk/Image/Batal.png")));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(537, 74, 619, 403);
@@ -122,19 +119,19 @@ public class panelMacamPenyakit extends JPanel {
 		txtNoDtd.setColumns(10);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setIcon(new ImageIcon(panelMacamPenyakit.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setIcon(new ImageIcon(panelDaftarPenyakit.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnUbah.setBounds(225, 305, 99, 33);
 		btnUbah.setVisible(false);
 		panel.add(btnUbah);
 		
 		btnHapus = new JButton("Hapus");
-		btnHapus.setIcon(new ImageIcon(panelMacamPenyakit.class.getResource("/com/sipk/Image/Hapus.png")));
+		btnHapus.setIcon(new ImageIcon(panelDaftarPenyakit.class.getResource("/com/sipk/Image/Hapus.png")));
 		btnHapus.setBounds(345, 305, 99, 33);
 		btnUbah.setVisible(false);
 		panel.add(btnHapus);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(panelMacamPenyakit.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setIcon(new ImageIcon(panelDaftarPenyakit.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh.setBounds(289, 384, 99, 33);
 		panel.add(btnRefresh);
 		

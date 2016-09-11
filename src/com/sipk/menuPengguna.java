@@ -7,28 +7,19 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-
-import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollBar;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.JPasswordField;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
-public class panelUser extends JPanel {
+public class menuPengguna extends JPanel {
 	
 	JPanel panelUbahPassword = new JPanel();
 	JPanel newPanel2 = new JPanel();
@@ -73,7 +64,7 @@ public class panelUser extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelUser() {
+	public menuPengguna() {
 		setLayout(new GridLayout(0,1));
 		setVisible(true);
 		
@@ -116,7 +107,7 @@ public class panelUser extends JPanel {
 		txtNama.setColumns(10);
 		
 		btnSimpan = new JButton("Simpan");
-		btnSimpan.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Simpan.png")));
+		btnSimpan.setIcon(new ImageIcon(menuPengguna.class.getResource("/com/sipk/Image/Simpan.png")));
 		btnSimpan.setBounds(145, 379, 105, 33);
 		panel_2.add(btnSimpan);
 		
@@ -169,7 +160,7 @@ public class panelUser extends JPanel {
 		panel_2.add(txtNoTelp);
 		
 		btnBatal = new JButton("Batal");
-		btnBatal.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Batal.png")));
+		btnBatal.setIcon(new ImageIcon(menuPengguna.class.getResource("/com/sipk/Image/Batal.png")));
 		btnBatal.setBounds(270, 379, 105, 33);
 		panel_2.add(btnBatal);
 		
@@ -235,7 +226,7 @@ public class panelUser extends JPanel {
 		txtUsername2.setColumns(10);
 		
 		btnUbah = new JButton("Ubah");
-		btnUbah.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Ubah.png")));
+		btnUbah.setIcon(new ImageIcon(menuPengguna.class.getResource("/com/sipk/Image/Ubah.png")));
 		btnUbah.setBounds(174, 313, 105, 33);
 		panelUbahPassword.add(btnUbah);
 		
@@ -283,7 +274,7 @@ public class panelUser extends JPanel {
 		tabbedPane.addTab("Pengguna Lengkap", null, panelPenggunaLengkap, null);
 		panelPenggunaLengkap.setLayout(null);
 		
-		JLabel lblDaftarLengkapPengguna = new JLabel("Daftar Lengkap Pengguna");
+		JLabel lblDaftarLengkapPengguna = new JLabel("Review Lengkap Pengguna");
 		lblDaftarLengkapPengguna.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
 		lblDaftarLengkapPengguna.setBounds(24, 11, 389, 38);
 		panelPenggunaLengkap.add(lblDaftarLengkapPengguna);
@@ -314,7 +305,7 @@ public class panelUser extends JPanel {
 		txtCariNoID.setColumns(10);
 		
 		btnRefresh = new JButton("Refresh");
-		btnRefresh.setIcon(new ImageIcon(panelUser.class.getResource("/com/sipk/Image/Refresh.png")));
+		btnRefresh.setIcon(new ImageIcon(menuPengguna.class.getResource("/com/sipk/Image/Refresh.png")));
 		btnRefresh.setBounds(944, 26, 99, 33);
 		panelPenggunaLengkap.add(btnRefresh);
 		
@@ -506,7 +497,7 @@ public class panelUser extends JPanel {
 				
 			konek = konek_database.getKonekDB();
 			Statement state = konek.createStatement();
-			ResultSet result = state.executeQuery("select no_id_pengguna, username, pass, lvel from akun where no_id='"+no_id_pengguna+"'username='"+username+"' and pass='"+password+"' ");
+			ResultSet result = state.executeQuery("select no_id_pengguna, username, pass from akun where no_id_pengguna='"+no_id_pengguna+"' and username='"+username+"' and pass='"+password+"' ");
 			
 			if(result.next())
 			{
@@ -520,14 +511,12 @@ public class panelUser extends JPanel {
 						ps.setString(2, txtUsername2.getText());
 						ps.executeUpdate();
 						
-						JOptionPane.showMessageDialog(null, "Password Berhasi diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
-						
-						
+						JOptionPane.showMessageDialog(null, "Password Berhasil diubah!","Pesan",JOptionPane.INFORMATION_MESSAGE);
 						konek.close();
 					}
 					catch(Exception ex)
 					{
-						JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada tombol simpan password baru : "+ ex.getMessage(),"Pesan Kesalahan", JOptionPane.INFORMATION_MESSAGE);
 					}
 					finally
 					{
@@ -577,6 +566,7 @@ public class panelUser extends JPanel {
 	
 	public void clear2()
 	{
+		txtNoID2.setText("");
 		txtUsername2.setText("");
 		passwordLama.setText("");
 		passwordBaru.setText("");

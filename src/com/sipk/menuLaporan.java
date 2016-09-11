@@ -8,12 +8,8 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
-
-import net.sf.dynamicreports.report.datasource.DRDataSource;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.util.*;
 import net.sf.jasperreports.view.*;
-import java.io.*;
 import java.sql.*;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -22,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class panelLaporan extends JPanel {
+public class menuLaporan extends JPanel {
 	Connection konek = null;
 	private JTable table;
 	DefaultTableModel modelTabelPengunjung = new DefaultTableModel(
@@ -89,7 +85,7 @@ public class panelLaporan extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelLaporan() {
+	public menuLaporan() {
 		setLayout(new GridLayout(0,1));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -120,12 +116,12 @@ public class panelLaporan extends JPanel {
 		scrollPane.setViewportView(tabelMacamPenyakit);
 		
 		btnReload = new JButton("Reload");
-		btnReload.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
+		btnReload.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload.setBounds(524, 464, 96, 33);
 		panelLapPenyakit.add(btnReload);
 		
 		btnCetakYankes1 = new JButton("Cetak");
-		btnCetakYankes1.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes1.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes1.setBounds(989, 49, 96, 33);
 		panelLapPenyakit.add(btnCetakYankes1);
 		JPanel panelLap10Penyakit = new JPanel();
@@ -151,12 +147,12 @@ public class panelLaporan extends JPanel {
 		scrollPane_1.setViewportView(tabel10JnsPenyakit);
 		
 		btnReload2 = new JButton("Reload");
-		btnReload2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
+		btnReload2.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload2.setBounds(524, 464, 96, 33);
 		panelLap10Penyakit.add(btnReload2);
 		
 		btnCetakYankes2 = new JButton("Cetak");
-		btnCetakYankes2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes2.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes2.setBounds(987, 52, 96, 33);
 		panelLap10Penyakit.add(btnCetakYankes2);
 		tabbedPane.addTab("YANKES-RUMKIT 3", null, panelLap10PenyakitGigiMulut, null);
@@ -181,21 +177,21 @@ public class panelLaporan extends JPanel {
 		panelLap10PenyakitGigiMulut.add(lblLaporanMacamPenyakit);
 		
 		btnReload3 = new JButton("Reload");
-		btnReload3.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
+		btnReload3.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload3.setBounds(524, 464, 96, 33);
 		panelLap10PenyakitGigiMulut.add(btnReload3);
 		
 		btnCetakYankes3 = new JButton("Cetak");
-		btnCetakYankes3.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes3.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes3.setBounds(996, 68, 89, 23);
 		panelLap10PenyakitGigiMulut.add(btnCetakYankes3);
 		tabbedPane.addTab("YANKES-RUMKIT 4", null, panelLapKunjungan, null);
 		tabbedPane.addTab("YANKES-RUMKIT 5", null, panelLapRawatInap, null);
 		panelLapRawatInap.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Laporan Pasien Rawat Inap");
+		JLabel lblNewLabel_2 = new JLabel("Laporan Jumlah Pasien Rawat Inap");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 27));
-		lblNewLabel_2.setBounds(121, 24, 411, 33);
+		lblNewLabel_2.setBounds(121, 24, 499, 33);
 		panelLapRawatInap.add(lblNewLabel_2);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -212,12 +208,12 @@ public class panelLaporan extends JPanel {
 		scrollPane_3.setViewportView(tabelRawatInap);
 		
 		btnReload5 = new JButton("Reload");
-		btnReload5.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
+		btnReload5.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload5.setBounds(524, 454, 96, 33);
 		panelLapRawatInap.add(btnReload5);
 		
 		btnCetakYankes5 = new JButton("Cetak");
-		btnCetakYankes5.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes5.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes5.setBounds(1216, 68, 96, 33);
 		panelLapRawatInap.add(btnCetakYankes5);
 		panelLapKunjungan.setLayout(null);
@@ -248,17 +244,17 @@ public class panelLaporan extends JPanel {
 		tabelKunjungan.setViewportView(table_1);
 		
 		btnReload4 = new JButton("Reload");
-		btnReload4.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/reload.png")));
+		btnReload4.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/reload.png")));
 		btnReload4.setBounds(477, 377, 96, 33);
 		panelLapKunjungan.add(btnReload4);
 		
 		btnCetakYankes4 = new JButton("Cetak");
-		btnCetakYankes4.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes4.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes4.setBounds(804, 88, 96, 33);
 		panelLapKunjungan.add(btnCetakYankes4);
 		
 		btnCetakYankes4_2 = new JButton("Cetak");
-		btnCetakYankes4_2.setIcon(new ImageIcon(panelLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
+		btnCetakYankes4_2.setIcon(new ImageIcon(menuLaporan.class.getResource("/com/sipk/Image/Laporan.png")));
 		btnCetakYankes4_2.setBounds(804, 228, 96, 33);
 		panelLapKunjungan.add(btnCetakYankes4_2);
 		
@@ -291,9 +287,9 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_macampenyakit_dan_jumlah.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_macampenyakit_dan_jumlah.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
-			JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
+			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
 		}
 		catch(Exception e)
@@ -312,7 +308,7 @@ public class panelLaporan extends JPanel {
 		
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_10macampenyakit.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_10macampenyakit.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -332,7 +328,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_10macampenyakit_gigidanmulut.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_10macampenyakit_gigidanmulut.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -351,7 +347,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_kunjungan_rawat_jalan.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_kunjungan_rawat_jalan.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -367,7 +363,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_kunjungan_ulang_rawat_jalan.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_kunjungan_ulang_rawat_jalan.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
@@ -386,7 +382,7 @@ public class panelLaporan extends JPanel {
 		konek = konek_database.getKonekDB();
 		try
 		{	
-			JasperReport ljp = JasperCompileManager.compileReport("C:/Users/HUDA/Documents/My Workspace/sipk/lap_rawat_inap.jrxml");
+			JasperReport ljp = JasperCompileManager.compileReport("D:/My Workspace/sipk/lap_rawat_inap.jrxml");
 			JasperPrint ljpPrint = JasperFillManager.fillReport(ljp, new HashMap(), konek);
 			//JasperExportManager.exportReportToPdfFile(ljpPrint, "D:/tes.pdf");
 			JasperViewer.viewReport(ljpPrint, false);
